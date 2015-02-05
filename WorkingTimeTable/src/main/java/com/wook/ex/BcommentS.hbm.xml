@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wook.ex">
+
+	<class name="Bcomments" table="bComment">
+
+		<id name="commentNumber" type="java.lang.Integer" column="comment_number">
+			<generator class="assigned" />
+		</id>
+
+		<property name="userId" type="java.lang.String"
+			column="user_id" not-null="true" />
+
+		<property name="commentContent" type="java.lang.String"
+			column="comment_content" not-null="true" />
+
+		<property name="regDate" type="java.util.Date"
+			column="reg_date" not-null="false" />
+
+		<property name="flag" type="java.lang.Integer"
+			column="flag" not-null="true" />
+
+	</class>
+</hibernate-mapping>

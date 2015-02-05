@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wook.ex">
+
+	<class name="TimeTables" table="time_table">
+
+		<id name="timeKey" type="java.lang.Integer" column="time_key">
+			<generator class="assigned" />
+		</id>
+
+		<property name="companyCode" type="java.lang.Integer"
+			column="company_code" not-null="true" />
+
+		<property name="memberId" type="java.lang.Integer"
+			column="member_id" not-null="true" />
+
+		<property name="workingDate" type="java.util.Date"
+			column="working_date" not-null="true" />
+
+		<property name="workingStart" type="java.lang.Integer"
+			column="working_start" not-null="true" />
+
+		<property name="workingEnd" type="java.lang.Integer"
+			column="working_end" not-null="false" />
+
+	</class>
+</hibernate-mapping>

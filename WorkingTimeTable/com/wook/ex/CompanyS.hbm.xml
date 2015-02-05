@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wook.ex">
+
+	<class name="Companys" table="company">
+
+		<id name="companyCode" type="java.lang.Integer" column="company_code">
+			<generator class="assigned" />
+		</id>
+
+		<property name="companyName" type="java.lang.String"
+			column="company_name" not-null="true" />
+
+		<property name="companyTel" type="java.lang.String"
+			column="company_tel" not-null="false" />
+
+		<property name="holidayComm" type="java.lang.Float"
+			column="holiday_comm" not-null="false" />
+
+		<property name="nightComm" type="java.lang.Float"
+			column="night_comm" not-null="false" />
+
+	</class>
+</hibernate-mapping>

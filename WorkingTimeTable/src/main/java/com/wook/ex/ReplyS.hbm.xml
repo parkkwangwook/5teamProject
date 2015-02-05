@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wook.ex">
+
+	<class name="Replys" table="Reply">
+
+		<id name="replyNumber" type="java.lang.Integer" column="reply_number">
+			<generator class="assigned" />
+		</id>
+
+		<property name="userId" type="java.lang.String"
+			column="user_id" not-null="true" />
+
+		<property name="commentNumber" type="java.lang.Integer"
+			column="comment_number" not-null="true" />
+
+		<property name="replyContent" type="java.lang.String"
+			column="reply_content" not-null="true" />
+
+		<property name="regDate" type="java.util.Date"
+			column="reg_date" not-null="false" />
+
+	</class>
+</hibernate-mapping>

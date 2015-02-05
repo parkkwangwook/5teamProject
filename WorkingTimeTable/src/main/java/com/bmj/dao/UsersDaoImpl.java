@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bmj.entity.users;
+
 @Repository
 public class UsersDaoImpl implements UsersDao {
 	private static final Logger logger;
@@ -20,6 +22,12 @@ public class UsersDaoImpl implements UsersDao {
 	public Integer getUsersCount() {
 		String stmt = namespace + "selectUsersCnt";
 		return sqlSession.selectOne(stmt);
+	}
+
+	@Override
+	public int insertUser(users user) {
+		String stmt = namespace + "insertUser";
+		return sqlSession.insert(stmt, user);
 	}
 
 }

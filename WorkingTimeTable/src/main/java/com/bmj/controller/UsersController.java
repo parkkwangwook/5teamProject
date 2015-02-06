@@ -40,8 +40,8 @@ public class UsersController {
 	}
 
 	@RequestMapping(value="/webProject/join")
-	public String joinGo(@ModelAttribute("addUser") Users user) {
-		logger.trace("수업 : ssssssssssssss " + user);
+	public String joinGo(Model model) {
+		model.addAttribute("addUser", new Users());
 		return "/webProject/joinForm";
 	}
 	

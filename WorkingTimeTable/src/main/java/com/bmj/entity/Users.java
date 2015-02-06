@@ -85,6 +85,11 @@ public class Users {
 		return birth;
 	}
 
+	public void setBirth(String birth) {
+		/*this.birth = birth;*/
+		System.out.println("ssssssssssssssssssssssssssssssss" + birth);
+	}
+	
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}

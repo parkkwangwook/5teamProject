@@ -2,11 +2,18 @@ package com.bmj.controller;
 
 
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +29,12 @@ public class UsersController {
 	private static final Logger logger;
 	static {
 		logger = LoggerFactory.getLogger(UsersController.class);
+	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 	
 	@Autowired
@@ -45,10 +58,11 @@ public class UsersController {
 		return "/webProject/joinForm";
 	}
 	
-	@RequestMapping(value="/webProject/join", method = RequestMethod.POST)
-	public String joinSite(@ModelAttribute("addUser") Users user) {
+	
+	@RequestMapping(value="/webProject/join", method = RequestMethod.POST )
+	public String joinSite(@ModelAttribute("addUser") Users user, BindingResult result) {
 		logger.trace("수업2 : aaaaaaaaaaaaaaaaaaaaaaa" + user);
-		// service.addUser(user);
+		//service.addUser(user);
 		return "/webProject/login";
 	}	
 }

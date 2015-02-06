@@ -218,6 +218,12 @@ END;
 Alter table company
 MODIFY (company_tel varchar(20));
 
+Alter table company_person
+drop column grade;
+
+Alter table company_person
+Modify (hire_date varchar(20));
+
 
 insert into users(user_id, password, password2, user_name, tel, email, birth, grade, question, answer) 
 values ('park', '1', '1', 'kwangwook', '010-', 'p@naver.com', '1987-06-08', '사장', '몇살?', '20살');

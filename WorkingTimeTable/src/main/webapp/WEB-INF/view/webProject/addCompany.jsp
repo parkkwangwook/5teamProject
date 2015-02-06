@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h1>정보 입력</h1>
-	<c:url value="/webProject/enter" var="action"></c:url>
+	<c:url value="/webProject/addCompanys" var="action"></c:url>
 	<form:form modelAttribute="addCmp" method="post" action="${action}">
 	<ul>
 		<li><label>회사명</label> : <form:input path="companyName"/><br>

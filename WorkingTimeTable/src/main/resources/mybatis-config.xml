@@ -8,8 +8,10 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type = "com.bmj.entity.Users" alias = "Users"/>
+		<typeAlias type = "com.bmj.entity.Company" alias = "Company"/>
 	</typeAliases>
 	  <mappers>
 	  	<mapper resource="mappers/UsersMapper.xml"/>
+	  	<mapper resource="mappers/CompanyMapper.xml"/>
 	  </mappers>
 </configuration>

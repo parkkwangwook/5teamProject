@@ -11,7 +11,12 @@
 	<h2>반갑습니다. ARUBA서비스입니다.</h2>
 	<c:url value="/webProject/join" var = "url"></c:url>
 	<a href = "${url }"><button>가입하기</button></a>
-		<c:url value="/webProject/login" var = "url"></c:url>
+	<c:url value="/webProject/login" var = "url"></c:url>
 	<a href = "${url }"><button>Login</button></a>
+	<c:url value="/webProject/addCompany" var = "url"></c:url>
+	<a href = "${url }"><button>회사등록</button></a>
+	<c:url value="/webProject/CreatePerson" var = "url"></c:url>
+	<a href = "${url }"><button>회사등록</button></a>
+	
 </body>
 </html>

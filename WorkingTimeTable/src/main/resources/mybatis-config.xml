@@ -7,7 +7,7 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 	<typeAliases>
-		<typeAlias type = "com.bmj.entity.users" alias = "users"/>
+		<typeAlias type = "com.bmj.entity.users" alias = "Users"/>
 	</typeAliases>
 	  <mappers>
 	  	<mapper resource="mappers/UsersMapper.xml"/>

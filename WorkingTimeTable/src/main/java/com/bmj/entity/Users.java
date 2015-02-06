@@ -2,7 +2,7 @@ package com.bmj.entity;
 
 import java.util.Date;
 
-public class users {
+public class Users {
 	private String userId;
 	private String password;
 	private String password2;
@@ -15,9 +15,9 @@ public class users {
 	private String question;
 	private String answer;
 	
-	public users() {}
+	public Users() {}
 	
-	public users(String userId, String password, String password2,
+	public Users(String userId, String password, String password2,
 			String userName, String tel, String email, Date birth,
 			String grade, Date joinDate, String question, String answer) {
 		this.userId = userId;

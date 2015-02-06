@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bmj.entity.users;
+import com.bmj.entity.Users;
 import com.bmj.service.UsersService;
 
 @Controller
@@ -42,7 +42,7 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value="/webProject/join", method = RequestMethod.POST)
-	public String joinSite(@ModelAttribute("joinUser") users user) {
+	public String joinSite(@ModelAttribute("joinUser") Users user) {
 		// service.addUser(user);
 		return "/webProject/login";
 	}

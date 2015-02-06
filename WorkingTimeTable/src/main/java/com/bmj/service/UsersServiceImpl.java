@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bmj.dao.UsersDao;
-import com.bmj.entity.users;
+import com.bmj.entity.Users;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -25,7 +25,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public int insertUser(users user) {
+	public int insertUser(Users user) {
 		int result = dao.insertUser(user);
 		return result;
 	}

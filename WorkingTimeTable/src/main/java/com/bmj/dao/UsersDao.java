@@ -1,8 +1,8 @@
 package com.bmj.dao;
 
-import com.bmj.entity.users;
+import com.bmj.entity.Users;
 
 public interface UsersDao {
 	Integer getUsersCount();
-	int insertUser(users user);
+	int insertUser(Users user);
 }

@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.bmj.entity.users;
+import com.bmj.entity.Users;
 
 @Repository
 public class UsersDaoImpl implements UsersDao {
@@ -25,7 +25,7 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public int insertUser(users user) {
+	public int insertUser(Users user) {
 		String stmt = namespace + "insertUser";
 		return sqlSession.insert(stmt, user);
 	}

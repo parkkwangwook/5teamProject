@@ -1,8 +1,8 @@
 package com.bmj.service;
 
-import com.bmj.entity.users;
+import com.bmj.entity.Users;
 
 public interface UsersService {
 	Integer getUsersCount();
-	int insertUser(users user);
+	int insertUser(Users user);
 }

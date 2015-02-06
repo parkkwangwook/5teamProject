@@ -8,6 +8,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  </script>
+  
+  
 </head>
 <body>
 <%
@@ -22,7 +34,7 @@
 			<li><label>이름</label> : <form:input path="userName"/><br>
 			<li><label>TEL</label> : <form:input path="tel"/><br>
 			<li><label>EMAIL</label> : <form:input path="email"/><br>
-			<li><label>BIRTH</label> : <form:input path="birth"/><br>
+			<li><label>BIRTH</label> : <form:input path="birth" id="datepicker"/><br>
 			<li><label>GRADE</label> : <form:input path="grade"/><br>
 			<li><label>Q</label> : <form:input path="question"/><br>
 			<li><label>A</label> : <form:input path="answer"/><br>

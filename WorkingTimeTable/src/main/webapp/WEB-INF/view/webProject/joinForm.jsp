@@ -38,27 +38,6 @@
 			<li><label>GRADE</label> : <form:input path="grade"/><br>
 			<li><label>Q</label> : <form:input path="question"/><br>
 			<li><label>A</label> : <form:input path="answer"/><br>
-	<!-- 	<label for = "textId">ID : </label>
-		<input type = "text" id = "textId" name = "textid"><br>
-		<label for = "textPW">PASSWORD : </label>
-		<input type = "text" id = "textPW" name = "textPW"><br>
-		<label for = "textPW2">PASSWORD 확인 : </label>
-		<input type = "text" id = "textPW2" name = "textPW2"><br>
-		<label for = "textName">NAME : </label>
-		<input type = "text" id = "textName" name = "textName"><br>
-		<label for = "textTel">TEL : </label>
-		<input type = "tel" id = "textTel" name = "textTel"><br>
-		<label for = "textEmail">EMAIL : </label>
-		<input type = "email" id = "textEmail" name = "textEmail"><br>
-		<label for = "textBirth">BIRTH : </label>
-		<input type = "date" id = "textBirth" name = "textBirth"><br>
-		<label for = "textGrade">GRADE : </label>
-		<input type = "text" id = "textGrade" name = "textGrade"><br>
-		<label for = "textQ">Question ? : </label>
-		<input type = "text" id = "textQ" name = "textQ"><br>
-		<label for = "textA">Answer : </label>
-		<input type = "text" id = "textA" name = "textA"><br> -->
-		
 		<button type = "submit" name = "proceed">다음</button>
 	
 	</form:form>

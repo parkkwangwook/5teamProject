@@ -58,11 +58,10 @@ public class UsersController {
 		return "/webProject/joinForm";
 	}
 	
-	
 	@RequestMapping(value="/webProject/join", method = RequestMethod.POST )
 	public String joinSite(@ModelAttribute("addUser") Users user, BindingResult result) {
 		logger.trace("수업2 : aaaaaaaaaaaaaaaaaaaaaaa" + user);
-		//service.addUser(user);
+		service.insertUser(user);
 		return "/webProject/login";
 	}	
 }

@@ -9,7 +9,7 @@ public class Users {
 	private String userName;
 	private String tel;
 	private String email;
-	private Date birth;
+	private String birth;
 	private String grade;
 	private Date joinDate;
 	private String question;
@@ -18,7 +18,7 @@ public class Users {
 	public Users() {}
 	
 	public Users(String userId, String password, String password2,
-			String userName, String tel, String email, Date birth,
+			String userName, String tel, String email, String birth,
 			String grade, Date joinDate, String question, String answer) {
 		this.userId = userId;
 		this.password = password;
@@ -81,16 +81,11 @@ public class Users {
 		this.email = email;
 	}
 
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
-
-	public void setBirth(String birth) {
-		/*this.birth = birth;*/
-		System.out.println("ssssssssssssssssssssssssssssssss" + birth);
-	}
 	
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 

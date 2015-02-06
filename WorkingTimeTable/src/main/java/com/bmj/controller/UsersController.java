@@ -1,6 +1,7 @@
 package com.bmj.controller;
 
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.bmj.entity.Company;
 import com.bmj.entity.Users;
 import com.bmj.service.UsersService;
 
 @Controller
 /*@RequestMapping("/webProject")*/
+@SessionAttributes("addUser")
 public class UsersController {
 	private static final Logger logger;
 	static {
@@ -38,12 +40,14 @@ public class UsersController {
 	}
 
 	@RequestMapping(value="/webProject/join")
-	public String joinGo() {
+	public String joinGo(@ModelAttribute("addUser") Users user) {
+		logger.trace("수업 : ssssssssssssss " + user);
 		return "/webProject/joinForm";
 	}
 	
 	@RequestMapping(value="/webProject/join", method = RequestMethod.POST)
-	public String joinSite(@ModelAttribute("joinUser") Users user) {
+	public String joinSite(@ModelAttribute("addUser") Users user) {
+		logger.trace("수업2 : aaaaaaaaaaaaaaaaaaaaaaa" + user);
 		// service.addUser(user);
 		return "/webProject/login";
 	}	

@@ -55,7 +55,7 @@
 			<img src="images/logintitlebg.png">
 
 			<ul class="lowermenu">
-						<c:url value="/employer_alert" var="url"/>
+						<c:url value="/alerts_employer" var="url"/>
 						<li><a href="${url }">Alerts</a></li>
 						
 						<c:url value="/staff" var="url"/>
@@ -80,7 +80,7 @@
 	<div class="mainmenubg">
 		<div class="main zerogrid">
 			사장-등록한 회사<br>
-			${addCmp.companyName }
+			<%-- ${addCmp.companyName } --%>
 		</div>
 	</div>
 

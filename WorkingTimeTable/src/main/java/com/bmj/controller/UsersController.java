@@ -103,7 +103,7 @@ public class UsersController {
 	public String mypageEmployerGo() {
 		return "/mypage/employer/mypage";
 	}
-	@RequestMapping(value="/myComany")										//사장 mypage 메뉴에서 Store(매장관리)
+	/*@RequestMapping(value="/myComany")										//사장 mypage 메뉴에서 Store(매장관리)
 	public String mypageMyCompanyGo() {
 		return "/mypage/employer/myCompany";
 	}
@@ -115,31 +115,30 @@ public class UsersController {
 	public String mypageStaffGo() {
 		return "/mypage/employer/staffManagement";
 	}
-	@RequestMapping(value="/alerts")											//사장 mypage 메뉴에서 Staff(알바생관리)
-	public String mypagAlertsGo() {
-		return "/mypage/employer/staffManagement";
+	@RequestMapping(value="/alerts_employer")										//사장 mypage 메뉴에서 Alerts(쪽지관리)
+	public String mypagAlertsEmployerGo() {
+		return "/mypage/employer/alerts";
 	}
-	
+	*/
 	////////////////알바 마이페이지
 	@RequestMapping(value="/mypage_employee")								//알바 mypage 메뉴 눌렀을 때
 	public String mypageEmployeeGo() {
 		return "/mypage/employee/mypage";
 	}
-	@RequestMapping(value="/myJob")											//알바 mypage 메뉴에서 직업관리
+/*	@RequestMapping(value="/myJob")											//알바 mypage 메뉴에서 직업관리
 	public String mypageMyJobGo() {
 		return "/mypage/employee/myJob";
 	}
-	@RequestMapping(value="/salary")											//알바 mypage 메뉴에서 Salary(월급관리)
+	@RequestMapping(value="/salary")										//알바 mypage 메뉴에서 Salary(월급관리)
 	public String mypageSalaryGo() {
 		return "/mypage/employee/salary";
 	}
-	
-	/*@RequestMapping(value="/join", method = RequestMethod.POST )			//join페이지에서 가입 성공했을 때
-	public String joinSuccess(@ModelAttribute("addUser") Users user, BindingResult result) {
-		logger.trace("수업2 : aaaaaaaaaaaaaaaaaaaaaaa" + user);
-		service.insertUser(user);
-		return "/join/welcome";
+	@RequestMapping(value="/alerts_employee")								//알바 mypage 메뉴에서 Alerts(쪽지관리)
+	public String mypagAlertsEmployeeGo() {
+		return "/mypage/employee/alerts";
 	}*/
+	
+	
 	@RequestMapping(value="/join", method = RequestMethod.POST )			//join페이지에서 가입 성공했을 때
 	public String joinSuccess(@RequestParam String userId, @RequestParam String password, @RequestParam String password2, 
 			@RequestParam String userName, @RequestParam String tel, @RequestParam String email, @RequestParam String birth,

@@ -112,7 +112,7 @@ public class UsersController {
 		
 		if(companyCode == null ){
 			//등록된 회사 코드가 없는 것
-			viewPath = "/mypage/employer/registerJob";
+			viewPath = "/mypage/employer/registerCompany";
 		}else {
 			//등록한 회사가 있는 것 
 			viewPath = "/mypage/employer/myCompany";

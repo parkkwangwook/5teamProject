@@ -8,7 +8,7 @@
 		insert into Company_Person(company_code, user_id, salary) 
 		values (#{companyCode}, #{userId}, #{salary})
 	</insert>
-	<select id = "selectCompanyCodeByUserId" parameterType = "String" resultType="ComanyPerson">
+	<select id = "selectCompanyCodeByUserId" parameterType = "String" resultType="CompanyPerson">
 		select company_code from company_person where user_id=#{userId}
 	</select>
 	

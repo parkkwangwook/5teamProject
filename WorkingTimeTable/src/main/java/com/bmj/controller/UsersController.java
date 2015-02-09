@@ -80,7 +80,7 @@ public class UsersController {
 	public String indexGo() {
 		return "/main/index";
 	}
-	/*@RequestMapping(value="/join")											//header join메뉴 눌렀을 때
+	/*@RequestMapping(value="/join")										//header join메뉴 눌렀을 때
 	public String joinGGo(Model model) {
 		model.addAttribute("addUser", new Users());
 		return "/join/join";
@@ -139,7 +139,9 @@ public class UsersController {
 	public String loginSuccess(@RequestParam String userId, @RequestParam String password, Model model) {
 		Users loginUser = new Users();
 		loginUser.setUserId(userId);
+		logger.trace("수업 : " + loginUser);
 		loginUser.setPassword(password);
+		//logger.trace("수업 : " + loginUser);
 		loginUser = service.loginUser(loginUser);
 		model.addAttribute("addUser", loginUser);
 		return "/main/index";
@@ -147,10 +149,13 @@ public class UsersController {
 	
 	//로그아웃 안됨
 	@RequestMapping(value="/logout")										//header logout메뉴 눌렀을 때
-	public String logoutGo(/*SessionStatus sessionStatus*/ HttpSession session) {
+	public String logoutGo(SessionStatus sessionStatus, HttpSession session) {
 		/*sessionStatus.setComplete();*/
-		session.invalidate();
-		return "/main/index";
+		/*session.invalidate();*/
+		sessionStatus.setComplete();
+		/*session = (HttpSession) sessionStatus;
+		session.invalidate();*/
+		return "/main/logout";
 	}
 
 	

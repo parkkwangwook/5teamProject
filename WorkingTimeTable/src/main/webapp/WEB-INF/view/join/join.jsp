@@ -16,6 +16,9 @@
 </style>
 <meta charset="utf-8">
 <title>Welcome</title>
+
+<!--------------------- Homepage --------------------->
+
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/reset.css" type="text/css"
 	media="screen">
@@ -47,15 +50,19 @@
 <script type="text/javascript" src="js/css3-mediaqueries.js"></script>
 
 <!--------------------- DatePicker --------------------->
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
 <script>
-	$(function() {
-		$("#datepicker").datepicker();
-	});
+	 $(function() {
+		    $( "#datepicker" ).datepicker({
+		      changeMonth: true,
+		      changeYear: true,
+		   	  yearRange: "1930:2015"
+		    });
+		  });
 	
 	/* password 두개의 체크버튼  */
 	function passchk(){
@@ -125,30 +132,6 @@
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			<%-- <c:url value="/join" var="action"></c:url>
-			<form:form modelAttribute="addUser" mehtod="post" action="${action }">
-				<li><label>ID</label> : <form:input path="userId" /><br>
-					<li><label>PASSWORD</label> : <form:input path="password" /><br>
-				
-				<li><label>PASSWORD 확인</label> : <form:input path="password2" /><br>
-				
-				<li><label>이름</label> : <form:input path="userName" /><br>
-				
-				<li><label>TEL</label> : <form:input path="tel" /><br>
-				
-				<li><label>EMAIL</label> : <form:input path="email" /><br>
-				
-				<li><label>BIRTH</label> : <form:input path="birth"
-						id="datepicker" /><br>
-				
-				<li><label>GRADE</label> : <form:input path="grade" /><br>
-				
-				<li><label>Q</label> : <form:input path="question" /><br>
-				
-				<li><label>A</label> : <form:input path="answer" /><br>
-					<button type="submit" name="proceed">다음</button>
-			
-			</form:form> --%>
 			<c:url value="/join" var="url"/>
 			<form method="post" action="${url }">
 				<table>

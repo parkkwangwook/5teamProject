@@ -65,7 +65,7 @@
 						<c:url value="/wage" var="url"/>
 						<li><a href="${url }">Wage</a></li>
 						
-						<c:url value="/myCompany" var="url"/>
+						<c:url value="/myCompany" var="url"/>	<!-- 회사를 이미 등록했다면 /myCompany로 이동, 등록안했으면 /registerCompany -->
 						<li><a href="${url }">Store</a></li>
 						
 						<c:url value="/mypage_employer" var="url"/>

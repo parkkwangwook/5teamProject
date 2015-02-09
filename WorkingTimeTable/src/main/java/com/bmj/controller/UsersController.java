@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.bmj.entity.CompanyPerson;
 import com.bmj.entity.Users;
+import com.bmj.service.CompanyPersonService;
 import com.bmj.service.UsersService;
 
 @Controller
@@ -44,6 +46,8 @@ public class UsersController {
 	
 	@Autowired
 	UsersService service;
+	@Autowired
+	CompanyPersonService cpService;
 	
 	@RequestMapping(value="/count", method = RequestMethod.GET)
 	public String getAllDeptList(Model model) {
@@ -80,11 +84,6 @@ public class UsersController {
 	public String indexGo() {
 		return "/main/index";
 	}
-	/*@RequestMapping(value="/join")										//header join메뉴 눌렀을 때
-	public String joinGGo(Model model) {
-		model.addAttribute("addUser", new Users());
-		return "/join/join";
-	}*/
 	@RequestMapping(value="/join")											//header join메뉴 눌렀을 때
 	public String joinGGo() {
 		return "/join/join";
@@ -103,29 +102,43 @@ public class UsersController {
 	public String mypageEmployerGo() {
 		return "/mypage/employer/mypage";
 	}
-	/*@RequestMapping(value="/myComany")										//사장 mypage 메뉴에서 Store(매장관리)
-	public String mypageMyCompanyGo() {
-		return "/mypage/employer/myCompany";
+	@RequestMapping(value="/myCompany")										//사장 mypage 메뉴에서 Store(매장관리)
+	public String mypageMyCompanyGo(HttpSession session) {
+		Users owner = (Users)session.getAttribute("addUser");
+		CompanyPerson companyCode = null;
+		String viewPath = "";
+		
+		companyCode = cpService.selectCompanyCodeByUserId(owner.getUserId());
+		
+		if(companyCode == null ){
+			//등록된 회사 코드가 없는 것
+			viewPath = "/mypage/employer/registerJob";
+		}else {
+			//등록한 회사가 있는 것 
+			viewPath = "/mypage/employer/myCompany";
+		}
+			
+		return viewPath;
 	}
 	@RequestMapping(value="/wage")											//사장 mypage 메뉴에서 Wage(알바생들 줄 급여관리)
 	public String mypageWageGo() {
-		return "/mypage/employer/wageManagement";
+		return "/mypage/employer/wage";
 	}
 	@RequestMapping(value="/staff")											//사장 mypage 메뉴에서 Staff(알바생관리)
 	public String mypageStaffGo() {
-		return "/mypage/employer/staffManagement";
+		return "/mypage/employer/staff";
 	}
 	@RequestMapping(value="/alerts_employer")										//사장 mypage 메뉴에서 Alerts(쪽지관리)
 	public String mypagAlertsEmployerGo() {
 		return "/mypage/employer/alerts";
 	}
-	*/
+	
 	////////////////알바 마이페이지
 	@RequestMapping(value="/mypage_employee")								//알바 mypage 메뉴 눌렀을 때
 	public String mypageEmployeeGo() {
 		return "/mypage/employee/mypage";
 	}
-/*	@RequestMapping(value="/myJob")											//알바 mypage 메뉴에서 직업관리
+	@RequestMapping(value="/myJob")											//알바 mypage 메뉴에서 직업관리
 	public String mypageMyJobGo() {
 		return "/mypage/employee/myJob";
 	}
@@ -136,7 +149,7 @@ public class UsersController {
 	@RequestMapping(value="/alerts_employee")								//알바 mypage 메뉴에서 Alerts(쪽지관리)
 	public String mypagAlertsEmployeeGo() {
 		return "/mypage/employee/alerts";
-	}*/
+	}
 	
 	
 	@RequestMapping(value="/join", method = RequestMethod.POST )			//join페이지에서 가입 성공했을 때

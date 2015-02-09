@@ -24,4 +24,14 @@ public class CompanyPersonServiceImpl implements CompanyPersonService {
 		return result;
 	}
 
+	@Override
+	public CompanyPerson selectCompanyCodeByUserId(String userId) {
+		CompanyPerson result = dao.selectCompanyCodeByUserId(userId);
+		if(result == null){
+			logger.trace("nulllllllllllllllllllllllllllllllllllllllllllll");
+		}
+		return result;
+	}
+	
+
 }

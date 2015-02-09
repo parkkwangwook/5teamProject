@@ -256,6 +256,12 @@ CREATE TABLE message
 alter table message
 add (company_code number);
 
+alter table message
+drop column from_id;
+
+alter table message
+rename column to_id to user_id;
+
 ALTER TABLE message
 	ADD FOREIGN KEY (company_code)
 	REFERENCES company (company_code)

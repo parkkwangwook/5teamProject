@@ -80,30 +80,55 @@
 	
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			사장의<br>마<br>이<br>PAGE<br><br>
+			사장의<br>마이<br>PAGE<br><br>
 			<%-- <c:url value="/join" var="action"></c:url> --%>
 			<form:form modelAttribute="addUser" mehtod="post" action="${action }">
-				<li><label>ID</label> : <form:input path="userId" /><br>
-					<li><label>PASSWORD</label> : <form:input path="password" /><br>
-				
-				<li><label>PASSWORD 확인</label> : <form:input path="password2" /><br>
-				
-				<li><label>이름</label> : <form:input path="userName" /><br>
-				
-				<li><label>TEL</label> : <form:input path="tel" /><br>
-				
-				<li><label>EMAIL</label> : <form:input path="email" /><br>
-				
-				<li><label>BIRTH</label> : <form:input path="birth"
-						id="datepicker" /><br>
-				
-				<li><label>GRADE</label> : <form:input path="grade" /><br>
-				
-				<li><label>Q</label> : <form:input path="question" /><br>
-				
-				<li><label>A</label> : <form:input path="answer" /><br>
-					<!-- <button type="submit" name="proceed">수정</button> -->
-			
+			<table>
+				<tr>
+					<td><label>ID</label></td>
+					<td><form:input path="userId" /></td>
+				</tr>
+				<tr>
+					<td><label>PASSWORD</label></td>
+					<td><form:input path="password" /></td>
+				</tr>
+				<tr>
+					<td><label>PASSWORD 확인</label></td>
+					<td><form:input path="password2" /></td>
+				</tr>
+				<tr>
+					<td><label>이름</label></td>
+					<td><form:input path="userName" /></td>
+				</tr>
+				<tr>
+					<td><label>TEL</label></td>
+					<td><form:input path="tel" /></td>
+				</tr>
+				<tr>
+					<td><label>EMAIL</label></td>
+					<td><form:input path="email" /></td>
+				</tr>
+				<tr>
+					<td><label>BIRTH</label></td>
+					<td><form:input path="birth" id="datepicker" /></td>
+				</tr>
+				<tr>
+					<td><label>GRADE</label></td>
+					<td><form:input path="grade" /></td>
+				</tr>
+				<tr>
+					<td><label>Question</label></td>
+					<td><form:input path="question" /></td>
+				</tr>
+				<tr>
+					<td><label>Answer</label></td>
+					<td><form:input path="answer" /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><button type="submit" name="proceed">수정</button></td>
+				</tr>
+			</table>
 			</form:form>
 		</div>
 	</div>

@@ -81,6 +81,7 @@ public class CompanyController {
 		//companyperson.setCompanyCode(companyCode);
 		companyperson.setUserId(userId);
 		service2.insertCompanyPerson(companyperson);
+		
 		return "";
 	}
 }

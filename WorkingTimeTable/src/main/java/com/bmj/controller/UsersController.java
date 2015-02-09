@@ -80,9 +80,13 @@ public class UsersController {
 	public String indexGo() {
 		return "/main/index";
 	}
-	@RequestMapping(value="/join")											//header join메뉴 눌렀을 때
+	/*@RequestMapping(value="/join")											//header join메뉴 눌렀을 때
 	public String joinGGo(Model model) {
 		model.addAttribute("addUser", new Users());
+		return "/join/join";
+	}*/
+	@RequestMapping(value="/join")											//header join메뉴 눌렀을 때
+	public String joinGGo() {
 		return "/join/join";
 	}
 	@RequestMapping(value="/login")											//header login메뉴 눌렀을 때
@@ -102,12 +106,35 @@ public class UsersController {
 		return "/mypage/employee/mypage";
 	}
 	
-	@RequestMapping(value="/join", method = RequestMethod.POST )			//join페이지에서 가입 성공했을 때
+	/*@RequestMapping(value="/join", method = RequestMethod.POST )			//join페이지에서 가입 성공했을 때
 	public String joinSuccess(@ModelAttribute("addUser") Users user, BindingResult result) {
 		logger.trace("수업2 : aaaaaaaaaaaaaaaaaaaaaaa" + user);
 		service.insertUser(user);
 		return "/join/welcome";
+	}*/
+	@RequestMapping(value="/join", method = RequestMethod.POST )			//join페이지에서 가입 성공했을 때
+	public String joinSuccess(@RequestParam String userId, @RequestParam String password, @RequestParam String password2, 
+			@RequestParam String userName, @RequestParam String tel, @RequestParam String email, @RequestParam String birth,
+			@RequestParam String grade, @RequestParam String question, @RequestParam String answer, Model model) {
+		
+		Users loginUser = new Users();
+		loginUser.setUserId(userId);
+		loginUser.setPassword(password);
+		loginUser.setPassword2(password2);
+		loginUser.setUserName(userName);
+		loginUser.setTel(tel);
+		loginUser.setEmail(email);
+		loginUser.setBirth(birth);
+		loginUser.setGrade(grade);
+		loginUser.setQuestion(question);
+		loginUser.setAnswer(answer);
+		
+		service.insertUser(loginUser);
+		model.addAttribute("addUser",loginUser);
+		
+		return "/join/welcome";
 	}
+	
 	@RequestMapping(value="/login", method = RequestMethod.POST )			//login성공하면 메인화면으로 
 	public String loginSuccess(@RequestParam String userId, @RequestParam String password, Model model) {
 		Users loginUser = new Users();
@@ -126,4 +153,6 @@ public class UsersController {
 		return "/main/index";
 	}
 
+	
+	
 }

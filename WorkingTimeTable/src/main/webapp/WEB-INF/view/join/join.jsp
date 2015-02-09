@@ -128,22 +128,21 @@
 				<label>ID</label> : <input type="text" id="userId" name="userId" /><br>
 				<label>PASSWORD</label> : <input type="password" id="password" name="password" /><br>
 				
-				<label>PASSWORD 확인</label> : <form:input path="password2" /><br>
+				<label>PASSWORD 확인</label> : <input type="password" id="password2" name="password2" /><br>
 				
-				<label>이름</label> : <form:input path="userName" /><br>
+				<label>이름</label> : <input type="text" id="userName" name="userName" /><br>
 				
-				<label>TEL</label> : <form:input path="tel" /><br>
+				<label>TEL</label> : <input type="text" id="tel" name="tel" /><br>
 				
-				<label>EMAIL</label> : <form:input path="email" /><br>
+				<label>EMAIL</label> : <input type="text" id="email" name="email" /><br>
 				
-				<label>BIRTH</label> : <form:input path="birth"
-						id="datepicker" /><br>
+				<label>BIRTH</label> : <input type="text" id="datepicker" name="birth"/><br>
 				
-				<label>GRADE</label> : <form:input path="grade" /><br>
+				<label>GRADE</label> : <input type="text" id="grade" name="grade" /><br>
 				
-				<label>Q</label> : <form:input path="question" /><br>
+				<label>Q</label> : <input type="text" id="question" name="question" /><br>
 				
-				<label>A</label> : <form:input path="answer" /><br>
+				<label>A</label> : <input type="text" id="answer" name="answer" /><br>
 					<button type="submit" name="proceed">다음</button>
 			
 			</form>

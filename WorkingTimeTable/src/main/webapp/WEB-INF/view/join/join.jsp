@@ -9,6 +9,11 @@
 
 <html>
 <head>
+<style>
+#chk {
+	color:red;
+}
+</style>
 <meta charset="utf-8">
 <title>Welcome</title>
 <link rel="stylesheet"

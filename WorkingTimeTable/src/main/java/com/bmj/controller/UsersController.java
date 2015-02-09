@@ -189,7 +189,7 @@ public class UsersController {
 	
 	//로그아웃 안됨
 	@RequestMapping(value="/logout")										//header logout메뉴 눌렀을 때
-	public String logoutGo(SessionStatus sessionStatus, HttpSession session) {
+	public String logoutGo(SessionStatus sessionStatus) {
 		/*sessionStatus.setComplete();*/
 		/*session.invalidate();*/
 		sessionStatus.setComplete();

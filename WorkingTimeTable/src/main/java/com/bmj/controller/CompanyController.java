@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bmj.entity.Company;
@@ -16,7 +17,6 @@ import com.bmj.entity.CompanyPerson;
 import com.bmj.entity.Users;
 import com.bmj.service.CompanyPersonService;
 import com.bmj.service.CompanyService;
-import com.bmj.service.UsersService;
 
 @Controller
 @SessionAttributes("addCmp")
@@ -52,7 +52,7 @@ public class CompanyController {
 		model.addAttribute("addCmp", new Company());
 		return "mypage/employer/registerCompany";
 	}
-	
+	/* 회사 등록과 동시에 자신 등록(사장입장) */
 	@RequestMapping(value="/mypage_myCompany")
 	public String registerCompanySuccess(@ModelAttribute("addCmp") Company company,  HttpSession session) {
 		logger.trace("수업 33333333333333333333 : " + company);
@@ -72,5 +72,16 @@ public class CompanyController {
 		return "mypage/employer/myCompany";
 	}
 
-	
+	/* 쪽지로 회사원 추가하기 기능... 사장 입장 */
+	@RequestMapping(value = "/?")
+	public String registerCompanyPerson(HttpSession session, @RequestParam String userId) {
+		Users user = (Users)session.getAttribute("addUser");
+		// int CompanyCode = service2.selectbyUserId(user.getUserId());
+		CompanyPerson companyperson = new CompanyPerson();
+		//companyperson.setCompanyCode(companyCode);
+		companyperson.setUserId(userId);
+		service2.insertCompanyPerson(companyperson);
+		
+		return "";
+	}
 }

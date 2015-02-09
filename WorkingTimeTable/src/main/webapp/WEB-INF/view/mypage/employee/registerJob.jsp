@@ -54,9 +54,17 @@
 			<img src="images/logintitlebg.png">
 				
 				<ul class="lowermenu">
-						<li><a href="#">Alarm</a></li>
-						<li><a href="#">Salary</a></li>
-						<li><a href="#">Information</a></li>
+						<c:url value="/alerts" var="url"/>
+						<li><a href="${url }">Alerts</a></li>
+						
+						<c:url value="/salary" var="url"/>
+						<li><a href="${url }">Salary</a></li>
+						
+						<c:url value="/myJob" var="url"/>
+						<li><a href="${url }">2~~직장관리</a></li>
+						
+						<c:url value="/mypage_employee" var="url"/>
+						<li><a href="${url }">My info</a></li>
 				</ul>
 					
 		</article>

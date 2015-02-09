@@ -97,13 +97,41 @@ public class UsersController {
 	public String contactGo() {
 		return "/contact/contact";
 	}
+	
+	////////////////사장 마이페이지
 	@RequestMapping(value="/mypage_employer")								//사장 mypage 메뉴 눌렀을 때
 	public String mypageEmployerGo() {
 		return "/mypage/employer/mypage";
 	}
+	@RequestMapping(value="/myComany")										//사장 mypage 메뉴에서 Store(매장관리)
+	public String mypageMyCompanyGo() {
+		return "/mypage/employer/myCompany";
+	}
+	@RequestMapping(value="/wage")											//사장 mypage 메뉴에서 Wage(알바생들 줄 급여관리)
+	public String mypageWageGo() {
+		return "/mypage/employer/wageManagement";
+	}
+	@RequestMapping(value="/staff")											//사장 mypage 메뉴에서 Staff(알바생관리)
+	public String mypageStaffGo() {
+		return "/mypage/employer/staffManagement";
+	}
+	@RequestMapping(value="/alerts")											//사장 mypage 메뉴에서 Staff(알바생관리)
+	public String mypagAlertsGo() {
+		return "/mypage/employer/staffManagement";
+	}
+	
+	////////////////알바 마이페이지
 	@RequestMapping(value="/mypage_employee")								//알바 mypage 메뉴 눌렀을 때
 	public String mypageEmployeeGo() {
 		return "/mypage/employee/mypage";
+	}
+	@RequestMapping(value="/myJob")											//알바 mypage 메뉴에서 직업관리
+	public String mypageMyJobGo() {
+		return "/mypage/employee/myJob";
+	}
+	@RequestMapping(value="/salary")											//알바 mypage 메뉴에서 Salary(월급관리)
+	public String mypageSalaryGo() {
+		return "/mypage/employee/salary";
 	}
 	
 	/*@RequestMapping(value="/join", method = RequestMethod.POST )			//join페이지에서 가입 성공했을 때

@@ -55,9 +55,20 @@
 			<img src="images/logintitlebg.png">
 
 			<ul class="lowermenu">
-				<li><a href="#">Alarm</a></li>
-				<li><a href="#">Salary</a></li>
-				<li><a href="#">Information</a></li>
+						<c:url value="/employer_alert" var="url"/>
+						<li><a href="${url }">Alerts</a></li>
+						
+						<c:url value="/staff" var="url"/>
+						<li><a href="${url }">Staff</a></li>
+						
+						<c:url value="/wage" var="url"/>
+						<li><a href="${url }">Wage</a></li>
+						
+						<c:url value="/myCompany" var="url"/>
+						<li><a href="${url }">Store</a></li>
+						
+						<c:url value="/mypage_employer" var="url"/>
+						<li><a href="${url }">My Info</a></li>
 			</ul>
 
 		</article>

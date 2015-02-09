@@ -38,4 +38,20 @@ public class CompanyController {
 	}
 	
 	
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@RequestMapping(value="/registerCompany")
+	public String registerCompany(Model model) {					//가입완료 후, 사장-회사 등록 버튼
+		model.addAttribute("addCmp", new Company());
+		return "mypage/employer/registerCompany";
+	}
+	
+	@RequestMapping(value="/mypage_myCompany")
+	public String registerCompanySuccess(@ModelAttribute("addCmp") Company company) {
+		logger.trace("수업 33333333333333333333 : " + company);
+		service.insertCompany(company);
+		return "mypage/employer/myCompany";
+	}
+
+	
 }

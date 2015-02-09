@@ -22,6 +22,13 @@ public class CompanyPersonController {
 		return "";
 	}
 	
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@RequestMapping(value = "/registerJob")
+	public String registerJob(Model model) {						//가입완료 후, 알바-회사 등록 버튼
+		model.addAttribute("addPerson", new CompanyPerson());
+		return "mypage/employee/registerJob";
+	}
 	
 }
 

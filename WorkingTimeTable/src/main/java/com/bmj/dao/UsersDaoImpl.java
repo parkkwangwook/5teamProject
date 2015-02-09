@@ -30,4 +30,11 @@ public class UsersDaoImpl implements UsersDao {
 		return sqlSession.insert(stmt, user);
 	}
 
+	@Override
+	public Users selectUser(Users user) {
+		logger.trace("로그인하기위해 DB에서 select!! 하러옴");
+		String stmt= namespace + "selectUser";
+		return sqlSession.selectOne(stmt, user);
+	}
+
 }

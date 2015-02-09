@@ -108,7 +108,7 @@ CREATE TABLE Users
 	user_name varchar2(10) NOT NULL,
 	tel varchar2(20),
 	email varchar2(30) NOT NULL,
-	birth date NOT NULL,
+	birth varchar2(10) NOT NULL,
 	grade varchar2(10) NOT NULL,
 	join_date date DEFAULT sysdate NOT NULL,
 	question varchar2(50) NOT NULL,
@@ -226,7 +226,7 @@ Modify (hire_date varchar(20));
 
 
 insert into users(user_id, password, password2, user_name, tel, email, birth, grade, question, answer) 
-values ('park', '1', '1', 'kwangwook', '010-', 'p@naver.com', '1987-06-08', '사장', '몇살?', '20살');
+values ('park', '1', '1', 'kwangwook', '010-', 'p@naver.com', '06/08/1987', '사장', '몇살?', '20살');
 
 insert into Company(company_name, company_tel, holiday_comm, night_comm) 
 values ('GS25시', '02-000-0000', 0.8, 0.8);

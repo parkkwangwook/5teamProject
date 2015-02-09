@@ -31,4 +31,9 @@ public class CompanyDaoImpl implements CompanyDao {
 		String stmt = namespace + "insertCompany";
 		return sqlSession.insert(stmt, company);
 	}
+	@Override
+	public Company select(Company company) {
+		String stmt = namespace + "selectCompany";
+		return sqlSession.selectOne(stmt, company);
+	}
 }

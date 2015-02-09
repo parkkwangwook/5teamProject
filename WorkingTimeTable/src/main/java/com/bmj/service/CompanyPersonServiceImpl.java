@@ -3,10 +3,12 @@ package com.bmj.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bmj.dao.CompanyPersonDao;
 import com.bmj.entity.CompanyPerson;
 
+@Service
 public class CompanyPersonServiceImpl implements CompanyPersonService {
 	private static final Logger logger;
 	static {
@@ -16,7 +18,7 @@ public class CompanyPersonServiceImpl implements CompanyPersonService {
 	CompanyPersonDao dao;
 	
 	@Override
-	public int insertCompany(CompanyPerson companyperson) {
+	public int insertCompanyPerson(CompanyPerson companyperson) {
 		logger.trace("여기는 서비스~~~~~~~~~~~~~~~!");
 		int result = dao.insertCompanyPerson(companyperson);
 		return result;

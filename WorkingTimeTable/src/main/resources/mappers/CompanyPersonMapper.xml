@@ -5,8 +5,8 @@
 <mapper namespace="mybatis.mapper.CompanyPerson">
 
 	<insert id = "insertCompanyPerson" parameterType = "CompanyPerson">
-		insert into Company_Person(company_code, user_id, salary, hire_date) 
-		values (#{companyCode}, #{userId}, #{salary}, #{hire_date})
+		insert into Company_Person(company_code, user_id, salary) 
+		values (#{companyCode}, #{userId}, #{salary})
 	</insert>
 	
 	<!-- <mapper namespace="com.andy.mybatis.hr.mapper.RegionMapper"> -->

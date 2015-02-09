@@ -9,6 +9,10 @@
 		values (#{companyName}, #{companyTel}, #{holidayComm}, #{nightComm})
 	</insert>
 	
+	<select id = "selectCompany" resultType="Company" parameterType="Company">
+		select * from Company where company_name = #{companyName} and company_tel = #{companyTel}
+	</select>
+	
 	<!-- <mapper namespace="com.andy.mybatis.hr.mapper.RegionMapper"> -->
 	<!-- <insert id = "insertDept" parameterType = "Department">
 		insert into departments(department_id, department_name,manager_id,location_id) 

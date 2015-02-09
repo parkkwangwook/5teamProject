@@ -30,7 +30,6 @@ import com.bmj.service.UsersService;
 @Controller
 /*@RequestMapping("/webProject")*/
 @SessionAttributes("addUser")
-@SessionAttributes("login")
 public class UsersController {
 	private static final Logger logger;
 	static {

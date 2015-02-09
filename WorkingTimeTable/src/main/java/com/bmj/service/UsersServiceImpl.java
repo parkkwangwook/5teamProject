@@ -33,7 +33,13 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public Users loginUser(Users user) {
 		Users result = dao.selectUser(user);
-		logger.trace("DB에서 select!! 해온 결과!!"+result.toString());
+		logger.trace("DB에서 select!! 해온 결과!!" + result.toString());
+		return result;
+	}
+
+	@Override
+	public int selectbyUserId(String userId) {
+		int result = dao.selectbyUserId(userId);
 		return result;
 	}
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bmj.entity.Company;
 import com.bmj.service.CompanyService;
+import com.bmj.service.UsersService;
 
 @Controller
 @SessionAttributes("addCmp")
@@ -23,6 +24,8 @@ public class CompanyController {
 	
 	@Autowired
 	CompanyService service;
+	@Autowired
+	UsersService service2;
 	
 	@RequestMapping(value= "/webProject/addCompany")
 	public String addCompany(Model model) {

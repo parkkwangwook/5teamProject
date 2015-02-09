@@ -54,7 +54,7 @@
 			<img src="images/logintitlebg.png">
 				
 				<ul class="lowermenu">
-						<c:url value="/alerts" var="url"/>
+						<c:url value="/alerts_employee" var="url"/>
 						<li><a href="${url }">Alerts</a></li>
 						
 						<c:url value="/salary" var="url"/>

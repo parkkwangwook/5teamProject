@@ -165,9 +165,9 @@ public class UsersController {
 	@RequestMapping(value="/login", method = RequestMethod.POST )			//login성공하면 메인화면으로 
 	public String loginSuccess(@RequestParam String userId, @RequestParam String password, Model model) {
 		Users loginUser = new Users();
-		loginUser.setUserId(userId);
-		logger.trace("수업 : " + loginUser);
+		loginUser.setUserId(userId);	
 		loginUser.setPassword(password);
+		logger.trace("수업 : " + loginUser);
 		//logger.trace("수업 : " + loginUser);
 		loginUser = service.loginUser(loginUser);
 		model.addAttribute("addUser", loginUser);

@@ -224,6 +224,47 @@ drop column grade;
 Alter table company_person
 Modify (hire_date varchar(20));
 
+/* Drop Triggers */
+
+DROP TRIGGER TRI_message_message_number;
+
+/* Drop Tables */
+
+DROP TABLE message CASCADE CONSTRAINTS;
+
+/* Drop Sequences */
+
+DROP SEQUENCE SEQ_message_message_number;
+
+/* Create Sequences */
+
+CREATE SEQUENCE SEQ_message_message_number INCREMENT BY 1 START WITH 1;
+
+/* Create Tables */
+
+CREATE TABLE message
+(
+	message_number number NOT NULL,
+	to_id varchar2(20),
+	message_content varchar2(100) NOT NULL,
+	reg_date date DEFAULT sysdate,
+	from_id varchar2(20) NOT NULL,
+	flag number DEFAULT 1,
+	PRIMARY KEY (message_number)
+);
+
+/* Create Triggers */
+
+CREATE OR REPLACE TRIGGER TRI_message_message_number BEFORE INSERT ON message
+FOR EACH ROW
+BEGIN
+	SELECT SEQ_message_message_number.nextval
+	INTO :new.message_number
+	FROM dual;
+END;
+
+/
+
 
 insert into users(user_id, password, password2, user_name, tel, email, birth, grade, question, answer) 
 values ('park', '1', '1', 'kwangwook', '010-', 'p@naver.com', '06/08/1987', '사장', '몇살?', '20살');

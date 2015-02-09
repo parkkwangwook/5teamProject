@@ -59,6 +59,7 @@ public class CompanyController {
 		service.insertCompany(company);
 		Users user = (Users)session.getAttribute("addUser");
 		logger.trace("수업 5555555555555555555" + user);
+		// 시퀀스로 저장된 CompanyCode를 찾아오기~!
 		Company company2 = service.seelctCompany(company);
 		logger.trace("수업 666666666666666666666 : " + company2);
 		CompanyPerson companyperson = new CompanyPerson();
@@ -68,8 +69,6 @@ public class CompanyController {
 		// service.company_person.insert();
 		service2.insertCompanyPerson(companyperson);
 
-		logger.trace("수업 444444444444444 : " );
-		/*return "mypage/employer/myCompany";*/
 		return "mypage/employer/myCompany";
 	}
 

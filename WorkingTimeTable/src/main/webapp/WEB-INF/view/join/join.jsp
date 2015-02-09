@@ -51,6 +51,27 @@
 	$(function() {
 		$("#datepicker").datepicker();
 	});
+	
+	/* password 두개의 체크버튼  */
+	function passchk(){
+		 /* var pass = document.form.userPass.value; */
+		 /* var pass2 = document.form.userPass2.value; */
+		 var pass = $("#password").val();
+		 var pass2 = $("#password2").val();
+		 //alert("aaa" + pass + ", " + pass2);
+		 var message1 = " 비밀번호를 입력하세요.";
+		 var message2 = " 비밀번호가 다릅니다.";
+		 var message3 = " 비밀번호가 동일합니다.";
+		 //alert(pass + "," + pass2);
+		 if(pass2 != pass) {
+			 $("#chk").val(message2);
+			 alert("비밀번호다르다.");
+		 } else {
+			 $("#chk").val(message3);
+			 alert("비밀번호같습니다.")
+		 }
+		 return;
+	}
 </script>
 
 </head>
@@ -125,26 +146,53 @@
 			</form:form> --%>
 			<c:url value="/join" var="url"/>
 			<form method="post" action="${url }">
-				<label>ID</label> : <input type="text" id="userId" name="userId" /><br>
-				<label>PASSWORD</label> : <input type="password" id="password" name="password" /><br>
-				
-				<label>PASSWORD 확인</label> : <input type="password" id="password2" name="password2" /><br>
-				
-				<label>이름</label> : <input type="text" id="userName" name="userName" /><br>
-				
-				<label>TEL</label> : <input type="text" id="tel" name="tel" /><br>
-				
-				<label>EMAIL</label> : <input type="text" id="email" name="email" /><br>
-				
-				<label>BIRTH</label> : <input type="text" id="datepicker" name="birth"/><br>
-				
-				<label>GRADE</label> : <input type="text" id="grade" name="grade" /><br>
-				
-				<label>Q</label> : <input type="text" id="question" name="question" /><br>
-				
-				<label>A</label> : <input type="text" id="answer" name="answer" /><br>
-					<button type="submit" name="proceed">다음</button>
-			
+				<table>
+					<tr>
+						<td><label>ID</label></td>
+						<td><input type="text" id="userId" name="userId" /></td>
+					</tr>
+					<tr>
+						<td><label>PASSWORD</label></td>
+						<td><input type="password" id="password" name="password" /></td>
+					</tr>
+					<tr>
+						<td><label>PASSWORD 확인</label></td>
+						<td><input type="password" id="password2" name="password2" onblur = "passchk()"/></td>
+						<td><input type = "text" id = "chk" style = "border-width: 0px" size = "20" name = "chk" value = " 비밀번호를 입력하세요." readonly = "readonly"></td>
+					</tr>
+					<tr>
+						<td><label>이름</label></td>
+						<td><input type="text" id="userName" name="userName" /></td>
+					</tr>
+					<tr>
+						<td><label>TEL</label></td>
+						<td><input type="tel" id="tel" name="tel" /></td>
+					</tr>
+					<tr>
+						<td><label>EMAIL</label></td>
+						<td><input type="email" id="email" name="email" /></td>
+					</tr>
+					<tr>
+						<td><label>BIRTH</label></td>
+						<td><input type="text" id="datepicker" name="birth"/></td>
+					</tr>
+					<tr>
+						<td><label>GRADE</label></td>
+						<td><input type="text" id="grade" name="grade" /></td>
+					</tr>
+					<tr>
+						<td><label>Question</label></td>
+						<td><input type="text" id="question" name="question" /></td>
+					</tr>
+					<tr>
+						<td><label>Answer</label></td>
+						<td><input type="text" id="answer" name="answer" /></td>
+					</tr>
+					<tr>
+						<td></td><td></td>
+						<td><button type="submit" name="proceed">다음</button></td>
+					</tr>
+			</table>
 			</form>
 		</div>
 	</div>

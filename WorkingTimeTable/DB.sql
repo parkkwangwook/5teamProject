@@ -252,6 +252,15 @@ CREATE TABLE message
 	flag number DEFAULT 1,
 	PRIMARY KEY (message_number)
 );
+/*컬럼추가*/
+alter table message
+add (company_code number);
+
+ALTER TABLE message
+	ADD FOREIGN KEY (company_code)
+	REFERENCES company (company_code)
+;
+
 
 /* Create Triggers */
 

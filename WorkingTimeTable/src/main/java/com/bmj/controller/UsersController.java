@@ -153,6 +153,7 @@ public class UsersController {
 		/*sessionStatus.setComplete();*/
 		/*session.invalidate();*/
 		sessionStatus.setComplete();
+		/*logger.trace("수업 : " + addUser.userId);*/
 		/*session = (HttpSession) sessionStatus;
 		session.invalidate();*/
 		return "/main/logout";

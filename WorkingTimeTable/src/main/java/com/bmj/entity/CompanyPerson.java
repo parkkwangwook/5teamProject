@@ -2,35 +2,43 @@ package com.bmj.entity;
 
 public class CompanyPerson {
 	private int memberId;
-	private Company company;
-	private Users user;
+	private int companyCode;
+	private String userId;
 	private int salary;
 	private String hireDate;
 	
 	public CompanyPerson() {}
 	
-	public CompanyPerson(int memberId, Company company, Users user, int salary,
+	public CompanyPerson(int memberId, int companyCode, String userId, int salary,
 			String hireDate) {
-		this.company = company;
-		this.user = user;
+		this.companyCode = companyCode;
+		this.userId = userId;
 		this.salary = salary;
 		this.hireDate = hireDate;
 	}
 
-	public Company getCompany() {
-		return company;
+	public int getMemberId() {
+		return memberId;
 	}
 
-	public void setCompany(Company company) {
-		this.company = company;
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 
-	public Users getUser() {
-		return user;
+	public int getCompanyCode() {
+		return companyCode;
 	}
 
-	public void setUser(Users user) {
-		this.user = user;
+	public void setCompanyCode(int companyCode) {
+		this.companyCode = companyCode;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public int getSalary() {
@@ -51,8 +59,12 @@ public class CompanyPerson {
 
 	@Override
 	public String toString() {
-		return "CompanyPerson [memberId=" + memberId + ", company=" + company
-				+ ", user=" + user + ", salary=" + salary + ", hireDate="
-				+ hireDate + "]";
+		return "CompanyPerson [memberId=" + memberId + ", companyCode="
+				+ companyCode + ", userId=" + userId + ", salary=" + salary
+				+ ", hireDate=" + hireDate + "]";
 	}
+
+
+	
+	
 }

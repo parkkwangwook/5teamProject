@@ -2,16 +2,12 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mybatis.mapper.Companys">
+<mapper namespace="mybatis.mapper.CompanyPerson">
 
-	<insert id = "insertCompany" parameterType = "Company">
-		insert into Company(company_name, company_tel, holiday_comm, night_comm) 
-		values (#{companyName}, #{companyTel}, #{holidayComm}, #{nightComm})
+	<insert id = "insertCompanyPerson" parameterType = "CompanyPerson">
+		insert into Company_Person(company_code, user_id, salary) 
+		values (#{companyCode}, #{userId}, #{salary})
 	</insert>
-	
-	<select id = "selectCompany" resultType="Company" parameterType="Company">
-		select * from Company where company_name = #{companyName} and company_tel = #{companyTel}
-	</select>
 	
 	<!-- <mapper namespace="com.andy.mybatis.hr.mapper.RegionMapper"> -->
 	<!-- <insert id = "insertDept" parameterType = "Department">

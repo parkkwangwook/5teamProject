@@ -24,4 +24,11 @@ public class CompanyServiceImpl implements CompanyService {
 		return result;
 	}
 
+	@Override
+	public Company seelctCompany(Company company) {
+		Company result = dao.select(company);
+		logger.trace("Ccccccccccccccccc" + company);
+		return result;
+	}
+
 }

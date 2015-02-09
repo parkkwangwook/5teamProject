@@ -1,6 +1,7 @@
 package com.bmj.controller;
 
-import org.hibernate.Session;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bmj.entity.Company;
+import com.bmj.entity.CompanyPerson;
+import com.bmj.entity.Users;
+import com.bmj.service.CompanyPersonService;
 import com.bmj.service.CompanyService;
 import com.bmj.service.UsersService;
 
@@ -25,8 +29,8 @@ public class CompanyController {
 	@Autowired
 	CompanyService service;
 	@Autowired
-	UsersService service2;
-	
+	CompanyPersonService service2;
+
 	@RequestMapping(value= "/webProject/addCompany")
 	public String addCompany(Model model) {
 		model.addAttribute("addCmp", new Company());
@@ -50,9 +54,22 @@ public class CompanyController {
 	}
 	
 	@RequestMapping(value="/mypage_myCompany")
-	public String registerCompanySuccess(@ModelAttribute("addCmp") Company company) {
+	public String registerCompanySuccess(@ModelAttribute("addCmp") Company company,  HttpSession session) {
 		logger.trace("수업 33333333333333333333 : " + company);
 		service.insertCompany(company);
+		Users user = (Users)session.getAttribute("addUser");
+		logger.trace("수업 5555555555555555555" + user);
+		Company company2 = service.seelctCompany(company);
+		logger.trace("수업 666666666666666666666 : " + company2);
+		CompanyPerson companyperson = new CompanyPerson();
+		// select ~~
+		companyperson.setCompanyCode(company2.getCompanyCode());
+		companyperson.setUserId(user.getUserId());
+		// service.company_person.insert();
+		service2.insertCompanyPerson(companyperson);
+
+		logger.trace("수업 444444444444444 : " );
+		/*return "mypage/employer/myCompany";*/
 		return "mypage/employer/myCompany";
 	}
 

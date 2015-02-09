@@ -39,7 +39,7 @@ public class CompanyPersonController {
 	}
 	
 /*	@RequestMapping(value = "/registerPerson")
-	public String registerJob1(@ModelAttribute("addCmp") Company company) {						//가입완료 후, 알바-회사 등록 버튼
+	public String registerJob1(@ModelAttribute("addCmp") Company company) {		//가입완료 후, 알바-회사 등록 버튼
 		//model.addAttribute("addPerson", new CompanyPerson());
 
 		return "mypage/employer/myCompany";

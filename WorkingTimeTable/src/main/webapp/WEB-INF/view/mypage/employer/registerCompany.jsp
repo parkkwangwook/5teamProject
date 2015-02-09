@@ -79,24 +79,36 @@
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			사장 COMPANY등록<br>
+			<h2>사장 COMPANY등록</h2><br>
 			<c:url value="/mypage_myCompany" var="action"></c:url>
 			<form:form modelAttribute="addCmp" method="post" action="${action}">
-				<ul>
-					<li><label>회사명</label> : <form:input path="companyName" /><br>
-					<li><label>회사전화번호</label> : <form:input path="companyTel" /><br>
-					<li><label>주말수당</label> : <form:input path="holidayComm" /><br>
-					<li><label>야간수당</label> : <form:input path="nightComm" /><br>
-				</ul>
-				<button type="submit" name="proceed">다음</button>
+				<table>
+					<tr>
+						<td><label>회사명</label></td>
+						<td><form:input path="companyName" /></td>
+					</tr>
+					<tr>
+						<td><label>회사전화번호</label></td>
+						<td><form:input path="companyTel" /></td>
+					</tr>
+					<tr>
+						<td><label>주말수당</label></td>
+						<td><form:input path="holidayComm" /></td>
+					</tr>
+					<tr>
+						<td><label>야간수당</label></td>
+						<td><form:input path="nightComm" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><button type="submit" name="proceed">다음</button></td>
+					</tr>
+				</table>
 			</form:form>
 		</div>
 	</div>
 
-
-
 	<jsp:include page="/WEB-INF/view/main/footer.jsp" />
-
 
 	<script type="text/javascript">
 		Cufon.now();

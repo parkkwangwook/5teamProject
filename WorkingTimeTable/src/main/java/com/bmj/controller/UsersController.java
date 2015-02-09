@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.bmj.entity.Company;
 import com.bmj.entity.CompanyPerson;
 import com.bmj.entity.Users;
 import com.bmj.service.CompanyPersonService;
@@ -103,7 +104,7 @@ public class UsersController {
 		return "/mypage/employer/mypage";
 	}
 	@RequestMapping(value="/myCompany")										//사장 mypage 메뉴에서 Store(매장관리)
-	public String mypageMyCompanyGo(HttpSession session) {
+	public String mypageMyCompanyGo(Model model, HttpSession session) {
 		Users owner = (Users)session.getAttribute("addUser");
 		CompanyPerson companyCode = null;
 		String viewPath = "";
@@ -112,6 +113,7 @@ public class UsersController {
 		
 		if(companyCode == null ){
 			//등록된 회사 코드가 없는 것
+			model.addAttribute("addCmp", new Company());
 			viewPath = "/mypage/employer/registerCompany";
 		}else {
 			//등록한 회사가 있는 것 

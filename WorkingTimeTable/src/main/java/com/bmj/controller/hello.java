@@ -14,4 +14,9 @@ public class hello {
 		model.addAttribute("message", "hello MVC ");
 		return "showMessage";
 	}
+	
+	@RequestMapping(value="/External")
+	public String goExternal() {
+		return "calendar/register";
+	}
 }

@@ -12,7 +12,35 @@
 <script src="lib/jquery.min.js"></script>
 <script src="lib/jquery-ui.custom.min.js"></script>
 <script src="lib/fullcalendar.js"></script>
+
+<%-- <!--------------------- SelectMenu --------------------->
+
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+	
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
 <script>
+
+<!--------------------- SelectMenu --------------------->
+$(function() {
+	$("#ScheduleMenu").selectmenu({
+		change: function(event, ui){
+			
+			if(this.selectedIndex == 0)					//시간표 등록
+				window.location.href = "<%=request.getContextPath()%>/registerSchedule";
+			else if(this.selectedIndex == 1)			//시간표 수정
+				window.location.href = "<%=request.getContextPath()%>/modifySchedule";
+			else if(this.selectedIndex == 2)			//전체 시간표 조회
+				window.location.href = "<%=request.getContextPath()%>/mypage_employee";
+			
+		}
+	});
+}); --%>
+
+<script>
+<!--------------------- fullCalendar --------------------->
 
 	function createTimeTable(id, title, start, end){
 		this.id = id;
@@ -149,12 +177,12 @@
 </script>
 <style>
 
-	body {
+/* 	body {
 		margin-top: 40px;
 		text-align: center;
 		font-size: 14px;
 		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-	}
+	} */
 		
 	#wrap {
 		width: 1100px;

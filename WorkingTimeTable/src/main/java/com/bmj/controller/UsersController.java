@@ -275,4 +275,19 @@ public class UsersController {
 	public String myScheduleGo() {											//시간표 - 내시간표 조회(직장별)
 		return "/schedule/employee/mySchedule";
 	}
+	
+///////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@RequestMapping(value = "/notice")
+	public String noticeBoardGo() {											//공지게시판
+		return "/board/noticeBoard";
+	}
+	@RequestMapping(value = "/free")
+	public String freeBoardGo() {											//자유게시판
+		return "/board/freeBoard";
+	}
+	@RequestMapping(value = "/qna")
+	public String qnaBoardGo() {											//Q&A게시판
+		return "/board/qnaBoard";
+	}
 }

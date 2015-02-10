@@ -96,7 +96,8 @@
 						src="images/timetable.png" alt="근무표조회"></a>
 				</article>
 				<article class="col-1-3">
-					<a href="board.jsp"><img src="images/board.png" alt="자유게시판"></a>
+					
+					<a href="<%=request.getContextPath()%>/free"><img src="images/board.png" alt="자유게시판"></a>
 				</article>
 			</div>
 		</div>

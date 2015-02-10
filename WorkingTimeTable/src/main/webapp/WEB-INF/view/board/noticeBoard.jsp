@@ -66,15 +66,15 @@ select {
 
 <script>
 	$(function() {
-		$("#ScheduleMenu").selectmenu({
+		$("#BoardMenu").selectmenu({
 			change: function(event, ui){
 				
-				if(this.selectedIndex == 0)					//시간표 등록
-					window.location.href = "<%=request.getContextPath()%>/registerSchedule";
-				else if(this.selectedIndex == 1)			//시간표 수정
-					window.location.href = "<%=request.getContextPath()%>/modifySchedule";
-				else if(this.selectedIndex == 2)			//전체 시간표 조회
-					window.location.href = "<%=request.getContextPath()%>/mypage_employee";
+				if(this.selectedIndex == 0)					//공지
+					window.location.href = "<%=request.getContextPath()%>/notice";
+				else if(this.selectedIndex == 1)			//자유
+					window.location.href = "<%=request.getContextPath()%>/free";
+				else if(this.selectedIndex == 2)			//Q&A
+					window.location.href = "<%=request.getContextPath()%>/qna";
 				
 			}
 		});
@@ -83,7 +83,7 @@ select {
 </script> 
 
 </head>
-<body id="page6">
+<body id="page7">
 
 	<!--==============================header=================================-->
 
@@ -127,11 +127,11 @@ select {
 			<fieldset>
 					<ul class="lowermenu">
 
-						<li><select name="ScheduleMenu" id="ScheduleMenu">
-								<optgroup label="My Info">
-									<option value="register" selected="selected">register</option>
-									<option value="modify">modify</option>
-									<option value="show all">show all</option>
+						<li><select name="BoardMenu" id="BoardMenu">
+								<optgroup label="Board">
+									<option value="notice" selected="selected">notice</option>
+									<option value="free">free</option>
+									<option value="qna">Q&A</option>
 								</optgroup>
 						</select></li>
 					</ul>
@@ -144,8 +144,7 @@ select {
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			시간표 등록 할 곳!!<br>
-			<jsp:include page="/WEB-INF/view/calendar/register.jsp" />
+			공<br>지<br>사<br>항<br>
 		</div>
 	</div>
 

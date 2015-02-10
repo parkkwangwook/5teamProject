@@ -73,6 +73,25 @@ public class CompanyController {
 
 		return "mypage/employer/myCompany";
 	}
+	
+	//알바생 회사코드 등록하면 companyperson테이블에 추가됨
+	//나중에 사장이 OK해야 바뀌는걸로 고쳐야함
+	@RequestMapping(value="/addNewEmployee")
+	public String registerJobSuccess(@RequestParam int companyCode,  HttpSession session) {
+	
+		Users user = (Users)session.getAttribute("addUser");					//로그인한 알바생을 가져오고 
+		
+		Company company = service.selectCompanyByCompanyCode(companyCode);		//회사찾아와서 넣어주고 
+		
+		CompanyPerson companyperson = new CompanyPerson();
+
+		companyperson.setCompanyCode(company.getCompanyCode());
+		companyperson.setUserId(user.getUserId());
+		service2.insertCompanyPerson(companyperson);
+
+		return "mypage/employee/myJob";
+	}
+	
 
 	/* 쪽지로 회사원 추가하기 기능... 사장 입장 */
 	@RequestMapping(value = "/?")

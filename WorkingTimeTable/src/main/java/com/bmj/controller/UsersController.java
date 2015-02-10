@@ -106,7 +106,7 @@ public class UsersController {
 		return "/contact/contact";
 	}
 
-	// //////////////사장 마이페이지
+	//-----------------------------------------------사장 마이페이지
 	@RequestMapping(value = "/mypage_employer")
 	// 사장 mypage 메뉴 눌렀을 때
 	public String mypageEmployerGo() {
@@ -152,17 +152,39 @@ public class UsersController {
 		return "/mypage/employer/alerts";
 	}
 
-	// //////////////알바 마이페이지
+	//-----------------------------------------------알바 마이페이지
 	@RequestMapping(value = "/mypage_employee")
 	// 알바 mypage 메뉴 눌렀을 때
 	public String mypageEmployeeGo() {
 		return "/mypage/employee/mypage";
 	}
 
-	@RequestMapping(value = "/myJob")
+	/*@RequestMapping(value = "/myJob")
 	// 알바 mypage 메뉴에서 직업관리
 	public String mypageMyJobGo() {
 		return "/mypage/employee/myJob";
+	}*/
+	
+	@RequestMapping(value = "/myJob")
+	// 알바 mypage 메뉴에서 직업관리
+	public String mypageMyJobGo(Model model, HttpSession session) {
+		Users alba = (Users) session.getAttribute("addUser");		//로그인하고 있는 알바생 정보 가져오고 
+		CompanyPerson companyCode = null;
+		String viewPath = "";
+
+		companyCode = cpService.selectCompanyCodeByUserId(alba.getUserId());
+
+		if (companyCode == null) {
+			// 등록된 직장이 없는 것
+			/*model.addAttribute("addCmp", new Company());*/
+			viewPath = "/mypage/employee/registerJob";
+		} else {
+			// 이미 직장 등록되 있음
+			viewPath = "/mypage/employee/myJob";
+		}
+
+		return viewPath;
+		//return "/mypage/employee/registerJob";
 	}
 
 	@RequestMapping(value = "/salary")

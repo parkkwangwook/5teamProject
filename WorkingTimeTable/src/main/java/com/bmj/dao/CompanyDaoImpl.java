@@ -36,4 +36,9 @@ public class CompanyDaoImpl implements CompanyDao {
 		String stmt = namespace + "selectCompany";
 		return sqlSession.selectOne(stmt, company);
 	}
+	@Override
+	public Company selectByCompanyCode(int companyCode) {
+		String stmt = namespace + "selectCompanyByCompanyCode";
+		return sqlSession.selectOne(stmt, companyCode);
+	}
 }

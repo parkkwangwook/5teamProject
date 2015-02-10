@@ -31,4 +31,10 @@ public class CompanyServiceImpl implements CompanyService {
 		return result;
 	}
 
+	@Override
+	public Company selectCompanyByCompanyCode(int companyCode) {
+		Company result = dao.selectByCompanyCode(companyCode);
+		return result;
+	}
+
 }

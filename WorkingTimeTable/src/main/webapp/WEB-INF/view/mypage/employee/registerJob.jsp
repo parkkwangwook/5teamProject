@@ -159,7 +159,19 @@ select {
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			알바생의 직장관리~~
+			<h2>알바 JOB등록</h2><br>
+			<c:url value="/addNewEmployee" var="action"></c:url>
+			<form method="post" action="${action}">
+				<table>
+					<tr>
+						<td><label>회사코드</label></td>
+						<td><input type="number" id="companyCode" name="companyCode"/></td>
+					</tr>
+					<tr>
+						<td><button type="submit" name="proceed">다음</button></td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</div>
 

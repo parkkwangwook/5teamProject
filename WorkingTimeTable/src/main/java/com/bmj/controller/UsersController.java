@@ -103,6 +103,7 @@ public class UsersController {
 	public String mypageEmployerGo() {
 		return "/mypage/employer/mypage";
 	}
+	
 	@RequestMapping(value="/myCompany")										//사장 mypage 메뉴에서 Store(매장관리)
 	public String mypageMyCompanyGo(Model model, HttpSession session) {
 		Users owner = (Users)session.getAttribute("addUser");
@@ -122,6 +123,16 @@ public class UsersController {
 			
 		return viewPath;
 	}
+	
+/*	@RequestMapping(value="/myCompany", method = RequestMethod.POST)	
+	public String mypageMyCompanyGo(Model model, HttpSession session) {
+		
+
+	}*/
+	
+	
+	
+	
 	@RequestMapping(value="/wage")											//사장 mypage 메뉴에서 Wage(알바생들 줄 급여관리)
 	public String mypageWageGo() {
 		return "/mypage/employer/wage";
@@ -189,7 +200,7 @@ public class UsersController {
 		return "/main/index";
 	}
 	
-	//로그아웃 안됨
+	//로그아웃 수정..중
 	@RequestMapping(value="/logout")										//header logout메뉴 눌렀을 때
 	public String logoutGo(SessionStatus sessionStatus) {
 		/*sessionStatus.setComplete();*/

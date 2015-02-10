@@ -19,7 +19,8 @@ import com.bmj.service.CompanyPersonService;
 import com.bmj.service.CompanyService;
 
 @Controller
-@SessionAttributes("addCmp")
+// 컴패니는 session 남길 필요없음....
+//@SessionAttributes("addCmp")
 public class CompanyController {
 	private static final Logger logger;
 	static {
@@ -55,6 +56,7 @@ public class CompanyController {
 	/* 회사 등록과 동시에 자신 등록(사장입장) */
 	@RequestMapping(value="/mypage_myCompany")
 	public String registerCompanySuccess(@ModelAttribute("addCmp") Company company,  HttpSession session) {
+		logger.trace("수업11111111111111111111111111111111111111111");
 		logger.trace("수업 33333333333333333333 : " + company);
 		service.insertCompany(company);
 		Users user = (Users)session.getAttribute("addUser");

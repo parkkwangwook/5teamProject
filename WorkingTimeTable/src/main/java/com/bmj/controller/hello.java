@@ -17,6 +17,6 @@ public class hello {
 	
 	@RequestMapping(value="/External")
 	public String goExternal() {
-		return "calendar/register";
+		return "calendar/registerTest";
 	}
 }

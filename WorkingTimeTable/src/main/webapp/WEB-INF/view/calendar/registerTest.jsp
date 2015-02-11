@@ -275,7 +275,7 @@ $(function() {
 
 </style>
 </head>
-<body id="page6">
+<body id="page2">
 
 <!--==============================header=================================-->
 
@@ -290,15 +290,29 @@ $(function() {
 					</h1>
 					<nav>
 						<ul class="menu">
-							<li><a class="active"
-								href="<%=request.getContextPath()%>/index">Home</a></li>
+							<li><a class="active" href="<%=request.getContextPath() %>/index">Home</a></li>
 
-							<c:url value="/mypage_employer" var="url" />
-							<li><a href="${url }">Mypage</a></li>
+							<c:if test="${!empty addUser }">
+									신분 ? <c:out value="${addUser.grade }" />
+								<c:if test="${addUser.grade=='사장' }">
+									<c:url value="/mypage_employer" var="url" />
+								</c:if>
+								<c:if test="${addUser.grade=='알바' }">
+									<c:url value="/mypage_employee" var="url" />
+								</c:if>
+								<li><a href="${url }">Mypage</a></li>
+								
+								<c:url value="/logout" var="url" />	
+								<li><a href="${url }">Logout</a></li>
+							</c:if>
 
-							<c:url value="/logout" var="url" />
-							<li><a href="${url }">Logout</a></li>
+							<c:if test="${empty addUser }">
+								<c:url value="/login" var="url"></c:url>
+								<li><a href="${url }">Login</a></li>
 
+								<c:url value="/join" var="url"></c:url>
+								<li><a href="${url }">Join</a></li>
+							</c:if>
 							<c:url value="/contact" var="url"></c:url>
 							<li><a href="${url }">Contact</a></li>
 						</ul>
@@ -319,9 +333,9 @@ $(function() {
 
 						<li><select name="ScheduleMenu" id="ScheduleMenu">
 								<optgroup label="My Info">
-									<option value="register" selected="selected">register</option>
+									<option value="register">register</option>
 									<option value="modify">modify</option>
-									<option value="show all">show all</option>
+									<option value="show all" selected="selected">show all</option>
 								</optgroup>
 						</select></li>
 					</ul>
@@ -329,7 +343,7 @@ $(function() {
 		</article>
 	</div>
 	
-	<br><br><br>
+	
 	<div id='wrap'>
 
 		<div id='external-events'>
@@ -344,7 +358,7 @@ $(function() {
 				<label for='drop-remove'>remove after drop</label>
 			</p>
 		</div>
-		
+
 		<div id='calendar'></div>
 		
 		<div style='clear:both'></div>
@@ -352,7 +366,7 @@ $(function() {
 	</div>
 	<div id = "save1">
 		<button id = "save">save</button>
-		<br><br><br>
+		
 		
 		
 	<!--==============================footer=================================-->

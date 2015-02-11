@@ -58,7 +58,7 @@ CREATE TABLE company
 (
 	company_code number NOT NULL,
 	company_name varchar2(20) NOT NULL,
-	company_tel varchar2(20),
+	company_tel varchar2(20) NOT NULL,
 	holiday_comm float,
 	night_comm float,
 	PRIMARY KEY (company_code)

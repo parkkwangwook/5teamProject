@@ -101,7 +101,7 @@ select {
 							<li><a class="active"
 								href="<%=request.getContextPath()%>/index">Home</a></li>
 
-							<c:url value="/mypage_employee" var="url" />
+							<c:url value="/mypage_employer" var="url" />
 							<li><a href="${url }">Mypage</a></li>
 
 							<c:url value="/logout" var="url" />

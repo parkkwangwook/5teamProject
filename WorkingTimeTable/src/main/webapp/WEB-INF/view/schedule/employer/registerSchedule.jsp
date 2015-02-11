@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <style>
@@ -22,11 +17,12 @@ select {
 	height: 200px;
 }
 </style>
-<meta charset="utf-8">
-<title>Welcome</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
 
 <!--------------------- Homepage --------------------->
 
+<title>Welcome</title>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/reset.css" type="text/css"
 	media="screen">
@@ -57,35 +53,231 @@ select {
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript" src="js/css3-mediaqueries.js"></script>
 
+
+<link href="lib/fullcalendar.css" rel='stylesheet' />
+<!-- <link href='../fullcalendar.print.css' rel='stylesheet' media='print' /> -->
+<script src="lib/moment.min.js"></script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/jquery-ui.custom.min.js"></script>
+<script src="lib/fullcalendar.js"></script>
+
 <!--------------------- SelectMenu --------------------->
 
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+ <!-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->			<!-- 이거때메 에러남 -->
+ <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
 
 <script>
-	$(function() {
-		$("#ScheduleMenu").selectmenu({
-			change: function(event, ui){
+
+<!--------------------- SelectMenu --------------------->
+$(function() {
+	$("#ScheduleMenu").selectmenu({
+		change: function(event, ui){
+			
+			if(this.selectedIndex == 0)					//시간표 등록
+				window.location.href = "<%=request.getContextPath()%>/registerSchedule";
+			else if(this.selectedIndex == 1)			//시간표 수정
+				window.location.href = "<%=request.getContextPath()%>/modifySchedule";
+			else if(this.selectedIndex == 2)			//전체 시간표 조회
+				window.location.href = "<%=request.getContextPath()%>/mypage_employee";
+			
+		}
+	});
+});
+
+<!--------------------- fullCalendar --------------------->
+
+	function createTimeTable(id, title, start, end){
+		this.id = id;
+		this.title = title;
+		this.start = start;
+		this.end = end;
+		this.getInfo = function() {
+			return "Id : " + this.id + ", Title : " + this.title + ", Start : " + this.start + ", End : " + this.end;    		
+		}
+	}
+
+	$(document).ready(function() {
+		var start;
+		var end;
+		var title;
+		var id;
+		var result = new Array();
+
+		/* initialize the external events
+		-----------------------------------------------------------------*/
+
+		$('#external-events .fc-event').each(function() {
+
+			// store data so the calendar knows to render an event upon drop
+			$(this).data('event', {
+				title: $.trim($(this).text()), // use the element's text as the event title
+				stick: true // maintain when user navigates (see docs on the renderEvent method)
+			});
+
+			// make the event draggable using jQuery UI
+			$(this).draggable({
+				zIndex: 999,
+				revert: true,      // will cause the event to go back to its
+				revertDuration: 0  //  original position after the drag
+			});
+
+		});
+
+
+		/* initialize the calendar
+		-----------------------------------------------------------------*/
+
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			timeFormat: {
+				'':'HH:mm',
+				agenda: 'HH:mm',
+				//console.log("agenda" , HH:mm)
+			},
+			editable: true,
+			droppable: true, // this allows things to be dropped onto the calendar
+			eventDrop : function(event) {
+				/* for(items in event) {
+					console.log(items);
+				} */
+				id = event._id;
+				title = event.title;
+				start = event.start.toString();
+				console.log("Drop_id : " + id);
+				console.log('Drop_title : ', title);
+				console.log('Drop_start : ', start);
+				//console.log('end111', event.end.toString());	
 				
-				if(this.selectedIndex == 0)					//시간표 등록
-					window.location.href = "<%=request.getContextPath()%>/registerSchedule";
-				else if(this.selectedIndex == 1)			//시간표 수정
-					window.location.href = "<%=request.getContextPath()%>/modifySchedule";
-				else if(this.selectedIndex == 2)			//전체 시간표 조회
-					window.location.href = "<%=request.getContextPath()%>/mypage_employee";
+				if (event.end == null) {
+					event.end = event.start.clone();
+					event.end.set("hours", event.end.get("hours")+1);
+					end = event.end.toString();
+					console.log('Drop_end : ', end);
+				} else {
+					end = event.end.toString();
+					console.log('Drop_end : ', end);
+				}
+				for(var i in result) {
+					if(result[i] != null) {
+						if(result[i].id == id) {
+							result.splice(i, 1);
+							console.log(result);
+						}
+					}					
+				}
+
+				var newTemp = new createTimeTable(id, title, start, end);
+				result.push(newTemp);
+				console.log(result);
+			},
+			eventDragStop : function(event, ui) {},
+			eventResize : function(event, delta, revertFunc) {
+				title = event.title;
+				start = event.start.toString();
+				end = event.end.toString();
+				id = event._id;
 				
+				/* ArrayList<timetable> list;
+				if () 
+				list.add(?); */
+				console.log("Resize_id : " + id);
+				console.log("Resize_title : " + title);
+				console.log("Resize_start : " + start);
+				console.log("Resize_End : " + end);	
+				
+				for(var i in result) {
+					if(result[i] != null) {
+						if(result[i].id == id) {
+							result.splice(i, 1);
+							console.log(result);
+						}
+					}					
+				}
+				
+				var newTemp = new createTimeTable(id, title, start, end);
+				result.push(newTemp);
+				console.log(result);
+			},
+			eventResizeStop : function(event) {},
+			drop : function(date, ui, jsEvent) {
+				console.log(date._d);
 			}
 		});
+		console.log("title : " + title + ", start : " + start + ", End : " + end);
+		
+		$("#save").click(function() {
+			var objstr = JSON.stringify(result);
+			console.log(objstr);
+			<c:url value="/addTimeTable" var="addTimeTable"></c:url>
+			var url = "${addTimeTable}?list=" + objstr;
+			location.href = url;
+		})
+		
+		
 	});
-	
-</script> 
 
+</script>
+<style>
+
+/* 	body {
+		margin-top: 40px;
+		text-align: center;
+		font-size: 14px;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+	} */
+		
+	#wrap {
+		width: 1100px;
+		margin: 0 auto;
+	}
+		
+	#external-events {
+		float: left;
+		width: 150px;
+		padding: 0 10px;
+		border: 1px solid #ccc;
+		background: #eee;
+		text-align: left;
+	}
+		
+	#external-events h4 {
+		font-size: 16px;
+		margin-top: 0;
+		padding-top: 1em;
+	}
+		
+	#external-events .fc-event {
+		margin: 10px 0;
+		cursor: pointer;
+	}
+		
+	#external-events p {
+		margin: 1.5em 0;
+		font-size: 11px;
+		color: #666;
+	}
+		
+	#external-events p input {
+		margin: 0;
+		vertical-align: middle;
+	}
+
+	#calendar {
+		float: right;
+		width: 900px;
+	}
+
+</style>
 </head>
 <body id="page6">
 
-	<!--==============================header=================================-->
+<!--==============================header=================================-->
 
 	<header>
 		<div class="headergridbg">
@@ -93,7 +285,7 @@ select {
 			<div class="main zerogrid">
 				<div class="prev-indent-bot2">
 					<h1>
-						<a href="<%=request.getContextPath()%>/index"><img
+						<a href="<%=request.getContextPath() %>/index"><img
 							src="images/logoblack.png" /></a>
 					</h1>
 					<nav>
@@ -101,7 +293,7 @@ select {
 							<li><a class="active"
 								href="<%=request.getContextPath()%>/index">Home</a></li>
 
-							<c:url value="/mypage_employee" var="url" />
+							<c:url value="/mypage_employer" var="url" />
 							<li><a href="${url }">Mypage</a></li>
 
 							<c:url value="/logout" var="url" />
@@ -117,14 +309,12 @@ select {
 
 		</div>
 	</header>
-
-	<!--==============================title================================-->
-
+	
+	
 	<div class="slider-wrapper">
 		<article class="col-full">
 			<img src="images/logintitlebg.png">
-			
-			<fieldset>
+				<fieldset>
 					<ul class="lowermenu">
 
 						<li><select name="ScheduleMenu" id="ScheduleMenu">
@@ -138,17 +328,33 @@ select {
 				</fieldset>
 		</article>
 	</div>
+	
+	<br><br><br>
+	<div id='wrap'>
 
-	<!--==============================contents================================-->
-
-
-	<div class="mainmenubg">
-		<div class="main zerogrid">
-			시간표 등록 할 곳!!<br>
-			<jsp:include page="/WEB-INF/view/calendar/register.jsp" />
+		<div id='external-events'>
+			<h4>Draggable Events</h4>
+			<div class='fc-event'>My Event 1</div>
+			<div class='fc-event'>My Event 2</div>
+			<div class='fc-event'>My Event 3</div>
+			<div class='fc-event'>My Event 4</div>
+			<div class='fc-event'>My Event 5</div>
+			<p>
+				<input type='checkbox' id='drop-remove' />
+				<label for='drop-remove'>remove after drop</label>
+			</p>
 		</div>
-	</div>
+		
+		<div id='calendar'></div>
+		
+		<div style='clear:both'></div>
 
+	</div>
+	<div id = "save1">
+		<button id = "save">save</button>
+		<br><br><br>
+		
+		
 	<!--==============================footer=================================-->
 	<footer>
 		<div class="main zerogrid">
@@ -171,15 +377,17 @@ select {
 					<div class="wrap-col">
 						<h5>Navigation</h5>
 						<ul class="list-1">
-							<li><a href="index.jsp">Home</a></li>
+							<c:url value="/index" var="url"></c:url>
+							<li><a href="${url }">Home</a></li>
 
-							<c:url value="/login" var="url"></c:url>
+							<%-- 	<c:url value="/login" var="url"></c:url>
 							<li><a href="${url }">Login</a></li>
 
-							<c:url value="/join" var="url"></c:url>
-							<li><a href="${url }">Join</a></li>
-
-							<li><a href="contactus.jsp">Contact us</a></li>
+								<c:url value="/join" var="url"></c:url>
+							<li><a href="${url }">Join</a></li> --%>
+							
+							<c:url value="/contact" var="url"></c:url>
+							<li><a href="${url }">Contact</a></li>
 						</ul>
 					</div>
 				</article>
@@ -205,12 +413,6 @@ select {
 			</div>
 		</div>
 	</footer>
-
-	<script type="text/javascript">
-		Cufon.now();
-	</script>
-
-
+</div>
 </body>
-
 </html>

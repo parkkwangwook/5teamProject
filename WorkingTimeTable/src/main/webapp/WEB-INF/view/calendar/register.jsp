@@ -166,8 +166,10 @@ $(function() {
 		console.log("title : " + title + ", start : " + start + ", End : " + end);
 		
 		$("#save").click(function() {
+			var objstr = JSON.stringify(result);
+			console.log(objstr);
 			<c:url value="/addTimeTable" var="addTimeTable"></c:url>
-			var url = "${addTimeTable}?list" + result;
+			var url = "${addTimeTable}?list=" + objstr;
 			location.href = url;
 		})
 		

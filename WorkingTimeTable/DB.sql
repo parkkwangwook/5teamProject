@@ -58,12 +58,11 @@ CREATE TABLE company
 (
 	company_code number NOT NULL,
 	company_name varchar2(20) NOT NULL,
-	company_tel varchar2(10),
+	company_tel varchar2(20),
 	holiday_comm float,
 	night_comm float,
 	PRIMARY KEY (company_code)
 );
-
 
 CREATE TABLE company_person
 (
@@ -71,11 +70,9 @@ CREATE TABLE company_person
 	company_code number NOT NULL,
 	user_id varchar2(20) NOT NULL,
 	salary number,
-	grade varchar2(10) NOT NULL,
-	hire_date date DEFAULT sysdate NOT NULL,
+	hire_date varchar2(20) NOT NULL,
 	PRIMARY KEY (member_id)
 );
-
 
 CREATE TABLE Reply
 (
@@ -94,10 +91,11 @@ CREATE TABLE time_table
 	company_code number NOT NULL,
 	member_id number NOT NULL,
 	working_date date NOT NULL,
-	working_start number NOT NULL,
-	working_end number,
+	working_start varchar2(30) NOT NULL,
+	working_end varchar2(30) NOT NULL,
 	PRIMARY KEY (time_key)
 );
+
 
 
 CREATE TABLE Users
@@ -115,7 +113,6 @@ CREATE TABLE Users
 	answer varchar2(20) NOT NULL,
 	PRIMARY KEY (user_id)
 );
-
 
 
 /* Create Foreign Keys */
@@ -215,15 +212,6 @@ END;
 
 /
 
-Alter table company
-MODIFY (company_tel varchar(20));
-
-Alter table company_person
-drop column grade;
-
-Alter table company_person
-Modify (hire_date varchar(20));
-
 /* Drop Triggers */
 
 DROP TRIGGER TRI_message_message_number;
@@ -245,22 +233,18 @@ CREATE SEQUENCE SEQ_message_message_number INCREMENT BY 1 START WITH 1;
 CREATE TABLE message
 (
 	message_number number NOT NULL,
-	to_id varchar2(20),
+	company_code number NOT NULL,
+	user_id varchar2(20),
 	message_content varchar2(100) NOT NULL,
 	reg_date date DEFAULT sysdate,
-	from_id varchar2(20) NOT NULL,
 	flag number DEFAULT 1,
 	PRIMARY KEY (message_number)
 );
 /*컬럼추가*/
-alter table message
-add (company_code number);
-
-alter table message
-drop column from_id;
-
-alter table message
-rename column to_id to user_id;
+ALTER TABLE message
+	ADD FOREIGN KEY (user_id)
+	REFERENCES Users (user_id)
+;
 
 ALTER TABLE message
 	ADD FOREIGN KEY (company_code)
@@ -287,13 +271,5 @@ values ('park', '1', '1', 'kwangwook', '010-', 'p@naver.com', '06/08/1987', '사
 insert into Company(company_name, company_tel, holiday_comm, night_comm) 
 values ('GS25시', '02-000-0000', 0.8, 0.8);
 
-
-
-alter table time_table
-modify (working_date varchar(10));
-alter table time_table
-modify (working_start varchar(8));
-alter table time_table
-modify (working_end varchar(8));
 
 

@@ -1,6 +1,5 @@
 package com.bmj.controller;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,32 +21,20 @@ import com.bmj.entity.TimeTable;
 import com.bmj.entity.Users;
 import com.bmj.service.CompanyPersonService;
 import com.bmj.service.TimeTableService;
-
 @Controller
-public class hello {
+public class TimeTableController {
 	private static final Logger logger;
 	static {
-		logger = LoggerFactory.getLogger(hello.class);
+		logger = LoggerFactory.getLogger(TimeTableController.class);
 	}
-
 	
 	@Autowired
 	CompanyPersonService service2;
 	@Autowired
 	TimeTableService service;
 	
-	@RequestMapping(value="/hello", method=RequestMethod.GET)
-	public String sayHello(Model model) {
-		model.addAttribute("message", "hello MVC ");
-		return "showMessage";
-	}
 	
-	@RequestMapping(value="/External")
-	public String goExternal() {
-		return "calendar/registerTest";
-	}
-	
-	//@RequestMapping(value="/addTimeTable", method = RequestMethod.GET)
+	@RequestMapping(value="/addTimeTable", method = RequestMethod.GET)
 	public String saveExternal(@RequestParam String list, HttpSession session) {
 		logger.trace("수업 : " + list);
 		
@@ -107,4 +93,5 @@ public class hello {
 		
 		return "calendar/register";
 	}
+	
 }

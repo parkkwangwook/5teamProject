@@ -1,17 +1,19 @@
 package com.bmj.entity;
 
+import java.util.Date;
+
 public class TimeTable {
 	private int timeKey;
 	private int companyCode;
 	private int memberId;
-	private String workingDate;
+	private Date workingDate;
 	private String workingStart;
 	private String workingEnd;
 	
 	public TimeTable() {}
 	
 	public TimeTable(int timeKey, int companyCode, int memberId,
-			String workingDate, String workingStart, String workingEnd) {
+			Date workingDate, String workingStart, String workingEnd) {
 		this.timeKey = timeKey;
 		this.companyCode = companyCode;
 		this.memberId = memberId;
@@ -37,10 +39,10 @@ public class TimeTable {
 	public void setMemberId(int memberId) {
 		this.memberId = memberId;
 	}
-	public String getWorkingDate() {
+	public Date getWorkingDate() {
 		return workingDate;
 	}
-	public void setWorkingDate(String workingDate) {
+	public void setWorkingDate(Date workingDate) {
 		this.workingDate = workingDate;
 	}
 	public String getWorkingStart() {

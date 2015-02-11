@@ -286,3 +286,14 @@ values ('park', '1', '1', 'kwangwook', '010-', 'p@naver.com', '06/08/1987', '사
 
 insert into Company(company_name, company_tel, holiday_comm, night_comm) 
 values ('GS25시', '02-000-0000', 0.8, 0.8);
+
+
+
+alter table time_table
+modify (working_date varchar(10));
+alter table time_table
+modify (working_start varchar(8));
+alter table time_table
+modify (working_end varchar(8));
+
+

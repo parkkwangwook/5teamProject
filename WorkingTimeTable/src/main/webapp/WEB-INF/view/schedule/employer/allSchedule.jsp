@@ -25,8 +25,10 @@ select {
 <meta charset="utf-8">
 <title>Welcome</title>
 
+
 <!--------------------- Homepage --------------------->
 
+<title>Welcome</title>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/reset.css" type="text/css"
 	media="screen">
@@ -57,31 +59,80 @@ select {
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript" src="js/css3-mediaqueries.js"></script>
 
+
+<link href="lib/fullcalendar.css" rel='stylesheet' />
+<!-- <link href='../fullcalendar.print.css' rel='stylesheet' media='print' /> -->
+<script src="lib/moment.min.js"></script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/jquery-ui.custom.min.js"></script>
+<script src="lib/fullcalendar.js"></script>
+
 <!--------------------- SelectMenu --------------------->
 
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+ <!-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->			<!-- 이거때메 에러남 -->
+ <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
 
 <script>
-	$(function() {
-		$("#ScheduleMenu").selectmenu({
-			change: function(event, ui){
-				
-				if(this.selectedIndex == 0)					//시간표 등록
-					window.location.href = "<%=request.getContextPath()%>/registerSchedule";
-				else if(this.selectedIndex == 1)			//시간표 수정
-					window.location.href = "<%=request.getContextPath()%>/modifySchedule";
-				else if(this.selectedIndex == 2)			//전체 시간표 조회
-					window.location.href = "<%=request.getContextPath()%>/mypage_employee";
-				
+
+<!--------------------- SelectMenu --------------------->
+$(function() {
+	$("#ScheduleMenu").selectmenu({
+		change: function(event, ui){
+			
+			if(this.selectedIndex == 0)					//시간표 등록
+				window.location.href = "<%=request.getContextPath()%>/registerSchedule";
+			else if(this.selectedIndex == 1)			//시간표 수정
+				window.location.href = "<%=request.getContextPath()%>/modifySchedule";
+			else if(this.selectedIndex == 2)			//전체 시간표 조회
+				window.location.href = "<%=request.getContextPath()%>/mypage_employee";
+			
+		}
+	});
+});
+	/*  <!--------------------- fullCalendar --------------------->  */
+	$(document).ready(function() {
+		alert("zzzzzzzzzzzzzzzzzzzz");
+		$('#calendar').fullCalendar({	
+			// alert("확인");
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			editable: false,
+			businessHours: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: function(start, end, timezone, callback) {
+				$.ajax({
+					url: "<%=request.getContextPath()%>/ajax",
+					success: function(result) {
+						var jobj = JSON.parse(result);
+						var e = jobj["event"];
+						callback(e);
+					}
+				});
 			}
 		});
 	});
 	
 </script> 
+<style>
 
+	/* body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	} */
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+</style>
 </head>
 <body id="page6">
 
@@ -141,12 +192,31 @@ select {
 
 	<!--==============================contents================================-->
 
-
+	<br><br><br>
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			전체 알바생 시간표 !!!!
+		
 		</div>
 	</div>
+	
+	<br><br><br>
+	<div id='calendar'></div>
+	<%-- <table>
+		<c:forEach items="${Calendar}" var = "calen">
+		<tr>
+			<td><c:out value="${calen.title}"/></td>
+			<td><c:out value="${calen.timeStart}"/></td>
+			<td><c:out value="${calen.timeEnd}"/></td>
+			<td><input type = "hidden" id = "chk" name = "chk" 
+									value = "{
+											title: ${calen.title},
+											start: ${calen.timeStart},
+											end:   ${calen.timeEnd}
+											}"/></td>
+			
+		</tr>
+	</c:forEach>
+	</table> --%>
 
 	<!--==============================footer=================================-->
 	<footer>

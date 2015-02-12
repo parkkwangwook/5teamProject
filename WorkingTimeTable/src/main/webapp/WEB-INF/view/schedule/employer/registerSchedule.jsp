@@ -86,7 +86,7 @@ $(function() {
 	});
 });
 
-<!--------------------- fullCalendar --------------------->
+/* <!--------------------- fullCalendar ---------------------> */
 
 	function createTimeTable(id, title, start, end){
 		this.id = id;

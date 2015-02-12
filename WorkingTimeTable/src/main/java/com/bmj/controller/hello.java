@@ -38,6 +38,7 @@ public class hello {
 		logger = LoggerFactory.getLogger(hello.class);
 	}
 
+	private String[] color = {"000000", "FF0000", "00FF00", "0000FF", "FFFF00", "00FFFF", "FF00FF"};
 	
 	@Autowired
 	CompanyPersonService service2;
@@ -74,8 +75,6 @@ public class hello {
 	@RequestMapping(value = "/ajax")
 	public @ResponseBody String ajaxReceive(Model model) {
 		// @ModelAttribute("editDept") Department dept
-	
-		
 		// 작성하기 위한 CompanyCode..
 		// 작성하기 위한 Id들...회사원들....
 		// 날짜와 시작 시간 및 종료 시간....
@@ -89,14 +88,25 @@ public class hello {
 		TimeTable timetable = new TimeTable();
 		List<TimeTable> lists = null;	// DB에서 Get.!
 		List<SaveTime> list2 = new ArrayList<SaveTime>();	// Server에 보내기!
-		SaveTime savetime = new SaveTime();
+		SaveTime savetime = null;
 		// 그리고 우리 회사 코드로 작성된 달력 정보 갖고 오기...!
 		lists = service.selectByCompanyCode(companyperson.getCompanyCode());
-		for (int i = 0; i < lists.size(); i++) {
-			savetime.setTitle(String.valueOf(lists.get(i).getMemberId()));
-			savetime.setStart(settingTime(lists.get(i).getWorkingStart()));
-			savetime.setEnd(settingTime(lists.get(i).getWorkingEnd()));
-			list2.add(savetime);
+		
+		for (int idx = 0; idx < lists.size(); idx++) {
+			logger.trace("수업 idx : " + idx);
+			savetime = new SaveTime();
+			savetime.setTitle(String.valueOf(lists.get(idx).getMemberId()));
+			savetime.setStart(settingTime(lists.get(idx).getWorkingStart()));
+			savetime.setEnd(settingTime(lists.get(idx).getWorkingEnd()));
+			if(idx > 6) {
+				int length = idx;
+				savetime.setColor(color[length%6]);
+				
+			}else {
+				savetime.setColor(color[idx]);
+			}
+			logger.trace("수업 savetime : " + savetime);
+			list2.add(idx, savetime);
 		}
 		
 
@@ -116,12 +126,13 @@ public class hello {
 			obj.put("title", list2.get(i).getTitle());
 			obj.put("start", list2.get(i).getStart());
 			obj.put("end", list2.get(i).getEnd());
+			obj.put("color", list2.get(i).getColor());
 			
 			arrayJson.add(obj);
 		}
 		objJson.put("event", arrayJson);
 		
-		logger.trace("수업 55 : " + objJson);
+		logger.trace("수업 55 : " + objJson.get("event"));
 		/*
 		logger.trace(" 수업 555 : " + abj + ", type : " + abj);
 		logger.trace(" 수업 555 : " + abj.toJSONString());

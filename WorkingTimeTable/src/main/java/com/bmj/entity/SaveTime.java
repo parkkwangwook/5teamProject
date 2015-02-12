@@ -15,6 +15,7 @@ public class SaveTime {
 	private String title;		// userId
 	private String start;
 	private String end;
+	private String color;
 	
 	public SaveTime() {}
 
@@ -82,10 +83,18 @@ public class SaveTime {
 	public void setEnd(String end) {
 		this.end = end;
 	}
+	
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
 
 	@Override
 	public String toString() {
 		return "SaveTime [id=" + id + ", title=" + title + ", start=" + start
-				+ ", end=" + end + "]";
+				+ ", end=" + end + ", color=" + color + "]";
 	}	
 }

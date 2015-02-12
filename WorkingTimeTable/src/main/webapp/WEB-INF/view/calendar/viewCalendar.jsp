@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,12 +19,53 @@
 
 	$(document).ready(function() {
 
+/* 		var text = $("#chk").val();
+		alert(text); */
+		
 		$('#calendar').fullCalendar({
-			defaultDate: '2015-02-12',
+		
+			//defaultDate: '2015-02-12',
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
 			editable: true,
 			eventLimit: true, // allow "more" link when too many events
-			events: [
-				{
+			events: function(start, end, timezone, callback) {
+				$.ajax({
+					url: "<%=request.getContextPath()%>/ajax",
+					success: function(result) {
+						console.log(result);
+						var events = [];
+						$(result).find("event").each(function() {
+							events.push({
+								title: $(this).attr('title'),
+								start: $(this).attr('start'),
+								end: $(this).attr('end')
+							});
+						});
+						callback(events);
+					}
+				});
+			}
+			
+			
+			
+			/* 	events: [
+			          {
+			        	 title : 
+				
+					} 
+			         
+			         
+			         
+			         
+			         ] */
+       
+			         
+			         
+				/* {
 					title: 'All Day Event',
 					start: '2015-02-01'
 				},
@@ -77,7 +119,7 @@
 					url: 'http://google.com/',
 					start: '2015-02-28'
 				}
-			]
+			] */
 		});
 		
 	});
@@ -101,5 +143,21 @@
 </head>
 <body>
 	<div id='calendar'></div>
+	<table>
+		<c:forEach items="${Calendar}" var = "calen">
+		<tr>
+			<td><c:out value="${calen.title}"/></td>
+			<td><c:out value="${calen.timeStart}"/></td>
+			<td><c:out value="${calen.timeEnd}"/></td>
+			<td><input type = "hidden" id = "chk" name = "chk" 
+									value = "{
+											title: ${calen.title},
+											start: ${calen.timeStart},
+											end:   ${calen.timeEnd}
+											}"/></td>
+			
+		</tr>
+	</c:forEach>
+	</table>
 </body>
 </html>

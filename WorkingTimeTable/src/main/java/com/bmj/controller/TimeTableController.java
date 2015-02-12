@@ -53,6 +53,7 @@ public class TimeTableController {
 		// arraylist.get(0);
 		Date date = new Date();
 		Users user = (Users)session.getAttribute("addUser");
+		logger.trace("수업 : User " + user);
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		//int CompanyCode = service2.selectCompanyPersonCodeByUserId(user.getUserId());
 
@@ -62,10 +63,10 @@ public class TimeTableController {
 			SaveTime st1 = new SaveTime(arraylist.get(i));
 			logger.trace("수업 마지막 확인 : " + st1);
 			st1.getTitle();			// 직원 아이디...
-			st1.getTimeStart();		// 시작 날짜 + 시간
-			st1.getTimeEnd();		// 끝난 날짜 + 시간
+			st1.getStart();		// 시작 날짜 + 시간
+			st1.getEnd();		// 끝난 날짜 + 시간
 			try {
-				date = formatter.parse(st1.getTimeStart());
+				date = formatter.parse(st1.getStart());
 			} catch (java.text.ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -77,12 +78,14 @@ public class TimeTableController {
 			//날짜 분해하는 클래스 호출....!
 			//service에서 한번에 해봐....
 //			timetable.setCompanyCode(companyCode);
-			timetable.setCompanyCode(1);
-//			timetable.setMemberId(memberId);
-			timetable.setMemberId(1);
+			// 일단 Test User : Park , 123....
+			timetable.setCompanyCode(49);
+//			timetable.setMemberId(st1.getTitle);
+			//timetable.setMemberId(23);
+			timetable.setMemberId(23);
 			timetable.setWorkingDate(date);
-			timetable.setWorkingStart(st1.getTimeStart());
-			timetable.setWorkingEnd(st1.getTimeEnd());
+			timetable.setWorkingStart(st1.getStart());
+			timetable.setWorkingEnd(st1.getEnd());
 			logger.trace("수업 111111111 : " + timetable);
 			int result = service.insertTimeTable(timetable);
 		}
@@ -91,6 +94,7 @@ public class TimeTableController {
 			logger.trace("수업 1 " + arraylist.iterator());
 		}*/
 		
+		// 여기 나중에 수정...!
 		return "calendar/register";
 	}
 	

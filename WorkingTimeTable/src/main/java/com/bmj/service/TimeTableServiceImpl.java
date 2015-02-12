@@ -1,5 +1,8 @@
 package com.bmj.service;
 
+
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,14 @@ public class TimeTableServiceImpl implements TimeTableService {
 	public int insertTimeTable(TimeTable timetable) {
 		logger.trace("여기는 Time Table 서비스~~~~~~~~~~~~~~~~~~~~~!");
 		int result = dao.insert(timetable);
-		return 0;
+		return result;
+	}
+
+	@Override
+	public List<TimeTable> selectByCompanyCode(int CompanyCode) {
+		logger.trace("여기는 Time Table 서비스~~~~~~~~~~~~~~~~~~~~~!" + CompanyCode);
+		List<TimeTable> timetable = dao.selectByCompanyCode(CompanyCode);
+		return timetable;
 	}
 
 }

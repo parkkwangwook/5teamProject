@@ -9,7 +9,7 @@
 		values (#{companyCode}, #{userId}, #{salary})
 	</insert>
 	<select id = "selectCompanyCodeByUserId" parameterType = "String" resultType="CompanyPerson">
-		select company_code from company_person where user_id=#{userId}
+		select * from company_person where user_id=#{userId}
 	</select>
 	
 	<select id = "selectbyChairman" parameterType="String" resultType="Integer">

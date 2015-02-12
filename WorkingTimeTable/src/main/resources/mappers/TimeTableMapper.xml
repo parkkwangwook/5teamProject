@@ -9,9 +9,12 @@
 		values (#{companyCode}, #{memberId}, #{workingDate}, #{workingStart}, #{workingEnd})
 	</insert>
 	
-	<!-- <select id = "selectCompany" resultType="Company" parameterType="Company">
-		select * from Company where company_name = #{companyName} and company_tel = #{companyTel}
+	
+	<select id = "selectByCompanyCode" resultType="TimeTable" parameterType="Integer">
+		select * from time_table where company_code = #{companyCode}
 	</select>
+	
+	<!--
 	
 	<select id = "selectCompanyByCompanyCode" resultType="Company" parameterType="Integer">
 		select * from Company where company_code = #{companyCode}

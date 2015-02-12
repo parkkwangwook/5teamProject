@@ -1,5 +1,8 @@
 package com.bmj.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +26,13 @@ public class TimeTableDaoImpl implements TimeTableDao {
 	public int insert(TimeTable timetable) {
 		String stmt = namespace + "insertTimeTable";
 		return sqlSession.insert(stmt, timetable);
+	}
+
+	@Override
+	public List<TimeTable> selectByCompanyCode(int CompanyCode) {
+		logger.trace("수업 여기는 Dao... !" + CompanyCode);
+		String stmt = namespace + "selectByCompanyCode";
+		return sqlSession.selectList(stmt, CompanyCode);
 	}
 
 }

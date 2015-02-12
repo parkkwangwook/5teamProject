@@ -268,8 +268,18 @@ END;
 insert into users(user_id, password, password2, user_name, tel, email, birth, grade, question, answer) 
 values ('park', '1', '1', 'kwangwook', '010-', 'p@naver.com', '06/08/1987', '사장', '몇살?', '20살');
 
+insert into users(user_id, password, password2, user_name, tel, email, birth, grade, question, answer) 
+values ('Kim', '1', '1', 'YunJoon', '010-', 's@naver.com', '06/08/1987', '직원', '몇살?', '20살');
+insert into users(user_id, password, password2, user_name, tel, email, birth, grade, question, answer) 
+values ('Choi', '1', '1', 'JungIn', '010-', 's@naver.com', '06/08/1987', '직원', '몇살?', '20살');
+
+
 insert into Company(company_name, company_tel, holiday_comm, night_comm) 
 values ('GS25시', '02-000-0000', 0.8, 0.8);
 
+insert into company_person(company_code, user_id) 
+values (49, 'Kim');
 
+insert into company_person(company_code, user_id) 
+values (49, 'Choi');
 

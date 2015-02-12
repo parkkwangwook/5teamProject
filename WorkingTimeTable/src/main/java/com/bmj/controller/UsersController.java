@@ -112,6 +112,35 @@ public class UsersController {
 	public String mypageEmployerGo() {
 		return "/mypage/employer/mypage";
 	}
+	
+	@RequestMapping(value = "/modifyInfo", method = RequestMethod.POST)
+	// 사장 개인정보 수정 눌렀을 때
+	public String mypageModifyInfoGo(@RequestParam String userId, @RequestParam String password,
+			@RequestParam String userName, @RequestParam String tel,
+			@RequestParam String email, @RequestParam String birth,
+			@RequestParam String question,
+			@RequestParam String answer, Model model, HttpSession session) {
+		
+		Users modifyUser = new Users();
+		Users loginUser = (Users)session.getAttribute("addUser");
+		
+		modifyUser.setUserId(loginUser.getUserId());   //아이디만 현재 로그인한 회원으로 가져오기
+
+		modifyUser.setUserName(userName);
+		modifyUser.setPassword(password);				//지금은 비밀번호 확인을 디비에서 하게했는데 마이페이지에서 비번틀리면 아예 못넘어가게!!
+		modifyUser.setTel(tel);
+		modifyUser.setEmail(email);
+		modifyUser.setBirth(birth);
+		modifyUser.setQuestion(question);
+		modifyUser.setAnswer(answer);
+		
+		service.updateUser(modifyUser);					//디비 수정!!
+		
+		modifyUser = service.loginUser(modifyUser);		
+		model.addAttribute("addUser", modifyUser);
+
+		return "/mypage/modifyInfoSuccess";
+	}
 
 	@RequestMapping(value = "/myCompany")
 	// 사장 mypage 메뉴에서 Store(매장관리)
@@ -290,4 +319,7 @@ public class UsersController {
 	public String qnaBoardGo() {											//Q&A게시판
 		return "/board/qnaBoard";
 	}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

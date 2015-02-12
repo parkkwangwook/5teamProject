@@ -179,51 +179,60 @@ $(function() {
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
+			<c:url value="/modifyInfo" var="action" />
 			<form:form modelAttribute="addUser" mehtod="post" action="${action }">
 			<table>
-			<tr>
+			<%-- <tr>
 				<td><label>ID</label></td>
-				<td><form:input path="userId" /><td>
-			<tr>
+				<td><form:input path="userId" /></td>
+			</tr>
 			<tr>
 				<td><label>PASSWORD</label></td>
-				<td><form:input path="password" /><td>
+				<td><form:input path="password" /></td>
+			</tr> --%>
 			<tr>
+				<td><label>ID</label></td>
+				<td><form:hidden path="userId"/></td>
+			</tr>
 			<tr>
-				<td><label>PASSWORD 확인</label></td>
-				<td><form:input path="password2" /><td>
+				<td><label>PASS</label></td>
+				<td><form:hidden path="password"/></td>
+			</tr>
 			<tr>
+				<td><label>PASSWORD</label></td>
+				<td><input type="text" id="password" name="password"/></td>
+			</tr>
 			<tr>
 				<td><label>이름</label></td>
-				<td><form:input path="userName" /><td>
-			<tr>		
+				<td><form:input path="userName" /></td>
+			</tr>		
 			<tr>
 				<td><label>TEL</label></td>
-				<td><form:input path="tel" /><td>
-			<tr>
+				<td><form:input path="tel" /></td>
+			</tr>
 			<tr>
 				<td><label>EMAIL</label></td>
-				<td><form:input path="email" /><td>
-			<tr>			
+				<td><form:input path="email" /></td>
+			</tr>			
 			<tr>
 				<td><label>BIRTH</label></td>
-				<td> <form:input path="birth" id="datepicker" /><td>
-			<tr>
+				<td> <form:input path="birth" id="datepicker" /></td>
+			</tr>
 			<tr>
 				<td><label>GRADE</label></td>
-				<td><form:input path="grade" /><td>
-			<tr>			
+				<td><form:input path="grade" /></td>
+			</tr>			
 			<tr>
 				<td><label>Q</label></td>
-				<td><form:input path="question" /><td>
-			<tr>
+				<td><form:input path="question" /></td>
+			</tr>
 			<tr>
 				<td><label>A</label></td>
-				<td><form:input path="answer" /><td>
-			<tr>
+				<td><form:input path="answer" /></td>
+			</tr>
 
 				</table>
-					<!-- <button type="submit" name="proceed">수정</button> -->
+					<input type="submit" name="modifyInfo" value="수정"/>
 			
 			</form:form>
 		</div>

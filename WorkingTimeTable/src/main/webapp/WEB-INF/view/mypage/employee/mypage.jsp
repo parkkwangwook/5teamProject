@@ -182,40 +182,36 @@ $(function() {
 			<tr>
 			<tr>
 				<td><label>PASSWORD</label></td>
-				<td><form:input path="password" /><td>
-			<tr>
-			<tr>
-				<td><label>PASSWORD 확인</label></td>
-				<td><form:input path="password2" /><td>
-			<tr>
+				<td><form:input path="password" /></td>
+			</tr>
 			<tr>
 				<td><label>이름</label></td>
-				<td><form:input path="userName" /><td>
-			<tr>		
+				<td><form:input path="userName" /></td>
+			</tr>		
 			<tr>
 				<td><label>TEL</label></td>
-				<td><form:input path="tel" /><td>
-			<tr>
+				<td><form:input path="tel" /></td>
+			</tr>
 			<tr>
 				<td><label>EMAIL</label></td>
-				<td><form:input path="email" /><td>
-			<tr>			
+				<td><form:input path="email" /></td>
+			</tr>			
 			<tr>
 				<td><label>BIRTH</label></td>
 				<td> <form:input path="birth" id="datepicker" /><td>
-			<tr>
+			</tr>
 			<tr>
 				<td><label>GRADE</label></td>
-				<td><form:input path="grade" /><td>
-			<tr>			
+				<td><form:input path="grade" /></td>
+			</tr>			
 			<tr>
 				<td><label>Q</label></td>
-				<td><form:input path="question" /><td>
-			<tr>
+				<td><form:input path="question" /></td>
+			</tr>
 			<tr>
 				<td><label>A</label></td>
-				<td><form:input path="answer" /><td>
-			<tr>
+				<td><form:input path="answer" /></td>
+			</tr>
 
 				</table>
 					<!-- <button type="submit" name="proceed">수정</button> -->

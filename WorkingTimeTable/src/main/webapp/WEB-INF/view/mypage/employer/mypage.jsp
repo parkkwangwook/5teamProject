@@ -87,7 +87,7 @@ $(function() {
 				if(this.selectedIndex == 0)					//개인정보 수정
 					window.location.href = "<%=request.getContextPath()%>/mypage_employer";
 				else if(this.selectedIndex == 1)			//비밀번호 변경
-					alert("비밀번호 변경 아직 없음")
+					window.location.href = "<%=request.getContextPath()%>/modifyPass";
 				else if(this.selectedIndex == 2)			//회원탈퇴
 					alert("회원탈퇴 아직 없음");
 				else if(this.selectedIndex == 3)			//회사관리
@@ -102,6 +102,18 @@ $(function() {
 			}
 		});
 	});
+	
+	//////////////////////////////////////////////////////////////////////
+	
+	var passCorrect = false; 
+	
+	$(document).ready(function(){
+		$("#password").keydown(function(){
+			passCorrect = false; 		
+		});
+		$(":button[name=&apos;passCheckBtn&apos;]").click(passCheck);
+	});
+	
 	
 </script> 
 
@@ -196,11 +208,12 @@ $(function() {
 			</tr>
 			<tr>
 				<td><label>PASS</label></td>
-				<td><form:hidden path="password"/></td>
+				<td><form:hidden path="password"/>
+				<input type="button" name="passCheckBtn" value="비번확인"/></td>
 			</tr>
 			<tr>
 				<td><label>PASSWORD</label></td>
-				<td><input type="text" id="password" name="password"/></td>
+				<td><input type="text" id="password" name="password"/><div id="passChk"></div></td>
 			</tr>
 			<tr>
 				<td><label>이름</label></td>

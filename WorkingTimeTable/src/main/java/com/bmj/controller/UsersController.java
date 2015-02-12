@@ -108,13 +108,18 @@ public class UsersController {
 
 	//-----------------------------------------------사장 마이페이지
 	@RequestMapping(value = "/mypage_employer")
-	// 사장 mypage 메뉴 눌렀을 때
+	// 사장 mypage 메뉴 눌렀을 때 - 개인정보 수정페이지로 
 	public String mypageEmployerGo() {
 		return "/mypage/employer/mypage";
 	}
+	@RequestMapping(value = "/modifyPass")
+	// 사장 mypage 메뉴 눌렀을 때
+	public String mypageModifyPassGo() {
+		return "/mypage/modifyPass";
+	}
 	
 	@RequestMapping(value = "/modifyInfo", method = RequestMethod.POST)
-	// 사장 개인정보 수정 눌렀을 때
+	// 사장 My Info(개인정보 수정)에서 수정버튼 눌렀을 때
 	public String mypageModifyInfoGo(@RequestParam String userId, @RequestParam String password,
 			@RequestParam String userName, @RequestParam String tel,
 			@RequestParam String email, @RequestParam String birth,

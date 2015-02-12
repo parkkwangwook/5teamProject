@@ -72,7 +72,7 @@ select {
 				if(this.selectedIndex == 0)					//개인정보 수정
 					window.location.href = "<%=request.getContextPath()%>/mypage_employer";
 				else if(this.selectedIndex == 1)			//비밀번호 변경
-					alert("비밀번호 변경 아직 없음")
+					window.location.href = "<%=request.getContextPath()%>/modifyPass";
 				else if(this.selectedIndex == 2)			//회원탈퇴
 					alert("회원탈퇴 아직 없음");
 				else if(this.selectedIndex == 3)			//회사관리

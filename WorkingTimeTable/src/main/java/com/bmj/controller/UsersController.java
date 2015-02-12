@@ -113,14 +113,30 @@ public class UsersController {
 		return "/mypage/employer/mypage";
 	}
 	@RequestMapping(value = "/modifyPass")
-	// 사장 mypage 메뉴 눌렀을 때
+	// 사장 mypage 비밀번호변경 메뉴 눌렀을 때
 	public String mypageModifyPassGo() {
+		return "/mypage/modifyPass";
+	}
+	@RequestMapping(value = "/modifyPass", method = RequestMethod.POST)
+	// 사장 mypage 비밀번호변경에서 수정버튼 눌렀을 때
+	public String mypageModifyPassSuccessGo(@RequestParam String userId,
+			@RequestParam String modifyPass1, @RequestParam String modifyPass2, Model model) {
+		
+		Users modifyPassUser = new Users();
+		modifyPassUser.setUserId(userId);
+		modifyPassUser.setPassword(modifyPass1);
+		modifyPassUser.setPassword2(modifyPass2);
+		
+		service.updatePassUser(modifyPassUser);					//비번 업데이트 하고
+		modifyPassUser = service.loginUser(modifyPassUser);		//업데이트한 거로 새로 가져와서
+		model.addAttribute("addUser", modifyPassUser);
+		
 		return "/mypage/modifyPass";
 	}
 	
 	@RequestMapping(value = "/modifyInfo", method = RequestMethod.POST)
-	// 사장 My Info(개인정보 수정)에서 수정버튼 눌렀을 때
-	public String mypageModifyInfoGo(@RequestParam String userId, @RequestParam String password,
+	// 사장 My Info(개인정보 수정)에서 수정버튼 눌렀을 때 - 비밀번호 일치했을 때만 넘어옴
+	public String mypageModifyInfoGo(@RequestParam String nowPassword,
 			@RequestParam String userName, @RequestParam String tel,
 			@RequestParam String email, @RequestParam String birth,
 			@RequestParam String question,
@@ -130,9 +146,8 @@ public class UsersController {
 		Users loginUser = (Users)session.getAttribute("addUser");
 		
 		modifyUser.setUserId(loginUser.getUserId());   //아이디만 현재 로그인한 회원으로 가져오기
-
 		modifyUser.setUserName(userName);
-		modifyUser.setPassword(password);				//지금은 비밀번호 확인을 디비에서 하게했는데 마이페이지에서 비번틀리면 아예 못넘어가게!!
+		modifyUser.setPassword(nowPassword);
 		modifyUser.setTel(tel);
 		modifyUser.setEmail(email);
 		modifyUser.setBirth(birth);
@@ -141,10 +156,11 @@ public class UsersController {
 		
 		service.updateUser(modifyUser);					//디비 수정!!
 		
-		modifyUser = service.loginUser(modifyUser);		
-		model.addAttribute("addUser", modifyUser);
+		modifyUser = service.loginUser(modifyUser);		//수정한 애로 로그인시켜서 
+		model.addAttribute("addUser", modifyUser);		//addUser도 수정된 애로 바꾸고 
 
-		return "/mypage/modifyInfoSuccess";
+		
+		return "redirect:/mypage_employer";				//수정완료하면 다시 My Info로 가기 
 	}
 
 	@RequestMapping(value = "/myCompany")

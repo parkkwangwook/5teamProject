@@ -6,6 +6,7 @@ public interface UsersDao {
 	Integer getUsersCount();
 	int insertUser(Users user);
 	int updateUser(Users user);
+	int updatePassUser(Users user);
 	Users selectUser(Users user);
 	int selectbyUserId(String userId);
 }

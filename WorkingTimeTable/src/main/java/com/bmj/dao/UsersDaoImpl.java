@@ -49,4 +49,10 @@ public class UsersDaoImpl implements UsersDao {
 		return sqlSession.update(stmt, user);
 	}
 
+	@Override
+	public int updatePassUser(Users user) {
+		String stmt = namespace + "updatePassUser";
+		return sqlSession.update(stmt, user);
+	}
+
 }

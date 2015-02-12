@@ -47,14 +47,13 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public int updateUser(Users user) {
-		Users loginResult = dao.selectUser(user);  //비번이 맞았다면
-		int result = -1;
-		if(loginResult != null){
-			//아이디비번 조회해보고 있으므로 !!!! 업데이트 가능!! 
-			logger.trace("개인정보 수정 가능한 상태!!!~~~~!!");
-			result = dao.updateUser(user);
-		}
-		logger.trace("개인정보 수정 불가능상태!!!~~~~!!");
+		int result = dao.updateUser(user);
+		return result;
+	}
+
+	@Override
+	public int updatePassUser(Users user) {
+		int result = dao.updatePassUser(user);
 		return result;
 	}
 

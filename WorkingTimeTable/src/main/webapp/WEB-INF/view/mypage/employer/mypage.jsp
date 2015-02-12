@@ -24,6 +24,9 @@ select {
 </style>
 <meta charset="utf-8">
 <title>Welcome</title>
+<!--------------------- Validate --------------------->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="lib/jquery.validate.min.js"></script>
 
 <!--------------------- Homepage --------------------->
 
@@ -40,7 +43,7 @@ select {
 	href="<%=request.getContextPath()%>/css/responsive.css" type="text/css"
 	media="all">
 
-<script src="js/jquery-1.6.3.min.js" type="text/javascript"></script>
+<!-- <script src="js/jquery-1.6.3.min.js" type="text/javascript"></script> -->
 <script src="js/cufon-yui.js" type="text/javascript"></script>
 <script src="js/cufon-replace.js" type="text/javascript"></script>
 <script src="js/Kozuka_Gothic_Pro_OpenType_300.font.js"
@@ -60,7 +63,7 @@ select {
 <!--------------------- DatePicker --------------------->
 
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<!--   <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
 
@@ -68,17 +71,10 @@ select {
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<!-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
 <script>
-$(function() {
-    $( "#datepicker" ).datepicker({
-      changeMonth: true,
-      changeYear: true,
-   	  yearRange: "1930:2015"
-    });
-  });
 
 	$(function() {
 		$("#MypageMenu").selectmenu({
@@ -105,13 +101,113 @@ $(function() {
 	
 	//////////////////////////////////////////////////////////////////////
 	
-	var passCorrect = false; 
-	
-	$(document).ready(function(){
-		$("#password").keydown(function(){
-			passCorrect = false; 		
+	$(document).ready(function() {
+		var dp = {
+			changeMonth : true,
+			changeYear : true,
+			yearRange : "1930:2015"
+		};
+		$("#datepicker").datepicker(dp);
+
+		$("#modifyForm").validate({
+			//validation이 끝난 이후의 submit 직전 추가 작업할 부분
+			/* submitHandler : function() {
+				var f = confirm("글을 등록하시겠습니까?");
+				if (f) {
+					return true;
+				} else {
+					return false;
+				}
+			}, */
+			//규칙
+			rules : {
+				nowPassword : {
+					required : true,
+					minlength : 5,
+					maxlength : 20,
+					equalTo : "#password"
+				},
+				userName : {
+					required : true,
+					minlength : 2,
+					maxlength : 10
+				},
+
+				email : {
+					required : true,
+					minlength : 2,
+					maxlength : 30,
+					email : true
+				},
+				birth : {
+					required : true,
+					minlength : 9,
+					maxlength : 10
+				},
+				grade : {
+					required : true,
+					minlength : 2,
+					maxlength : 10
+				},
+				question : {
+					required : true,
+					minlength : 6, 
+					maxlength : 50
+				},
+				answer : {
+					required : true,
+					minlength : 2, 
+					maxlength : 20
+				}
+			},
+			//규칙체크 실패시 출력될 메시지
+			messages : {
+				nowPassword : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다",
+					equalTo : "비밀번호가 불일치합니다"
+				},
+				userName : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다"
+				},
+				
+				email : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다",
+					email : "메일 기재 규칙에 어긋납니다."
+				},
+				birth : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다",
+					date : "생년월일 기재 규칙에 어긋납니다."
+				},
+				grade : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다"
+				},
+				question : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다"
+				},
+				answer : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다"
+				}
+			}
 		});
-		$(":button[name=&apos;passCheckBtn&apos;]").click(passCheck);
+
+		var modifyForm = $("#modifyForm");
+		for ( var item in modifyForm) {
+			console.log(item + " : " + modifyForm[item]);
+		}
 	});
 	
 	
@@ -192,7 +288,7 @@ $(function() {
 	<div class="mainmenubg">
 		<div class="main zerogrid">
 			<c:url value="/modifyInfo" var="action" />
-			<form:form modelAttribute="addUser" mehtod="post" action="${action }">
+			<form:form modelAttribute="addUser" mehtod="post" action="${action }" id="modifyForm">
 			<table>
 			<%-- <tr>
 				<td><label>ID</label></td>
@@ -204,48 +300,47 @@ $(function() {
 			</tr> --%>
 			<tr>
 				<td><label>ID</label></td>
-				<td><form:hidden path="userId"/></td>
+				<td><form:hidden path="userId" name="userId" id="userId"/></td>
 			</tr>
 			<tr>
 				<td><label>PASS</label></td>
-				<td><form:hidden path="password"/>
-				<input type="button" name="passCheckBtn" value="비번확인"/></td>
+				<td><form:hidden path="password" name="password" id="password"/></td>
 			</tr>
 			<tr>
 				<td><label>PASSWORD</label></td>
-				<td><input type="text" id="password" name="password"/><div id="passChk"></div></td>
+				<td><input type="text" id="nowPassword" name="nowPassword"/><div id="passChk"></div></td>
 			</tr>
 			<tr>
 				<td><label>이름</label></td>
-				<td><form:input path="userName" /></td>
+				<td><form:input path="userName" name="userName" id="userName"/></td>
 			</tr>		
 			<tr>
 				<td><label>TEL</label></td>
-				<td><form:input path="tel" /></td>
+				<td><form:input path="tel" name="tel" id="tel" /></td>
 			</tr>
 			<tr>
 				<td><label>EMAIL</label></td>
-				<td><form:input path="email" /></td>
+				<td><form:input path="email" name="email" id="email"/></td>
 			</tr>			
 			<tr>
 				<td><label>BIRTH</label></td>
-				<td> <form:input path="birth" id="datepicker" /></td>
+				<td> <form:input path="birth" id="datepicker" name="birth"/></td>
 			</tr>
 			<tr>
 				<td><label>GRADE</label></td>
-				<td><form:input path="grade" /></td>
+				<td><form:input path="grade" id="grade" name="grade"/></td>
 			</tr>			
 			<tr>
 				<td><label>Q</label></td>
-				<td><form:input path="question" /></td>
+				<td><form:input path="question" id="question" name="question"/></td>
 			</tr>
 			<tr>
 				<td><label>A</label></td>
-				<td><form:input path="answer" /></td>
+				<td><form:input path="answer" id="answer" name="answer"/></td>
 			</tr>
 
 				</table>
-					<input type="submit" name="modifyInfo" value="수정"/>
+					<input type="submit" value="수정"/>
 			
 			</form:form>
 		</div>

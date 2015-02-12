@@ -22,6 +22,16 @@
 		select * from users where user_id = #{userId}
 	</select>
 	
+	<update id = "updateUser" parameterType = "Users">
+		update users set 
+		user_name=#{userName},
+		tel=#{tel},
+		email=#{email},
+		birth=#{birth},
+		question=#{question},
+		answer=#{answer}
+		where user_id= #{userId}
+	</update>
 	<!-- <mapper namespace="com.andy.mybatis.hr.mapper.RegionMapper"> -->
 	<!-- <insert id = "insertDept" parameterType = "Department">
 		insert into departments(department_id, department_name,manager_id,location_id) 

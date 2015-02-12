@@ -43,4 +43,10 @@ public class UsersDaoImpl implements UsersDao {
 		return sqlSession.selectOne(stmt, userId);
 	}
 
+	@Override
+	public int updateUser(Users user) {
+		String stmt = namespace + "updateUser";
+		return sqlSession.update(stmt, user);
+	}
+
 }

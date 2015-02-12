@@ -72,9 +72,9 @@ select {
 				if(this.selectedIndex == 0)					//개인정보 수정
 					window.location.href = "<%=request.getContextPath()%>/mypage_employer";
 				else if(this.selectedIndex == 1)			//비밀번호 변경
-					window.location.href = "<%=request.getContextPath()%>/modifyPass";
+					window.location.href = "<%=request.getContextPath()%>/modifyEmployerPass";
 				else if(this.selectedIndex == 2)			//회원탈퇴
-					alert("회원탈퇴 아직 없음");
+					window.location.href = "<%=request.getContextPath()%>/leaveEmployerAruba";
 				else if(this.selectedIndex == 3)			//회사관리
 					window.location.href = "<%=request.getContextPath()%>/myCompany";
 				else if(this.selectedIndex == 4)			//급여관리
@@ -93,9 +93,7 @@ select {
 </head>
 <body id="page5">
 
-	<!--==============================header=================================-->
-
-	<header>
+<header>
 		<div class="headergridbg">
 
 			<div class="main zerogrid">
@@ -106,11 +104,10 @@ select {
 					</h1>
 					<nav>
 						<ul class="menu">
-							<li><a class="active"
-								href="<%=request.getContextPath()%>/index">Home</a></li>
+							<li><a href="<%=request.getContextPath()%>/index">Home</a></li>
 
 							<c:url value="/mypage_employer" var="url" />
-							<li><a href="${url }">Mypage</a></li>
+							<li><a class="active" href="${url }">Mypage</a></li>
 
 							<c:url value="/logout" var="url" />
 							<li><a href="${url }">Logout</a></li>

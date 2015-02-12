@@ -13,7 +13,7 @@
 		values (#{userId}, #{password}, #{password2}, #{userName}, #{tel}, #{email}, #{birth}, #{grade}, #{question}, #{answer})
 	</insert>
 	
-	<select id = "selectUser" parameterType = "Users" resultType="Users">
+	<select id = "loginUser" parameterType = "Users" resultType="Users">
 		select * from users 
 		where user_id = #{userId} and password = #{password}
 	</select>
@@ -32,12 +32,18 @@
 		answer=#{answer}
 		where user_id= #{userId}
 	</update>
+	
 	<update id = "updatePassUser" parameterType = "Users">
 		update users set 
 		password=#{password},
 		password2=#{password2}
 		where user_id= #{userId}
 	</update>
+	
+	<delete id = "deleteUser" parameterType = "Users">
+		delete from users where user_id =#{userId}
+	</delete>
+	
 	<!-- <mapper namespace="com.andy.mybatis.hr.mapper.RegionMapper"> -->
 	<!-- <insert id = "insertDept" parameterType = "Department">
 		insert into departments(department_id, department_name,manager_id,location_id) 

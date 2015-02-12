@@ -80,72 +80,102 @@ public class UsersController {
 		return "/webProject/login";
 	}
 
-	// /////////////////////////////////////////////////////////////////////////////////////////////////
+	// =============================================================== header(상위메뉴)부분 메뉴
 
 	@RequestMapping(value = "/index")
-	// header join메뉴 눌렀을 때
 	public String indexGo() {
 		return "/main/index";
 	}
 
 	@RequestMapping(value = "/join")
-	// header join메뉴 눌렀을 때
 	public String joinGGo() {
 		return "/join/join";
 	}
 
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	// join페이지에서 가입 성공했을 때
+	public String joinSuccess(@RequestParam String userId,
+			@RequestParam String password, @RequestParam String password2,
+			@RequestParam String userName, @RequestParam String tel,
+			@RequestParam String email, @RequestParam String birth,
+			@RequestParam String grade, @RequestParam String question,
+			@RequestParam String answer, Model model) {
+
+		Users loginUser = new Users();
+		loginUser.setUserId(userId);
+		loginUser.setPassword(password);
+		loginUser.setPassword2(password2);
+		loginUser.setUserName(userName);
+		loginUser.setTel(tel);
+		loginUser.setEmail(email);
+		loginUser.setBirth(birth);
+		loginUser.setGrade(grade);
+		loginUser.setQuestion(question);
+		loginUser.setAnswer(answer);
+
+		service.insertUser(loginUser);
+		model.addAttribute("addUser", loginUser);
+
+		return "/join/welcome";
+	}
+
 	@RequestMapping(value = "/login")
-	// header login메뉴 눌렀을 때
 	public String loginGGo() {
 		return "/login/login";
 	}
 
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String loginSuccess(@RequestParam String userId,
+			@RequestParam String password, Model model) {
+		String viewPath = "";
+		Users loginUser = new Users();
+		loginUser.setUserId(userId);
+		loginUser.setPassword(password);
+
+		loginUser = service.loginUser(loginUser);
+		if(loginUser != null){
+			model.addAttribute("addUser", loginUser);
+			viewPath = "redirect:/index";
+		}else{
+			viewPath = "redirect:/login";
+		}
+		
+		return viewPath;
+	}
+
+	// 로그아웃 수정..중
+	@RequestMapping(value = "/logout")
+	// header logout메뉴 눌렀을 때
+	public String logoutGo(SessionStatus sessionStatus) {
+		/* sessionStatus.setComplete(); */
+		/* session.invalidate(); */
+		sessionStatus.setComplete();
+		/* logger.trace("수업 : " + addUser.userId); */
+		/*
+		 * session = (HttpSession) sessionStatus; session.invalidate();
+		 */
+		return "/main/logout";
+	}
+
 	@RequestMapping(value = "/contact")
-	// header contact메뉴 눌렀을 때
 	public String contactGo() {
 		return "/contact/contact";
 	}
 
-	//-----------------------------------------------사장 마이페이지
-	@RequestMapping(value = "/mypage_employer")
-	// 사장 mypage 메뉴 눌렀을 때 - 개인정보 수정페이지로 
-	public String mypageEmployerGo() {
-		return "/mypage/employer/mypage";
-	}
-	@RequestMapping(value = "/modifyPass")
-	// 사장 mypage 비밀번호변경 메뉴 눌렀을 때
-	public String mypageModifyPassGo() {
-		return "/mypage/modifyPass";
-	}
-	@RequestMapping(value = "/modifyPass", method = RequestMethod.POST)
-	// 사장 mypage 비밀번호변경에서 수정버튼 눌렀을 때
-	public String mypageModifyPassSuccessGo(@RequestParam String userId,
-			@RequestParam String modifyPass1, @RequestParam String modifyPass2, Model model) {
-		
-		Users modifyPassUser = new Users();
-		modifyPassUser.setUserId(userId);
-		modifyPassUser.setPassword(modifyPass1);
-		modifyPassUser.setPassword2(modifyPass2);
-		
-		service.updatePassUser(modifyPassUser);					//비번 업데이트 하고
-		modifyPassUser = service.loginUser(modifyPassUser);		//업데이트한 거로 새로 가져와서
-		model.addAttribute("addUser", modifyPassUser);
-		
-		return "/mypage/modifyPass";
-	}
+	// =============================================================== 사장&알바 공통
 	
 	@RequestMapping(value = "/modifyInfo", method = RequestMethod.POST)
-	// 사장 My Info(개인정보 수정)에서 수정버튼 눌렀을 때 - 비밀번호 일치했을 때만 넘어옴
-	public String mypageModifyInfoGo(@RequestParam String nowPassword,
+	// 개인정보 수정 - 사장,알바 공통
+	public String mypageModifyInfoSuccessGo(@RequestParam String nowPassword,
 			@RequestParam String userName, @RequestParam String tel,
 			@RequestParam String email, @RequestParam String birth,
-			@RequestParam String question,
-			@RequestParam String answer, Model model, HttpSession session) {
-		
+			@RequestParam String question, @RequestParam String answer,
+			Model model, HttpSession session) {
+		String viewPath = "";
 		Users modifyUser = new Users();
-		Users loginUser = (Users)session.getAttribute("addUser");
-		
-		modifyUser.setUserId(loginUser.getUserId());   //아이디만 현재 로그인한 회원으로 가져오기
+		Users loginUser = (Users) session.getAttribute("addUser");
+
+		modifyUser.setUserId(loginUser.getUserId()); // 아이디만 현재 로그인한 회원으로 가져오기
 		modifyUser.setUserName(userName);
 		modifyUser.setPassword(nowPassword);
 		modifyUser.setTel(tel);
@@ -153,14 +183,77 @@ public class UsersController {
 		modifyUser.setBirth(birth);
 		modifyUser.setQuestion(question);
 		modifyUser.setAnswer(answer);
-		
-		service.updateUser(modifyUser);					//디비 수정!!
-		
-		modifyUser = service.loginUser(modifyUser);		//수정한 애로 로그인시켜서 
-		model.addAttribute("addUser", modifyUser);		//addUser도 수정된 애로 바꾸고 
 
+		service.updateUser(modifyUser); // 디비 수정!!
+
+		modifyUser = service.loginUser(modifyUser); // 수정한 애로 로그인시켜서
+		model.addAttribute("addUser", modifyUser); // addUser도 수정된 애로 바꾸고
+
+		if ((modifyUser.getGrade()).equals("사장")) {
+			viewPath = "redirect:/mypage_employer";
+		} else {
+			viewPath = "redirect:/mypage_employee";
+		}
+
+		return viewPath; // 수정완료하면 다시 My Info로 가기
+	}
+	@RequestMapping(value = "/modifyPass", method = RequestMethod.POST)
+	// 비밀번호 수정 - 사장,알바 공통
+	public String mypageModifyPassSuccessGo(@RequestParam String userId,
+			@RequestParam String modifyPass1, @RequestParam String modifyPass2,
+			Model model) {
+		String viewPath = "";
+		Users modifyPassUser = new Users();
+		modifyPassUser.setUserId(userId);
+		modifyPassUser.setPassword(modifyPass1);
+		modifyPassUser.setPassword2(modifyPass2);
+
+		service.updatePassUser(modifyPassUser); // 비번 업데이트 하고
+		modifyPassUser = service.loginUser(modifyPassUser); // 업데이트한 거로 새로 가져와서
+		model.addAttribute("addUser", modifyPassUser);
 		
-		return "redirect:/mypage_employer";				//수정완료하면 다시 My Info로 가기 
+		if ((modifyPassUser.getGrade()).equals("사장")) {
+			viewPath = "redirect:/modifyEmployerPass";
+		} else {
+			viewPath = "redirect:/modifyEmployeePass";
+		}
+		
+		return viewPath;
+	}
+	@RequestMapping(value = "/leaveAruba", method = RequestMethod.POST)
+	// 회원탈퇴 - 사장,알바 공통
+	public String mypageLeaveArubaSuccessGo(@RequestParam String nowPassword,
+			Model model, HttpSession session) {
+		String viewPath = "";
+		Users leaveUser = new Users();
+		Users loginUser = (Users) session.getAttribute("addUser");
+
+		leaveUser.setUserId(loginUser.getUserId());  // 아이디만 현재 로그인한 회원으로 가져오기
+		leaveUser.setPassword(nowPassword);
+		
+		service.deleteUser(leaveUser);
+
+		return "/main/index";
+	}
+	
+	// =============================================================== 사장 마이페이지
+	
+	@RequestMapping(value = "/mypage_employer")
+	// 사장 mypage 메뉴 눌렀을 때 - 개인정보 수정페이지로
+	public String mypageEmployerGo() {
+		return "/mypage/employer/mypage";
+	}
+
+	@RequestMapping(value = "/modifyEmployerPass")
+	// 사장 mypage 비밀번호변경 메뉴 눌렀을 때
+	public String mypageModifyEmployerPassGo() {
+		return "/mypage/employer/modifyPass";
+	}
+	
+	@RequestMapping(value = "/leaveEmployerAruba")
+	// 사장 mypage 회원탈퇴 메뉴 눌렀을 때
+	public String mypageLeaveEmployerArubaGo() {
+		return "/mypage/employer/leaveAruba";
 	}
 
 	@RequestMapping(value = "/myCompany")
@@ -202,23 +295,35 @@ public class UsersController {
 		return "/mypage/employer/alerts";
 	}
 
-	//-----------------------------------------------알바 마이페이지
+	// =============================================================== 알바 마이페이지
 	@RequestMapping(value = "/mypage_employee")
 	// 알바 mypage 메뉴 눌렀을 때
 	public String mypageEmployeeGo() {
 		return "/mypage/employee/mypage";
 	}
-
-	/*@RequestMapping(value = "/myJob")
-	// 알바 mypage 메뉴에서 직업관리
-	public String mypageMyJobGo() {
-		return "/mypage/employee/myJob";
-	}*/
 	
+	@RequestMapping(value = "/modifyEmployeePass")
+	// 알바 mypage 비밀번호변경 메뉴 눌렀을 때
+	public String mypageModifyEmployeePassGo() {
+		return "/mypage/employee/modifyPass";
+	}
+	
+	@RequestMapping(value = "/leaveEmployeeAruba")
+	// 사장 mypage 회원탈퇴 메뉴 눌렀을 때
+	public String mypageLeaveEmployeeArubaGo() {
+		return "/mypage/employee/leaveAruba";
+	}
+	
+	/*
+	 * @RequestMapping(value = "/myJob") // 알바 mypage 메뉴에서 직업관리 public String
+	 * mypageMyJobGo() { return "/mypage/employee/myJob"; }
+	 */
+
 	@RequestMapping(value = "/myJob")
 	// 알바 mypage 메뉴에서 직업관리
 	public String mypageMyJobGo(Model model, HttpSession session) {
-		Users alba = (Users) session.getAttribute("addUser");		//로그인하고 있는 알바생 정보 가져오고 
+		Users alba = (Users) session.getAttribute("addUser"); // 로그인하고 있는 알바생 정보
+																// 가져오고
 		CompanyPerson companyCode = null;
 		String viewPath = "";
 
@@ -226,7 +331,7 @@ public class UsersController {
 
 		if (companyCode == null) {
 			// 등록된 직장이 없는 것
-			/*model.addAttribute("addCmp", new Company());*/
+			/* model.addAttribute("addCmp", new Company()); */
 			viewPath = "/mypage/employee/registerJob";
 		} else {
 			// 이미 직장 등록되 있음
@@ -234,7 +339,7 @@ public class UsersController {
 		}
 
 		return viewPath;
-		//return "/mypage/employee/registerJob";
+		// return "/mypage/employee/registerJob";
 	}
 
 	@RequestMapping(value = "/salary")
@@ -249,98 +354,47 @@ public class UsersController {
 		return "/mypage/employee/alerts";
 	}
 
-	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	// join페이지에서 가입 성공했을 때
-	public String joinSuccess(@RequestParam String userId,
-			@RequestParam String password, @RequestParam String password2,
-			@RequestParam String userName, @RequestParam String tel,
-			@RequestParam String email, @RequestParam String birth,
-			@RequestParam String grade, @RequestParam String question,
-			@RequestParam String answer, Model model) {
+	// =============================================================== 시간표
 
-		Users loginUser = new Users();
-		loginUser.setUserId(userId);
-		loginUser.setPassword(password);
-		loginUser.setPassword2(password2);
-		loginUser.setUserName(userName);
-		loginUser.setTel(tel);
-		loginUser.setEmail(email);
-		loginUser.setBirth(birth);
-		loginUser.setGrade(grade);
-		loginUser.setQuestion(question);
-		loginUser.setAnswer(answer);
-
-		service.insertUser(loginUser);
-		model.addAttribute("addUser", loginUser);
-
-		return "/join/welcome";
-	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	// login성공하면 메인화면으로
-	public String loginSuccess(@RequestParam String userId,
-			@RequestParam String password, Model model) {
-		Users loginUser = new Users();
-		loginUser.setUserId(userId);
-		loginUser.setPassword(password);
-		logger.trace("수업 : " + loginUser);
-		// logger.trace("수업 : " + loginUser);
-		loginUser = service.loginUser(loginUser);
-		model.addAttribute("addUser", loginUser);
-		return "/main/index";
-	}
-
-	// 로그아웃 수정..중
-	@RequestMapping(value = "/logout")
-	// header logout메뉴 눌렀을 때
-	public String logoutGo(SessionStatus sessionStatus) {
-		/* sessionStatus.setComplete(); */
-		/* session.invalidate(); */
-		sessionStatus.setComplete();
-		/* logger.trace("수업 : " + addUser.userId); */
-		/*
-		 * session = (HttpSession) sessionStatus; session.invalidate();
-		 */
-		return "/main/logout";
-	}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-	//////////////사장 시간표 메뉴 
+	// ////////////사장 시간표 메뉴
 	@RequestMapping(value = "/registerSchedule")
-	public String registerScheduleGo() {									//시간표 - 시간표 등록
+	public String registerScheduleGo() { // 시간표 - 시간표 등록
 		return "/schedule/employer/registerSchedule";
 	}
+
 	@RequestMapping(value = "/modifySchedule")
-	public String modifyScheduleGo() {										//시간표 - 시간표 수정
+	public String modifyScheduleGo() { // 시간표 - 시간표 수정
 		return "/schedule/employer/modifySchedule";
 	}
+
 	@RequestMapping(value = "/allSchedule")
-	public String allScheduleGo() {											//시간표 - 전체시간표 조회로 이동
+	public String allScheduleGo() { // 시간표 - 전체시간표 조회로 이동
 		return "/schedule/employer/allSchedule";
 	}
-	
-	//////////////알바 시간표 메뉴 
+
+	// ////////////알바 시간표 메뉴
 	@RequestMapping(value = "/mySchedule")
-	public String myScheduleGo() {											//시간표 - 내시간표 조회(직장별)
+	public String myScheduleGo() { // 시간표 - 내시간표 조회(직장별)
 		return "/schedule/employee/mySchedule";
 	}
-	
-///////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
+	// =============================================================== 게시판
+
 	@RequestMapping(value = "/notice")
-	public String noticeBoardGo() {											//공지게시판
+	public String noticeBoardGo() { // 공지게시판
 		return "/board/noticeBoard";
 	}
+
 	@RequestMapping(value = "/free")
-	public String freeBoardGo() {											//자유게시판
+	public String freeBoardGo() { // 자유게시판
 		return "/board/freeBoard";
 	}
+
 	@RequestMapping(value = "/qna")
-	public String qnaBoardGo() {											//Q&A게시판
+	public String qnaBoardGo() { // Q&A게시판
 		return "/board/qnaBoard";
 	}
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

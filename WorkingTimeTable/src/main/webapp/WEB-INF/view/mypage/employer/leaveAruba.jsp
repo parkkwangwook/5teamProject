@@ -24,6 +24,9 @@ select {
 </style>
 <meta charset="utf-8">
 <title>Welcome</title>
+<!--------------------- Validate --------------------->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="lib/jquery.validate.min.js"></script>
 
 <!--------------------- Homepage --------------------->
 
@@ -40,7 +43,7 @@ select {
 	href="<%=request.getContextPath()%>/css/responsive.css" type="text/css"
 	media="all">
 
-<script src="js/jquery-1.6.3.min.js" type="text/javascript"></script>
+<!-- <script src="js/jquery-1.6.3.min.js" type="text/javascript"></script> -->
 <script src="js/cufon-yui.js" type="text/javascript"></script>
 <script src="js/cufon-replace.js" type="text/javascript"></script>
 <script src="js/Kozuka_Gothic_Pro_OpenType_300.font.js"
@@ -61,10 +64,11 @@ select {
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<!-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
 <script>
+
 	$(function() {
 		$("#MypageMenu").selectmenu({
 			change: function(event, ui){
@@ -83,15 +87,55 @@ select {
 					window.location.href = "<%=request.getContextPath()%>/staff";	
 				else if(this.selectedIndex == 6)			//쪽지
 					window.location.href = "<%=request.getContextPath()%>/alerts_employer";
-				
+
+							}
+						});
+	});
+
+	//////////////////////////////////////////////////////////////////////
+
+		$(document).ready(function() {
+
+
+		$("#passForm").validate({
+			//validation이 끝난 이후의 submit 직전 추가 작업할 부분
+			/* submitHandler : function() {
+				var f = confirm("글을 등록하시겠습니까?");
+				if (f) {
+					return true;
+				} else {
+					return false;
+				}
+			}, */
+			//규칙
+			rules : {
+				nowPassword : {
+					required : true,
+					minlength : 3,
+					equalTo : "#password"
+				}
+			},
+			//규칙체크 실패시 출력될 메시지
+			messages : {
+				nowPassword : {
+					required : "필수 입력사항 입니다.",
+					minlength :"최소 {0}글자이상이어야 합니다",
+					equalTo : "기존 비밀번호와 불일치합니다."
+				}
 			}
 		});
+
+		var passForm = $("#passForm");
+		for ( var item in passForm) {
+			console.log(item + " : " + passForm[item]);
+		}
 	});
-	
-</script> 
+</script>
 
 </head>
 <body id="page5">
+
+	<!--==============================header=================================-->
 
 	<header>
 		<div class="headergridbg">
@@ -104,10 +148,11 @@ select {
 					</h1>
 					<nav>
 						<ul class="menu">
-							<li><a href="<%=request.getContextPath()%>/index">Home</a></li>
+							<li><a class="active"
+								href="<%=request.getContextPath()%>/index">Home</a></li>
 
 							<c:url value="/mypage_employer" var="url" />
-							<li><a class="active" href="${url }">Mypage</a></li>
+							<li><a href="${url }">Mypage</a></li>
 
 							<c:url value="/logout" var="url" />
 							<li><a href="${url }">Logout</a></li>
@@ -128,31 +173,31 @@ select {
 	<div class="slider-wrapper">
 		<article class="col-full">
 			<img src="images/logintitlebg.png">
-			
-			<fieldset>
-					<ul class="lowermenu">
 
-						<li><select name="MypageMenu" id="MypageMenu">
-								<optgroup label="My Info">
-									<option value="info">personal info</option>
-									<option value="password">change password</option>
-									<option value="leave">leave Aruba</option>
-								</optgroup>
-								<optgroup label="Store">
-									<option value="store" selected="selected">my store</option>
-								</optgroup>
-								<optgroup label="Wage">
-									<option value="wage">employee's salary</option>
-								</optgroup>
-								<optgroup label="Staff">
-									<option value="staff">management of staff</option>
-								</optgroup>
-								<optgroup label="Message">
-									<option value="message">check message</option>
-								</optgroup>
-						</select></li>
-					</ul>
-				</fieldset>
+			<fieldset>
+				<ul class="lowermenu">
+
+					<li><select name="MypageMenu" id="MypageMenu">
+							<optgroup label="My Info">
+								<option value="info">personal info</option>
+								<option value="password" selected="selected">change password</option>
+								<option value="leave">leave Aruba</option>
+							</optgroup>
+							<optgroup label="Store">
+								<option value="store">my store</option>
+							</optgroup>
+							<optgroup label="Wage">
+								<option value="wage">employee's salary</option>
+							</optgroup>
+							<optgroup label="Staff">
+								<option value="staff">management of staff</option>
+							</optgroup>
+							<optgroup label="Message">
+								<option value="message">check message</option>
+							</optgroup>
+					</select></li>
+				</ul>
+			</fieldset>
 		</article>
 	</div>
 
@@ -161,31 +206,27 @@ select {
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			<h2>사장 COMPANY등록</h2><br>
-			<c:url value="/mypage_myCompany" var="action"></c:url>
-			<form:form modelAttribute="addCmp" method="post" action="${action}">
+			<c:url value="/leaveAruba" var="action" />
+			<form:form modelAttribute="addUser" mehtod="post" action="${action }" id="passForm">
 				<table>
 					<tr>
-						<td><label>회사명</label></td>
-						<td><form:input path="companyName" /></td>
+						<td><label>ID</label></td>
+						<td><form:hidden path="userId" /></td>
 					</tr>
 					<tr>
-						<td><label>회사전화번호</label></td>
-						<td><form:input path="companyTel" /></td>
+						<td><label>PASS</label></td>
+						<%-- <td><form:hidden path="password" id="password" name="password"/></td> --%>
+						
+						<td><form:input path="password" id="password" name="password" /></td>
 					</tr>
 					<tr>
-						<td><label>주말수당</label></td>
-						<td><form:input path="holidayComm" /></td>
+						<td><label>현재 비밀번호</label></td>
+						<td><input type="text" id="nowPassword" name="nowPassword" /></td>
 					</tr>
-					<tr>
-						<td><label>야간수당</label></td>
-						<td><form:input path="nightComm" /></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><button type="submit" name="proceed">다음</button></td>
-					</tr>
+
 				</table>
+				<input type="submit" value="수정" />
+
 			</form:form>
 		</div>
 	</div>

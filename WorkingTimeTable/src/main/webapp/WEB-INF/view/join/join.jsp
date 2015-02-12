@@ -10,9 +10,18 @@
 <html>
 <head>
 <style>
-#chk {
-	color: red;
-}
+
+
+
+	#user_grade label.error {
+		display: none;
+		margin-left: 103px;
+	}
+	textarea{
+		width: 400px;
+		align: left;
+	}
+
 
 label.error {
 	/* remove the next line when you have trouble in IE6 with labels in list */
@@ -93,21 +102,25 @@ label.error {
 				},
 				password : {
 					required : true,
-					minlength : 5,
+					minlength : 3,
 					maxlength : 20
 				},
 				password2 : {
 					required : true,
-					minlength : 5,
+					minlength : 3,
 					maxlength : 20,
-					equalTo: "#password"
+					equalTo : "#password"
 				},
 				userName : {
 					required : true,
 					minlength : 2,
 					maxlength : 10
 				},
-
+				tel : {
+					minlength: 10, 
+					maxlength: 12, 
+					digits : true 
+				},
 				email : {
 					required : true,
 					minlength : 2,
@@ -119,19 +132,14 @@ label.error {
 					minlength : 9,
 					maxlength : 10
 				},
-				grade : {
-					required : true,
-					minlength : 2,
-					maxlength : 10
-				},
 				question : {
 					required : true,
-					minlength : 6, 
+					minlength : 6,
 					maxlength : 50
 				},
 				answer : {
 					required : true,
-					minlength : 2, 
+					minlength : 2,
 					maxlength : 20
 				}
 			},
@@ -151,14 +159,18 @@ label.error {
 					required : "필수 입력사항 입니다.",
 					minlength : "최소 {0}글자이상이어야 합니다",
 					maxlength : "최대 {0}글자이하이어야 합니다",
-					equalTo: "비밀번호가 불일치합니다"
+					equalTo : "비밀번호가 불일치합니다"
 				},
 				userName : {
 					required : "필수 입력사항 입니다.",
 					minlength : "최소 {0}글자이상이어야 합니다",
 					maxlength : "최대 {0}글자이하이어야 합니다"
 				},
-				
+				tel : {
+					minlength: "휴대전화 번호는 10자 이상이어야 합니다.", 
+					maxlength: "휴대전화 번호는 12자 미만이어야 합니다.", 
+					digits : "휴대전화 번호는 숫자만 입력해주세요."
+				},
 				email : {
 					required : "필수 입력사항 입니다.",
 					minlength : "최소 {0}글자이상이어야 합니다",
@@ -171,11 +183,9 @@ label.error {
 					maxlength : "최대 {0}글자이하이어야 합니다",
 					date : "생년월일 기재 규칙에 어긋납니다."
 				},
-				grade : {
+				 grade : {
 					required : "필수 입력사항 입니다.",
-					minlength : "최소 {0}글자이상이어야 합니다",
-					maxlength : "최대 {0}글자이하이어야 합니다"
-				},
+				}, 
 				question : {
 					required : "필수 입력사항 입니다.",
 					minlength : "최소 {0}글자이상이어야 합니다",
@@ -221,7 +231,7 @@ label.error {
 							<c:url value="/join" var="url"></c:url>
 							<li><a href="${url }">Join</a></li>
 
-							<li><a href="contactus.jsp">Contact us</a></li>
+							<li><a href="<%=request.getContextPath()%>/contact">Contact</a></li>
 						</ul>
 					</nav>
 					<div class="clear"></div>
@@ -244,127 +254,84 @@ label.error {
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-		<%-- 	<c:url value="/join" var="url" />
-			<form method="post" action="${url }">
-				<table>
-					<tr>
-						<td><label>ID</label></td>
-						<td><input type="text" id="userId" name="userId" /></td>
-					</tr>
-					<tr>
-						<td><label>PASSWORD</label></td>
-						<td><input type="password" id="password" name="password" /></td>
-					</tr>
-					<tr>
-						<td><label>PASSWORD 확인</label></td>
-						<td><input type="password" id="password2" name="password2"
-							onblur="passchk()" /></td>
-						<td><input type="text" id="chk" style="border-width: 0px"
-							size="20" name="chk" value=" 비밀번호를 입력하세요." readonly="readonly"></td>
-					</tr>
-					<tr>
-						<td><label>이름</label></td>
-						<td><input type="text" id="userName" name="userName" /></td>
-					</tr>
-					<tr>
-						<td><label>TEL</label></td>
-						<td><input type="tel" id="tel" name="tel" /></td>
-					</tr>
-					<tr>
-						<td><label>EMAIL</label></td>
-						<td><input type="email" id="email" name="email" /></td>
-					</tr>
-					<tr>
-						<td><label>BIRTH</label></td>
-						<td><input type="text" id="datepicker" name="birth" /></td>
-					</tr>
-					<tr>
-						<td><label>GRADE</label></td>
-						<td><input type="text" id="grade" name="grade" /></td>
-					</tr>
-					<tr>
-						<td><label>Question</label></td>
-						<td><input type="text" id="question" name="question" /></td>
-					</tr>
-					<tr>
-						<td><label>Answer</label></td>
-						<td><input type="text" id="answer" name="answer" /></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td><button type="submit" name="proceed">다음</button></td>
-					</tr>
-				</table>
-			</form>
- --%>
- 
+
 			<div class="row">
 				<article class="col-full">
-					
-					회원가입<br><br><br>
-			<c:url value="/join" var="url" />
-			<form id="joinForm" action="${url }" method="post">
-				<table class="table" style="border-collapse: seperate;">
-					<colgroup>
-						<col style="align: center;" />
-					</colgroup>
-					<tbody>
-						<tr>
-							<th><label>아이디</label></th>
-							<td><input type="text" name="userId" id="userId" value="" /><button type="submit" name="idDup">중복확인</button></td>
-						</tr>
-						<tr>
-							<th><label>비밀번호</label></th>
-							<td><input type="password" name="password" id="password"
-								value="" /></td>
-						</tr>
-						<tr>
-							<th><label>비밀번호 확인</label></th>
-							<td><input type="password" name="password2" id="password2"
-								value="" /></td>
-						</tr>
-						<tr>
-							<th><label>이름</label></th>
-							<td><input type="text" name="userName" id="userName"
-								value="" /></td>
-						</tr>
-						<tr>
-							<th><label>H.P</label></th>
-							<td><input type="text" name="tel" id="tel" value="" /></td>
-						</tr>
-						<tr>
-							<th><label>이메일</label></th>
-							<td><input type="text" name="email" id="email" value="" /></td>
-						</tr>
-						<tr>
-							<th><label>생년월일</label></th>
-							<td><input type="text" id="datepicker" name="birth" /></td>
-						</tr>
-						<tr>
-							<th><label>가입유형</label></th>
-							<td><input type="text" name="grade" id="grade" value="" /></td>
-						</tr>
-						<tr>
-							<th><label for="question">비번찾기질문</label></th>
-							<td><input id="question" name="question" type="text" size="50"></td>
-						</tr>
-						<tr>
-							<th><label for="answer">답</label></th>
-							<td><input id="answer" name="answer" type="text"></td>
-						</tr>
 
-					</tbody>
-				</table>
-				<div align="center" style="margin-bottom: 50px; margin-top: 30px;">
-					<button type="submit">등록</button>
-					<button type="reset" id="cancel" >취소</button>
-				</div>
-			</form>
-					
-					
+					회원가입<br>
+					<br>
+					<br>
+					<c:url value="/join" var="url" />
+					<form id="joinForm" action="${url }" method="post">
+						<table class="table" style="border-collapse: seperate;">
+							<colgroup>
+								<col style="align: center;" />
+							</colgroup>
+							<tbody>
+								<tr>
+									<th><label>아이디</label></th>
+									<td><input type="text" name="userId" id="userId" value="" />
+									<button type="submit" name="idDup">중복확인</button></td>
+								</tr>
+								<tr>
+									<th><label>비밀번호</label></th>
+									<td><input type="password" name="password" id="password"
+										value="" /></td>
+								</tr>
+								<tr>
+									<th><label>비밀번호 확인</label></th>
+									<td><input type="password" name="password2" id="password2"
+										value="" /></td>
+								</tr>
+								<tr>
+									<th><label>이름</label></th>
+									<td><input type="text" name="userName" id="userName"
+										value="" /></td>
+								</tr>
+								<tr>
+									<th><label>H.P</label></th>
+									<td><input type="text" name="tel" id="tel" value="" /></td>
+								</tr>
+								<tr>
+									<th><label>이메일</label></th>
+									<td><input type="text" name="email" id="email" value="" /></td>
+								</tr>
+								<tr>
+									<th><label>생년월일</label></th>
+									<td><input type="text" id="datepicker" name="birth" /></td>
+								</tr>
+								<tr>
+								<!-- <fieldset id = "user_grade"> -->
+									<th><label>가입유형</label></th>
+								
+									<td><input type="radio" id="grade_employer" value="사장" name="grade" required>고용인
+										<input type="radio" id="grade_employer" value="알바" name="grade">아르바이트
+										<label for="grade" class="error"></label>
+									</td>
+								<!-- </fieldset> -->
+								</tr>
+								<tr>
+									<th><label for="question">비번찾기질문</label></th>
+									<td><input id="question" name="question" type="text"
+										size="50"></td>
+								</tr>
+								<tr>
+									<th><label for="answer">답</label></th>
+									<td><input id="answer" name="answer" type="text"></td>
+								</tr>
+
+							</tbody>
+						</table>
+						<div align="center" style="margin-bottom: 50px; margin-top: 30px;">
+							<button type="submit">등록</button>
+							<button type="reset" id="cancel">취소</button>
+						</div>
+					</form>
+
+
 				</article>
-		
+
+			</div>
 		</div>
 	</div>
 

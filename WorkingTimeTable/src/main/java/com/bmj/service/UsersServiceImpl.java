@@ -34,8 +34,8 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public Users loginUser(Users user) {
-		Users result = dao.selectUser(user);
-		logger.trace("DB에서 select!! 해온 결과!!" + result.toString());
+		Users result = dao.loginUser(user);
+		logger.trace("DB에서 login!! 해온 결과!!" + result.toString());
 		return result;
 	}
 
@@ -54,6 +54,12 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public int updatePassUser(Users user) {
 		int result = dao.updatePassUser(user);
+		return result;
+	}
+
+	@Override
+	public int deleteUser(Users user) {
+		int result = dao.deleteUser(user);
 		return result;
 	}
 

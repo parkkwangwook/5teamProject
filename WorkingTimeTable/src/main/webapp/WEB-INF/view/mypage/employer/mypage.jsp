@@ -83,9 +83,9 @@ select {
 				if(this.selectedIndex == 0)					//개인정보 수정
 					window.location.href = "<%=request.getContextPath()%>/mypage_employer";
 				else if(this.selectedIndex == 1)			//비밀번호 변경
-					window.location.href = "<%=request.getContextPath()%>/modifyPass";
+					window.location.href = "<%=request.getContextPath()%>/modifyEmployerPass";
 				else if(this.selectedIndex == 2)			//회원탈퇴
-					alert("회원탈퇴 아직 없음");
+					window.location.href = "<%=request.getContextPath()%>/leaveEmployerAruba";
 				else if(this.selectedIndex == 3)			//회사관리
 					window.location.href = "<%=request.getContextPath()%>/myCompany";
 				else if(this.selectedIndex == 4)			//급여관리
@@ -123,7 +123,7 @@ select {
 			rules : {
 				nowPassword : {
 					required : true,
-					minlength : 5,
+					minlength : 3,
 					maxlength : 20,
 					equalTo : "#password"
 				},
@@ -229,11 +229,10 @@ select {
 					</h1>
 					<nav>
 						<ul class="menu">
-							<li><a class="active"
-								href="<%=request.getContextPath()%>/index">Home</a></li>
+							<li><a href="<%=request.getContextPath()%>/index">Home</a></li>
 
 							<c:url value="/mypage_employer" var="url" />
-							<li><a href="${url }">Mypage</a></li>
+							<li><a class="active" href="${url }">Mypage</a></li>
 
 							<c:url value="/logout" var="url" />
 							<li><a href="${url }">Logout</a></li>
@@ -290,14 +289,6 @@ select {
 			<c:url value="/modifyInfo" var="action" />
 			<form:form modelAttribute="addUser" mehtod="post" action="${action }" id="modifyForm">
 			<table>
-			<%-- <tr>
-				<td><label>ID</label></td>
-				<td><form:input path="userId" /></td>
-			</tr>
-			<tr>
-				<td><label>PASSWORD</label></td>
-				<td><form:input path="password" /></td>
-			</tr> --%>
 			<tr>
 				<td><label>ID</label></td>
 				<td><form:hidden path="userId" name="userId" id="userId"/></td>
@@ -325,11 +316,7 @@ select {
 			<tr>
 				<td><label>BIRTH</label></td>
 				<td> <form:input path="birth" id="datepicker" name="birth"/></td>
-			</tr>
-			<tr>
-				<td><label>GRADE</label></td>
-				<td><form:input path="grade" id="grade" name="grade"/></td>
-			</tr>			
+			</tr>		
 			<tr>
 				<td><label>Q</label></td>
 				<td><form:input path="question" id="question" name="question"/></td>

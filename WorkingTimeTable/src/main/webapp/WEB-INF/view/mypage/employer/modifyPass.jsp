@@ -76,9 +76,9 @@ select {
 				if(this.selectedIndex == 0)					//개인정보 수정
 					window.location.href = "<%=request.getContextPath()%>/mypage_employer";
 				else if(this.selectedIndex == 1)			//비밀번호 변경
-					alert("비밀번호 변경 아직 없음")
+					window.location.href = "<%=request.getContextPath()%>/modifyEmployerPass";
 				else if(this.selectedIndex == 2)			//회원탈퇴
-					alert("회원탈퇴 아직 없음");
+					window.location.href = "<%=request.getContextPath()%>/leaveEmployerAruba";
 				else if(this.selectedIndex == 3)			//회사관리
 					window.location.href = "<%=request.getContextPath()%>/myCompany";
 				else if(this.selectedIndex == 4)			//급여관리
@@ -111,17 +111,17 @@ select {
 			rules : {
 				nowPassword : {
 					required : true,
-					minlength : 2,
+					minlength : 3,
 					equalTo : "#password"
 				},
 				modifyPass1 : {
 					required : true,
-					minlength : 5,
+					minlength : 3,
 					maxlength : 20
 				},
 				modifyPass2: {
 					required : true,
-					minlength : 5,
+					minlength : 3,
 					maxlength : 20,
 					equalTo: "#modifyPass1"
 				}

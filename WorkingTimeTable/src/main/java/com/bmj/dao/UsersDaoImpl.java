@@ -31,10 +31,15 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public Users selectUser(Users user) {
+	public Users loginUser(Users user) {
 		logger.trace("로그인하기위해 DB에서 select!! 하러옴");
-		String stmt= namespace + "selectUser";
-		return sqlSession.selectOne(stmt, user);
+		String stmt= namespace + "loginUser";
+		Users result = sqlSession.selectOne(stmt, user);
+		if( sqlSession.selectOne(stmt, user) == null){
+			logger.trace("일치하는 사용자가 없음!!!");
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -52,6 +57,12 @@ public class UsersDaoImpl implements UsersDao {
 	@Override
 	public int updatePassUser(Users user) {
 		String stmt = namespace + "updatePassUser";
+		return sqlSession.update(stmt, user);
+	}
+
+	@Override
+	public int deleteUser(Users user) {
+		String stmt = namespace + "deleteUser";
 		return sqlSession.update(stmt, user);
 	}
 

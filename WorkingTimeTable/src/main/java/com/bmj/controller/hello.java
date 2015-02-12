@@ -48,6 +48,24 @@ public class hello {
 		return "calendar/registerTest";
 	}
 	
+	@RequestMapping(value="/viewCalendar")
+	public String viewCalendar() {
+		// 작성하기 위한 CompanyCode..
+		// 작성하기 위한 Id들...회사원들....
+		// 날짜와 시작 시간 및 종료 시간....
+		
+		
+		
+		
+		
+		return "calendar/viewCalendar";
+	}
+	
+	
+	
+	
+	
+	
 	//@RequestMapping(value="/addTimeTable", method = RequestMethod.GET)
 	public String saveExternal(@RequestParam String list, HttpSession session) {
 		logger.trace("수업 : " + list);

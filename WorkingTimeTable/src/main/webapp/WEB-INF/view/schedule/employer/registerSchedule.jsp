@@ -148,7 +148,7 @@ $(function() {
 				} */
 				id = event._id;
 				title = event.title;
-				start = event.start.toString();
+				start = event.start.format('YYYY-MM-DD HH:mm:ss');
 				console.log("Drop_id : " + id);
 				console.log('Drop_title : ', title);
 				console.log('Drop_start : ', start);
@@ -157,10 +157,10 @@ $(function() {
 				if (event.end == null) {
 					event.end = event.start.clone();
 					event.end.set("hours", event.end.get("hours")+1);
-					end = event.end.toString();
+					end = event.end.format('YYYY-MM-DD HH:mm:ss');
 					console.log('Drop_end : ', end);
 				} else {
-					end = event.end.toString();
+					end = event.end.format('YYYY-MM-DD HH:mm:ss');
 					console.log('Drop_end : ', end);
 				}
 				for(var i in result) {
@@ -179,8 +179,8 @@ $(function() {
 			eventDragStop : function(event, ui) {},
 			eventResize : function(event, delta, revertFunc) {
 				title = event.title;
-				start = event.start.toString();
-				end = event.end.toString();
+				start = event.start.format('YYYY-MM-DD HH:mm:ss');
+				end = event.end.format('YYYY-MM-DD HH:mm:ss');
 				id = event._id;
 				
 				/* ArrayList<timetable> list;
@@ -218,7 +218,6 @@ $(function() {
 			var url = "${addTimeTable}?list=" + objstr;
 			location.href = url;
 		})
-		
 		
 	});
 

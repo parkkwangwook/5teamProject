@@ -91,8 +91,8 @@ CREATE TABLE time_table
 	company_code number NOT NULL,
 	member_id number NOT NULL,
 	working_date date NOT NULL,
-	working_start varchar2(30) NOT NULL,
-	working_end varchar2(30) NOT NULL,
+	working_start varchar2(100) NOT NULL,
+	working_end varchar2(100) NOT NULL,
 	PRIMARY KEY (time_key)
 );
 

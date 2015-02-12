@@ -159,11 +159,11 @@ $(function() {
 					event.end = event.start.clone();
 					event.end.set("hours", event.end.get("hours")+1);
 					/* end = event.end.toString(); */
-					end = event.end.format('YYYY-MM-DD HH:mm:ss');;
+					end = event.end.format('YYYY-MM-DD HH:mm:ss');
 					console.log('Drop_end : ', end);
 				} else {
 					/* end = event.end.toString(); */
-					end = event.end.format('YYYY-MM-DD HH:mm:ss');;
+					end = event.end.format('YYYY-MM-DD HH:mm:ss');
 					console.log('Drop_end : ', end);
 				}
 				for(var i in result) {
@@ -184,8 +184,8 @@ $(function() {
 				title = event.title;
 				/* start = event.start.toString();
 				end = event.end.toString(); */
-				start = event.start.format('YYYY-MM-DD HH:mm:ss');;
-				end = event.end.format('YYYY-MM-DD HH:mm:ss');;
+				start = event.start.format('YYYY-MM-DD HH:mm:ss');
+				end = event.end.format('YYYY-MM-DD HH:mm:ss');
 				id = event._id;
 				
 				/* ArrayList<timetable> list;

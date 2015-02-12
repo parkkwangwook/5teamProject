@@ -11,11 +11,21 @@
 <head>
 <style>
 #chk {
-	color:red;
+	color: red;
+}
+
+label.error {
+	/* remove the next line when you have trouble in IE6 with labels in list */
+	color: red;
+	/* font-style: italic */
 }
 </style>
 <meta charset="utf-8">
 <title>Welcome</title>
+
+<!--------------------- Validate --------------------->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="lib/jquery.validate.min.js"></script>
 
 <!--------------------- Homepage --------------------->
 
@@ -32,7 +42,7 @@
 	href="<%=request.getContextPath()%>/css/responsive.css" type="text/css"
 	media="all">
 
-<script src="js/jquery-1.6.3.min.js" type="text/javascript"></script>
+<!-- <script src="js/jquery-1.6.3.min.js" type="text/javascript"></script> -->
 <script src="js/cufon-yui.js" type="text/javascript"></script>
 <script src="js/cufon-replace.js" type="text/javascript"></script>
 <script src="js/Kozuka_Gothic_Pro_OpenType_300.font.js"
@@ -51,39 +61,139 @@
 
 <!--------------------- DatePicker --------------------->
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
 <script>
-	 $(function() {
-		    $( "#datepicker" ).datepicker({
-		      changeMonth: true,
-		      changeYear: true,
-		   	  yearRange: "1930:2015"
-		    });
-		  });
-	
-	/* password 두개의 체크버튼  */
-	function passchk(){
-		 /* var pass = document.form.userPass.value; */
-		 /* var pass2 = document.form.userPass2.value; */
-		 var pass = $("#password").val();
-		 var pass2 = $("#password2").val();
-		 //alert("aaa" + pass + ", " + pass2);
-		 var message1 = " 비밀번호를 입력하세요.";
-		 var message2 = " 비밀번호가 다릅니다.";
-		 var message3 = " 비밀번호가 동일합니다.";
-		 //alert(pass + "," + pass2);
-		 if(pass2 != pass) {
-			 $("#chk").val(message2);
-			 alert("비밀번호다르다.");
-		 } else {
-			 $("#chk").val(message3);
-			 alert("비밀번호같습니다.")
-		 }
-		 return;
-	}
+	$(document).ready(function() {
+		var dp = {
+			changeMonth : true,
+			changeYear : true,
+			yearRange : "1930:2015"
+		};
+		$("#datepicker").datepicker(dp);
+
+		$("#joinForm").validate({
+			//validation이 끝난 이후의 submit 직전 추가 작업할 부분
+			/* submitHandler : function() {
+				var f = confirm("글을 등록하시겠습니까?");
+				if (f) {
+					return true;
+				} else {
+					return false;
+				}
+			}, */
+			//규칙
+			rules : {
+				userId : {
+					required : true,
+					minlength : 2,
+					maxlength : 20
+				},
+				password : {
+					required : true,
+					minlength : 5,
+					maxlength : 20
+				},
+				password2 : {
+					required : true,
+					minlength : 5,
+					maxlength : 20,
+					equalTo: "#password"
+				},
+				userName : {
+					required : true,
+					minlength : 2,
+					maxlength : 10
+				},
+
+				email : {
+					required : true,
+					minlength : 2,
+					maxlength : 30,
+					email : true
+				},
+				birth : {
+					required : true,
+					minlength : 9,
+					maxlength : 10
+				},
+				grade : {
+					required : true,
+					minlength : 2,
+					maxlength : 10
+				},
+				question : {
+					required : true,
+					minlength : 6, 
+					maxlength : 50
+				},
+				answer : {
+					required : true,
+					minlength : 2, 
+					maxlength : 20
+				}
+			},
+			//규칙체크 실패시 출력될 메시지
+			messages : {
+				userId : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다"
+				},
+				password : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다"
+				},
+				password2 : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다",
+					equalTo: "비밀번호가 불일치합니다"
+				},
+				userName : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다"
+				},
+				
+				email : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다",
+					email : "메일 기재 규칙에 어긋납니다."
+				},
+				birth : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다",
+					date : "생년월일 기재 규칙에 어긋납니다."
+				},
+				grade : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다"
+				},
+				question : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다"
+				},
+				answer : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다"
+				}
+			}
+		});
+
+		var joinForm = $("#joinForm");
+		for ( var item in joinForm) {
+			console.log(item + " : " + joinForm[item]);
+		}
+	});
 </script>
 
 </head>
@@ -97,11 +207,13 @@
 			<div class="main zerogrid">
 				<div class="prev-indent-bot2">
 					<h1>
-						<a href="<%=request.getContextPath() %>/index"><img src="images/logoblack.png" /></a>
+						<a href="<%=request.getContextPath()%>/index"><img
+							src="images/logoblack.png" /></a>
 					</h1>
 					<nav>
 						<ul class="menu">
-							<li><a class="active" href="<%=request.getContextPath() %>/index">Home</a></li>
+							<li><a class="active"
+								href="<%=request.getContextPath()%>/index">Home</a></li>
 
 							<c:url value="/login" var="url"></c:url>
 							<li><a href="${url }">Login</a></li>
@@ -132,7 +244,7 @@
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			<c:url value="/join" var="url"/>
+		<%-- 	<c:url value="/join" var="url" />
 			<form method="post" action="${url }">
 				<table>
 					<tr>
@@ -145,8 +257,10 @@
 					</tr>
 					<tr>
 						<td><label>PASSWORD 확인</label></td>
-						<td><input type="password" id="password2" name="password2" onblur = "passchk()"/></td>
-						<td><input type = "text" id = "chk" style = "border-width: 0px" size = "20" name = "chk" value = " 비밀번호를 입력하세요." readonly = "readonly"></td>
+						<td><input type="password" id="password2" name="password2"
+							onblur="passchk()" /></td>
+						<td><input type="text" id="chk" style="border-width: 0px"
+							size="20" name="chk" value=" 비밀번호를 입력하세요." readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td><label>이름</label></td>
@@ -162,7 +276,7 @@
 					</tr>
 					<tr>
 						<td><label>BIRTH</label></td>
-						<td><input type="text" id="datepicker" name="birth"/></td>
+						<td><input type="text" id="datepicker" name="birth" /></td>
 					</tr>
 					<tr>
 						<td><label>GRADE</label></td>
@@ -177,29 +291,98 @@
 						<td><input type="text" id="answer" name="answer" /></td>
 					</tr>
 					<tr>
-						<td></td><td></td>
+						<td></td>
+						<td></td>
 						<td><button type="submit" name="proceed">다음</button></td>
 					</tr>
-			</table>
+				</table>
 			</form>
+ --%>
+ 
+			<div class="row">
+				<article class="col-full">
+					
+					회원가입<br><br><br>
+			<c:url value="/join" var="url" />
+			<form id="joinForm" action="${url }" method="post">
+				<table class="table" style="border-collapse: seperate;">
+					<colgroup>
+						<col style="align: center;" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th><label>아이디</label></th>
+							<td><input type="text" name="userId" id="userId" value="" /><button type="submit" name="idDup">중복확인</button></td>
+						</tr>
+						<tr>
+							<th><label>비밀번호</label></th>
+							<td><input type="password" name="password" id="password"
+								value="" /></td>
+						</tr>
+						<tr>
+							<th><label>비밀번호 확인</label></th>
+							<td><input type="password" name="password2" id="password2"
+								value="" /></td>
+						</tr>
+						<tr>
+							<th><label>이름</label></th>
+							<td><input type="text" name="userName" id="userName"
+								value="" /></td>
+						</tr>
+						<tr>
+							<th><label>H.P</label></th>
+							<td><input type="text" name="tel" id="tel" value="" /></td>
+						</tr>
+						<tr>
+							<th><label>이메일</label></th>
+							<td><input type="text" name="email" id="email" value="" /></td>
+						</tr>
+						<tr>
+							<th><label>생년월일</label></th>
+							<td><input type="text" id="datepicker" name="birth" /></td>
+						</tr>
+						<tr>
+							<th><label>가입유형</label></th>
+							<td><input type="text" name="grade" id="grade" value="" /></td>
+						</tr>
+						<tr>
+							<th><label for="question">비번찾기질문</label></th>
+							<td><input id="question" name="question" type="text" size="50"></td>
+						</tr>
+						<tr>
+							<th><label for="answer">답</label></th>
+							<td><input id="answer" name="answer" type="text"></td>
+						</tr>
+
+					</tbody>
+				</table>
+				<div align="center" style="margin-bottom: 50px; margin-top: 30px;">
+					<button type="submit">등록</button>
+					<button type="reset" id="cancel" >취소</button>
+				</div>
+			</form>
+					
+					
+				</article>
+		
 		</div>
 	</div>
 
 	<!--==============================footer=================================-->
-					<footer>
+	<footer>
 		<div class="main zerogrid">
 			<div class="row">
 				<article class="col-1-4">
 					<div class="wrap-col">
 						<ul class="list-services">
 							<li class="item-1"><a class="tooltips" title="facebook"
-												href="#"></a></li>
+								href="#"></a></li>
 							<li class="item-2"><a class="tooltips" title="twiiter"
-												href="#"></a></li>
+								href="#"></a></li>
 							<li class="item-3"><a class="tooltips" title="delicious"
-												href="#"></a></li>
+								href="#"></a></li>
 							<li class="item-4"><a class="tooltips" title="youtube"
-												href="#"></a></li>
+								href="#"></a></li>
 						</ul>
 					</div>
 				</article>
@@ -247,6 +430,6 @@
 	</script>
 
 
-				</body>
+</body>
 
 </html>

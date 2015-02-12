@@ -28,7 +28,6 @@ public class CompanyPersonDaoImpl implements CompanyPersonDao {
 	public CompanyPerson selectCompanyCodeByUserId(String userId) {
 		logger.trace("!!!!!!!!!!!!!!!!!!!!!사장이 아이디로 CompanyCode찾기위해 DB로 가기전");
 		String stmt = namespace + "selectCompanyCodeByUserId";
-		
 		return sqlSession.selectOne(stmt, userId);
 	}
 }

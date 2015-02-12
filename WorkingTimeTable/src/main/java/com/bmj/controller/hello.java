@@ -2,11 +2,15 @@ package com.bmj.controller;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
@@ -14,10 +18,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bmj.entity.CompanyPerson;
 import com.bmj.entity.SaveTime;
 import com.bmj.entity.TimeTable;
 import com.bmj.entity.Users;
@@ -30,7 +37,6 @@ public class hello {
 	static {
 		logger = LoggerFactory.getLogger(hello.class);
 	}
-
 	
 	@Autowired
 	CompanyPersonService service2;
@@ -48,21 +54,98 @@ public class hello {
 		return "calendar/registerTest";
 	}
 	
-	@RequestMapping(value="/viewCalendar")
+	//@RequestMapping(value="/viewCalendar")
 	public String viewCalendar() {
-		// 작성하기 위한 CompanyCode..
-		// 작성하기 위한 Id들...회사원들....
-		// 날짜와 시작 시간 및 종료 시간....
-		
-		
-		
-		
 		
 		return "calendar/viewCalendar";
 	}
 	
+	private String settingTime(String time) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(time.substring(0, 10));
+		builder.append("T");
+		builder.append(time.substring(11, 19));
+		return builder.toString();
+	}
 	
-	
+	// ajax.....
+	//@RequestMapping(value = "/ajax")
+	public @ResponseBody String ajaxReceive(Model model) {
+		// @ModelAttribute("editDept") Department dept
+		// 작성하기 위한 CompanyCode..
+		// 작성하기 위한 Id들...회사원들....
+		// 날짜와 시작 시간 및 종료 시간....
+		// session에 있는 나의 Id....와 회사의 Code를 가져온다!
+		// Users user = (Users)session.get... ("addUser");
+		// User_id....! get하고, userId로 컴패니 코드를 조회..!
+		// 일단 기본 아이디 사장이라 생각하고! Park, 123....!
+		//CompanyPerson companyperson = service2.selectCompanyCodeByUserId(UserId);
+		CompanyPerson companyperson = service2.selectCompanyCodeByUserId("park");
+		logger.trace("수업 : " + companyperson);
+		TimeTable timetable = new TimeTable();
+		List<TimeTable> lists = null;	// DB에서 Get.!
+		List<SaveTime> list2 = new ArrayList<SaveTime>();	// Server에 보내기!
+		SaveTime savetime = null;
+		// 그리고 우리 회사 코드로 작성된 달력 정보 갖고 오기...!
+		lists = service.selectByCompanyCode(companyperson.getCompanyCode());
+		
+		for (int idx = 0; idx < lists.size(); idx++) {
+			logger.trace("수업 idx : " + idx);
+			savetime = new SaveTime();
+			savetime.setTitle(String.valueOf(lists.get(idx).getMemberId()));
+			savetime.setStart(settingTime(lists.get(idx).getWorkingStart()));
+			savetime.setEnd(settingTime(lists.get(idx).getWorkingEnd()));
+			/*if(idx > 6) {
+				int length = idx;
+				savetime.setColor(color[length%6]);
+				
+			}else {
+				savetime.setColor(color[idx]);
+			}*/
+			logger.trace("수업 savetime : " + savetime);
+			list2.add(idx, savetime);
+		}
+		
+
+		logger.trace("수업 lists : " + lists);
+
+		logger.trace("수업 SaveList : " + list2);
+		model.addAttribute("Calendar", list2);
+		
+		
+		logger.trace("수업 : " + list2);
+		
+		JSONObject objJson = new JSONObject();
+		JSONArray arrayJson = new JSONArray();
+		
+		for (int i = 0; i < list2.size(); i++) {
+			JSONObject obj = new JSONObject();
+			obj.put("title", list2.get(i).getTitle());
+			obj.put("start", list2.get(i).getStart());
+			obj.put("end", list2.get(i).getEnd());
+			obj.put("color", list2.get(i).getColor());
+			
+			arrayJson.add(obj);
+		}
+		objJson.put("event", arrayJson);
+		
+		logger.trace("수업 55 : " + objJson.get("event"));
+		/*
+		logger.trace(" 수업 555 : " + abj + ", type : " + abj);
+		logger.trace(" 수업 555 : " + abj.toJSONString());
+		*/
+		
+		//obj.
+		/*for (int i = 0; i < list2.size(); i++) {
+			obj.put("title", list2.get(i).getTitle());
+			obj.put("start", list2.get(i).getTimeStart());
+			obj.put("end", list2.get(i).getTimeEnd());
+		}
+		logger.trace("수업 " + obj);
+		*/
+		
+		return objJson.toString();
+	}
 	
 	
 	
@@ -94,10 +177,10 @@ public class hello {
 			SaveTime st1 = new SaveTime(arraylist.get(i));
 			logger.trace("수업 마지막 확인 : " + st1);
 			st1.getTitle();			// 직원 아이디...
-			st1.getTimeStart();		// 시작 날짜 + 시간
-			st1.getTimeEnd();		// 끝난 날짜 + 시간
+			st1.getStart();		// 시작 날짜 + 시간
+			st1.getEnd();		// 끝난 날짜 + 시간
 			try {
-				date = formatter.parse(st1.getTimeStart());
+				date = formatter.parse(st1.getStart());
 			} catch (java.text.ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -113,8 +196,8 @@ public class hello {
 //			timetable.setMemberId(memberId);
 			timetable.setMemberId(1);
 			timetable.setWorkingDate(date);
-			timetable.setWorkingStart(st1.getTimeStart());
-			timetable.setWorkingEnd(st1.getTimeEnd());
+			timetable.setWorkingStart(st1.getStart());
+			timetable.setWorkingEnd(st1.getEnd());
 			logger.trace("수업 111111111 : " + timetable);
 			int result = service.insertTimeTable(timetable);
 		}

@@ -12,9 +12,10 @@ public class SaveTime {
 		logger = LoggerFactory.getLogger(SaveTime.class);
 	}
 	private String id;
-	private String title;
-	private String timeStart;
-	private String timeEnd;
+	private String title;		// userId
+	private String start;
+	private String end;
+	private String color;
 	
 	public SaveTime() {}
 
@@ -38,17 +39,17 @@ public class SaveTime {
 		logger.trace("list : " + tmplist);
 		this.id = tmplist.get(0);
 		this.title = tmplist.get(1);
-		this.timeStart = tmplist.get(2);
-		this.timeEnd = tmplist.get(3);
+		this.start = tmplist.get(2);
+		this.end = tmplist.get(3);
 		
 	}
 	
 	
-	public SaveTime(String id, String title, String timeStart, String timeEnd) {
+	public SaveTime(String id, String title, String start, String end) {
 		this.id = id;
 		this.title = title;
-		this.timeStart = timeStart;
-		this.timeEnd = timeEnd;		
+		this.start = start;
+		this.end = end;		
 	}
 
 	public String getId() {
@@ -67,26 +68,33 @@ public class SaveTime {
 		this.title = title;
 	}
 
-	public String getTimeStart() {
-		return timeStart;
+	public String getStart() {
+		return start;
 	}
 
-	public void setTimeStart(String timeStart) {
-		this.timeStart = timeStart;
+	public void setStart(String start) {
+		this.start = start;
 	}
 
-	public String getTimeEnd() {
-		return timeEnd;
+	public String getEnd() {
+		return end;
 	}
 
-	public void setTimeEnd(String timeEnd) {
-		this.timeEnd = timeEnd;
+	public void setEnd(String end) {
+		this.end = end;
+	}
+	
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	@Override
 	public String toString() {
-		return "SaveTime [id=" + id + ", title=" + title + ", timeStart="
-				+ timeStart + ", timeEnd=" + timeEnd + "]";
-	}
-	
+		return "SaveTime [id=" + id + ", title=" + title + ", start=" + start
+				+ ", end=" + end + ", color=" + color + "]";
+	}	
 }

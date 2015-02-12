@@ -3,7 +3,8 @@
  * Docs & License: http://arshaw.com/fullcalendar/
  * (c) 2013 Adam Shaw
  */
-
+.fc-sun {color:#e31b23}
+.fc-sat {color:#007dc3}
 
 .fc {
 	direction: ltr;

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.bmj.entity.Company;
 import com.bmj.entity.CompanyPerson;
 import com.bmj.entity.Users;
+import com.bmj.exception.LoginFailException;
 import com.bmj.service.CompanyPersonService;
 import com.bmj.service.UsersService;
 
@@ -121,7 +123,7 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/login")
-	public String loginGGo() {
+	public String loginGGo(Model model) {
 		return "/login/login";
 	}
 
@@ -417,9 +419,9 @@ public class UsersController {
 	}
 	
 	@ExceptionHandler
-	public String exceptionParameter(RuntimeException e) {
-		logger.trace("Null....!", e);
-		return "/main/index";
+	public String LoginFailGo(LoginFailException e) {
+		logger.trace("로그인실패했으니 로그인페이지 못벗어남!!!!");
+		return "/login/login";
 	}
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////////

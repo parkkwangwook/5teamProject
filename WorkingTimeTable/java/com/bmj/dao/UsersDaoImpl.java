@@ -5,10 +5,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bmj.entity.Users;
+import com.bmj.exception.LoginFailException;
 
 @Repository
+@Transactional(rollbackFor=com.bmj.exception.LoginFailException.class)
 public class UsersDaoImpl implements UsersDao {
 	private static final Logger logger;
 	static {
@@ -31,12 +34,11 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public Users loginUser(Users user) {
-		logger.trace("로그인하기위해 DB에서 select!! 하러옴");
+	public Users loginUser(Users user) throws LoginFailException{
 		String stmt= namespace + "loginUser";
 		Users result = sqlSession.selectOne(stmt, user);
 		if( sqlSession.selectOne(stmt, user) == null){
-			logger.trace("일치하는 사용자가 없음!!!");
+			throw new LoginFailException("login결과 = NULL");
 		}
 		
 		return result;

@@ -10,7 +10,6 @@ import com.bmj.dao.UsersDao;
 import com.bmj.entity.Users;
 
 @Service
-@Transactional(rollbackFor=com.bmj.exception.ServiceFailException.class)
 public class UsersServiceImpl implements UsersService {
 	private static final Logger logger;
 	static {
@@ -34,7 +33,6 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public Users loginUser(Users user) {
-		logger.trace("수업 : ?");
 		Users result = dao.loginUser(user);
 		logger.trace("DB에서 login!! 해온 결과!!" + result.toString());
 		return result;

@@ -22,7 +22,7 @@
 		
 		</style>
 		<script type="text/javascript">
-$(function () {
+	$document.ready(function () {
 	var chart = new Highcharts.Chart({
 		 colors: ["#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
 		          "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],

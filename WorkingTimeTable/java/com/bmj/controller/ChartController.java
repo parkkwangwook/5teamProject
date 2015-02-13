@@ -3,11 +3,17 @@ package com.bmj.controller;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bmj.entity.CompanyPerson;
 import com.bmj.entity.Stats;
@@ -31,6 +37,15 @@ public class ChartController {
 	public String goChartAlba() {
 		Calendar c1 = Calendar.getInstance();
 		logger.trace("수업 : Chart~~~~~~~~~~~~~~!");
+
+		
+		
+		
+		return "chart/ssalbamode";
+	}
+	
+	@RequestMapping(value = "/ajaxChart")
+	public @ResponseBody String ajaxReceive(Model model, HttpSession session) {
 		// 1. session에서 내 정보를 가져오겠지...?
 		// Users user = (Users)session.get~("addUser);
 		// String userId = user.get~~~..
@@ -50,10 +65,21 @@ public class ChartController {
 		}
 		logger.trace("수업, 기본 셋팅 완료 : " + myTimes);
 		
+		JSONObject objJson = new JSONObject();
+		JSONArray arrayJson = new JSONArray();
 		
+		for(int i = 0; i < myTimes.size(); i++) {
+			JSONObject obj = new JSONObject();
+			obj.put("month", myTimes.get(i).getMonth());
+			obj.put("memberId", myTimes.get(i).getMemberId());
+			obj.put("count", myTimes.get(i).getCount());
+			
+			arrayJson.add(obj);
+		}
+		objJson.put("charts", arrayJson);
 		
+		logger.trace("수업 Json : " + objJson);
 		
-		
-		return "chart/albamode";
+		return objJson.toString();
 	}
 }

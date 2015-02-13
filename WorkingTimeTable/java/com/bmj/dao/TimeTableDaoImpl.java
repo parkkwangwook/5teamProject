@@ -35,4 +35,11 @@ public class TimeTableDaoImpl implements TimeTableDao {
 		return sqlSession.selectList(stmt, CompanyCode);
 	}
 
+	@Override
+	public List<TimeTable> selectByMemberId(int memberId) {
+		logger.trace("수업 여기는 Dao... !" + memberId);
+		String stmt = namespace + "selectByMemberId";
+		return sqlSession.selectList(stmt, memberId);
+	}
+
 }

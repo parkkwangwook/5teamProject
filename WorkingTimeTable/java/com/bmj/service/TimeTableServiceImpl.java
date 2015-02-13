@@ -36,4 +36,11 @@ public class TimeTableServiceImpl implements TimeTableService {
 		return timetable;
 	}
 
+	@Override
+	public List<TimeTable> selectByMemberId(int memberId) {
+		logger.trace("여기는 Time Table 서비스~~~~~~~~~~~~~~~~~~~~~!" + memberId);
+		List<TimeTable> timetable = dao.selectByMemberId(memberId);
+		return timetable;
+	}
+
 }

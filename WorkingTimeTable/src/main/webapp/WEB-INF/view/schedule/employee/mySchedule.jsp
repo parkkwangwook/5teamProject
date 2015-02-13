@@ -57,11 +57,18 @@ select {
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript" src="js/css3-mediaqueries.js"></script>
 
+<link href="lib/fullcalendar.css" rel='stylesheet' />
+<!-- <link href='../fullcalendar.print.css' rel='stylesheet' media='print' /> -->
+<script src="lib/moment.min.js"></script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/jquery-ui.custom.min.js"></script>
+<script src="lib/fullcalendar.js"></script>
+
 <!--------------------- SelectMenu --------------------->
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<!-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
 <script>
@@ -79,10 +86,49 @@ select {
 			}
 		});
 	});
+	/*  <!--------------------- fullCalendar --------------------->  */
+	$(document).ready(function() {
+		$('#calendar').fullCalendar({	
+			// alert("확인");
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			editable: false,
+			businessHours: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: function(start, end, timezone, callback) {
+				$.ajax({
+					url: "<%=request.getContextPath()%>/ajax",
+					success: function(result) {
+						var jobj = JSON.parse(result);
+						var e = jobj["event"];
+						callback(e);
+					}
+				});
+			}
+		});
+	});
 	
 </script> 
+<style>
 
+	/* body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	} */
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+</style>
 </head>
+	<!--==================== body ====================-->
 <body id="page6">
 
 	<!--==============================header=================================-->
@@ -147,6 +193,8 @@ select {
 			알바생 자기자신 시간표 조회~~~~~~~~~~~~~~
 		</div>
 	</div>
+	<br><br><br>
+	<div id='calendar'></div>
 
 	<!--==============================footer=================================-->
 	<footer>

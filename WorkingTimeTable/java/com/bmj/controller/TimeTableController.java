@@ -123,15 +123,6 @@ public class TimeTableController {
 	// ajax.....
 	@RequestMapping(value = "/ajax")
 	public @ResponseBody String ajaxReceive(Model model, HttpSession session) {
-		// @ModelAttribute("editDept") Department dept
-		// 작성하기 위한 CompanyCode..
-		// 작성하기 위한 Id들...회사원들....
-		// 날짜와 시작 시간 및 종료 시간....
-		// session에 있는 나의 Id....와 회사의 Code를 가져온다!
-		// Users user = (Users)session.get... ("addUser");
-		// User_id....! get하고, userId로 컴패니 코드를 조회..!
-		// 일단 기본 아이디 사장이라 생각하고! Park, 123....!
-		//CompanyPerson companyperson = service2.selectCompanyCodeByUserId(UserId);
 		Users user = (Users)session.getAttribute("addUser");
 		CompanyPerson companyperson = service2.selectCompanyCodeByUserId(user.getUserId());
 		logger.trace("수업 : " + companyperson);
@@ -140,7 +131,11 @@ public class TimeTableController {
 		List<SaveTime> list2 = new ArrayList<SaveTime>();	// Server에 보내기!
 		SaveTime savetime = null;
 		// 그리고 우리 회사 코드로 작성된 달력 정보 갖고 오기...!
-		lists = service.selectByCompanyCode(companyperson.getCompanyCode());
+		if (user.getGrade().equals("사장")) {
+			lists = service.selectByCompanyCode(companyperson.getCompanyCode());
+		} else if(user.getGrade().equals("직원")) {
+			lists = service.selectByMemberId(companyperson.getMemberId());
+		}
 		
 		for (int idx = 0; idx < lists.size(); idx++) {
 			logger.trace("수업 idx : " + idx);

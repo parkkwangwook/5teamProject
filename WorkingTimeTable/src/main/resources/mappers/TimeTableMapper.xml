@@ -9,11 +9,13 @@
 		values (#{companyCode}, #{memberId}, #{workingDate}, #{workingStart}, #{workingEnd})
 	</insert>
 	
-	
 	<select id = "selectByCompanyCode" resultType="TimeTable" parameterType="Integer">
 		select * from time_table where company_code = #{companyCode}
 	</select>
 	
+	<select id = "selectByMemberId" resultType="TimeTable" parameterType="Integer">
+		select * from time_table where member_id = #{memberId}
+	</select>
 	<!--
 	
 	<select id = "selectCompanyByCompanyCode" resultType="Company" parameterType="Integer">

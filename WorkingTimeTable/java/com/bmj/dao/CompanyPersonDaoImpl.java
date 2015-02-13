@@ -1,5 +1,7 @@
 package com.bmj.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,5 +31,12 @@ public class CompanyPersonDaoImpl implements CompanyPersonDao {
 		logger.trace("!!!!!!!!!!!!!!!!!!!!!사장이 아이디로 CompanyCode찾기위해 DB로 가기전");
 		String stmt = namespace + "selectCompanyCodeByUserId";
 		return sqlSession.selectOne(stmt, userId);
+	}
+
+	@Override
+	public List<CompanyPerson> selectByCompanyCode(int companyCode) {
+		logger.trace("수업 여기는 Dao : " + companyCode);
+		String stmt = namespace + "selectByCompanyCode";
+		return sqlSession.selectList(stmt, companyCode);
 	}
 }

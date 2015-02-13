@@ -332,12 +332,14 @@ $(function() {
 	<div id='wrap'>
 
 		<div id='external-events'>
-			<h4>Draggable Events</h4>
-			<div class='fc-event'>My Event 1</div>
-			<div class='fc-event'>My Event 2</div>
-			<div class='fc-event'>My Event 3</div>
-			<div class='fc-event'>My Event 4</div>
-			<div class='fc-event'>My Event 5</div>
+			<h4>Company!</h4>
+				<table border = "1">
+					<c:forEach items="${employees}" var = "employee">
+						<tr>
+							<td><div class='fc-event'><c:out value="${employee.memberId}"/></div></td>
+						</tr>
+					</c:forEach>
+				</table>
 			<p>
 				<input type='checkbox' id='drop-remove' />
 				<label for='drop-remove'>remove after drop</label>

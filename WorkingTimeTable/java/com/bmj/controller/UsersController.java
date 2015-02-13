@@ -2,6 +2,7 @@ package com.bmj.controller;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +17,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -365,9 +365,20 @@ public class UsersController {
 		logger.trace("수업 UserId : " + user);
 		// 나의 회사 코드 가져오기...!
 		CompanyPerson companyperson = cpService.selectCompanyCodeByUserId(userId);
+		int companyCode = companyperson.getCompanyCode();
 		logger.trace("수업 CompanyCode : " + companyperson.getCompanyCode());
 		// company_person에 가서 직원 아이디 갖고오기!!
-		//cpService.s
+		List<CompanyPerson> result = cpService.selectByCompanyCode(companyCode);
+		for(int i = 0; i < result.size(); i++) {
+			//logger.trace("수업....??" + result.get(i).getUserId());
+			if(result.get(i).getUserId().equals(userId)) {
+				//logger.trace("수업 : 안들어감...?");
+				result.remove(i);
+			}
+		}
+		
+		logger.trace("수업 List : " + result);
+		model.addAttribute("employees", result);
 		
 		return "/schedule/employer/registerSchedule";
 	}

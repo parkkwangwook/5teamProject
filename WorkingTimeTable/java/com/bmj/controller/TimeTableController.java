@@ -63,14 +63,14 @@ public class TimeTableController {
 		Users user = (Users)session.getAttribute("addUser");
 		logger.trace("수업 : User " + user);
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		//int CompanyCode = service2.selectCompanyPersonCodeByUserId(user.getUserId());
-
+		CompanyPerson companyperson = service2.selectCompanyCodeByUserId(user.getUserId());
+		int companyCode = companyperson.getCompanyCode();
 		for (int i = 0; i < arraylist.size(); i++) {
 
 			logger.trace("수업 확인 : " + arraylist.get(i));
 			SaveTime st1 = new SaveTime(arraylist.get(i));
 			logger.trace("수업 마지막 확인 : " + st1);
-			st1.getTitle();			// 직원 아이디...
+						// 직원 아이디...
 			st1.getStart();		// 시작 날짜 + 시간
 			st1.getEnd();		// 끝난 날짜 + 시간
 			try {
@@ -87,10 +87,10 @@ public class TimeTableController {
 			//service에서 한번에 해봐....
 //			timetable.setCompanyCode(companyCode);
 			// 일단 Test User : Park , 123....
-			timetable.setCompanyCode(49);
+			timetable.setCompanyCode(companyCode);
 //			timetable.setMemberId(st1.getTitle);
 			//timetable.setMemberId(23);
-			timetable.setMemberId(23);
+			timetable.setMemberId(Integer.parseInt(st1.getTitle()));
 			timetable.setWorkingDate(date);
 			timetable.setWorkingStart(st1.getStart());
 			timetable.setWorkingEnd(st1.getEnd());

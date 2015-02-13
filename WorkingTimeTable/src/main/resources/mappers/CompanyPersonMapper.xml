@@ -16,6 +16,9 @@
 		select company_code from company_person where user_id = #{userId}
 	</select>
 	
+	<select id = "selectByCompanyCode" parameterType="Integer" resultType="CompanyPerson">
+		select * from company_person where company_code = #{companyCode}
+	</select>
 	
 	<!-- <mapper namespace="com.andy.mybatis.hr.mapper.RegionMapper"> -->
 	<!-- <insert id = "insertDept" parameterType = "Department">

@@ -1,5 +1,7 @@
 package com.bmj.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,13 @@ public class CompanyPersonServiceImpl implements CompanyPersonService {
 		if(result == null){
 			logger.trace("nulllllllllllllllllllllllllllllllllllllllllllll");
 		}
+		return result;
+	}
+
+	@Override
+	public List<CompanyPerson> selectByCompanyCode(int companyCode) {
+		logger.trace("숙제 서비스 : " + companyCode);
+		List<CompanyPerson> result = dao.selectByCompanyCode(companyCode);
 		return result;
 	}
 	

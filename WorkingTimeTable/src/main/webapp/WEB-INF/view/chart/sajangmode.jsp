@@ -3,12 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>ARUBA..★</title>
-
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-		<style type="text/css">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>ARUBA..★</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<style type="text/css">
 		#container, #sliders {
 			min-width: 310px; 
 			max-width: 800px;
@@ -19,8 +18,8 @@
 			height: 600px; 
 		}
 		
-		</style>
-		<script type="text/javascript">
+</style>
+<script type="text/javascript">
 $(function () {
 	var chart = new Highcharts.Chart({
 		chart : {
@@ -35,8 +34,6 @@ $(function () {
 	        	viewDistance: 25
 			}
         },
-        
-        
         title: {
             text: '직원 급여 관리'
         },
@@ -88,10 +85,10 @@ $(function () {
         },
         
         tooltip: {
-        	 	backgroundColor: 'white',
-        	    borderColor: 'gray',
-        	    borderRadius: 10,
-        	    borderWidth: 2,
+       	 	backgroundColor: 'white',
+       	    borderColor: 'gray',
+       	    borderRadius: 10,
+       	    borderWidth: 2,
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>'
                  + '<td style="padding:0"><b>{point.y:.f}원</b></td></tr>',
@@ -103,14 +100,7 @@ $(function () {
             shared: true,
             useHTML: true
         },
-/*         tooltip: {
-            formatter: function () {
-                return '<b>' + this.x + '</b><br/>' +
-                    this.series.name + ': ' + this.y + '<br/>' +
-                    'Total: ' + this.point.stackTotal;
-            }
-        },
- */        
+      
         plotOptions: {
             column: {
                 pointPadding: 0.2,

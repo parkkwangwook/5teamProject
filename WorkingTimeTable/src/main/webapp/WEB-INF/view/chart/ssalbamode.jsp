@@ -21,13 +21,14 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
+        var outArr = new Array();
 		$('#chartBtn').on('click',function(){
 			$.ajax({
 				url:"<%=request.getContextPath()%>/ajaxChart",   
                 type:'POST',
                 success:function(data){
                    alert("zzzzzzzzzzzz" + data);
-                    var outArr = new Array();
+
     				var jobj = JSON.parse(data);   
     				var e = jobj["charts"];
                     $(e).each(function(index, item){
@@ -35,16 +36,18 @@
                         inArr.push(item.month);
                         inArr.push(item.count);
                         inArr.push(item.memberId);
-                       
+                       	alert("ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ : " + inArr);
                         outArr.push(inArr);
                     });
                     console.log(outArr);
+                    console.log(outArr[0]);
                     //차트를 뿌리는 코드.
-					for(var c in outArr) {
-						console.log("테스트 : " + c);
-					}
+                    for(var i in outArr) {
+                    	console.log(i + " , " + outArr[i][0]);
+                    }
+					
+                    
 		$('#container').highcharts({
-
 			chart: {
 				type: 'column'
 				},
@@ -87,10 +90,10 @@
 					enabled: false
 				},
 				tooltip: {
-					pointFormat: '월급 현황: <b>{point.y:.1f}원 </b>',
+					pointFormat: '{series.name}: <b>{point.y:.1f}원 </b>',
 				},
 				series: [{
-					name: outArr.memberId,
+					name: outArr[0][2],
 					data: outArr,
                     dataLabels: {
 						enabled: true,

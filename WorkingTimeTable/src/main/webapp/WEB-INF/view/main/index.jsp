@@ -89,7 +89,7 @@
 					<c:if test="${addUser.grade=='사장' }">
 						<c:url value="/allSchedule" var="url" />
 					</c:if>
-					<c:if test="${addUser.grade=='알바' }">
+					<c:if test="${addUser.grade=='직원' }">
 						<c:url value="/mySchedule" var="url" />
 					</c:if>
 					<a href="${url }"><img

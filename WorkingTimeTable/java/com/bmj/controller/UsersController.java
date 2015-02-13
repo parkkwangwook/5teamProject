@@ -395,7 +395,7 @@ public class UsersController {
 
 	// ////////////알바 시간표 메뉴
 	@RequestMapping(value = "/mySchedule")
-	public String myScheduleGo() { // 시간표 - 내시간표 조회(직장별)
+	public String myScheduleGo() { // 시간표 - 내시간표 조회(직장별)  --- > 일단 직장 1개...!
 		return "/schedule/employee/mySchedule";
 	}
 

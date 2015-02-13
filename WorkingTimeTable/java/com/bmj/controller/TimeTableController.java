@@ -122,7 +122,7 @@ public class TimeTableController {
 	
 	// ajax.....
 	@RequestMapping(value = "/ajax")
-	public @ResponseBody String ajaxReceive(Model model) {
+	public @ResponseBody String ajaxReceive(Model model, HttpSession session) {
 		// @ModelAttribute("editDept") Department dept
 		// 작성하기 위한 CompanyCode..
 		// 작성하기 위한 Id들...회사원들....
@@ -132,7 +132,8 @@ public class TimeTableController {
 		// User_id....! get하고, userId로 컴패니 코드를 조회..!
 		// 일단 기본 아이디 사장이라 생각하고! Park, 123....!
 		//CompanyPerson companyperson = service2.selectCompanyCodeByUserId(UserId);
-		CompanyPerson companyperson = service2.selectCompanyCodeByUserId("park");
+		Users user = (Users)session.getAttribute("addUser");
+		CompanyPerson companyperson = service2.selectCompanyCodeByUserId(user.getUserId());
 		logger.trace("수업 : " + companyperson);
 		TimeTable timetable = new TimeTable();
 		List<TimeTable> lists = null;	// DB에서 Get.!

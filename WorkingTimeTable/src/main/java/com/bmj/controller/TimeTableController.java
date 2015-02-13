@@ -41,6 +41,7 @@ public class TimeTableController {
 	@Autowired
 	TimeTableService service;
 	
+	/*스케쥴 추가하기.....!*/
 	@RequestMapping(value="/addTimeTable", method = RequestMethod.GET)
 	public String saveExternal(@RequestParam String list, HttpSession session) {
 		logger.trace("수업 : " + list);
@@ -105,6 +106,7 @@ public class TimeTableController {
 		return "calendar/register";
 	}
 	
+	/*모든 스케쥴 조회하기*/
 	@RequestMapping(value="/viewCalendar")
 	public String viewCalendar() {
 		return "calendar/viewCalendar";

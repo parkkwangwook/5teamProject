@@ -34,6 +34,7 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public Users loginUser(Users user) {
+		logger.trace("수업 : ?");
 		Users result = dao.loginUser(user);
 		logger.trace("DB에서 login!! 해온 결과!!" + result.toString());
 		return result;

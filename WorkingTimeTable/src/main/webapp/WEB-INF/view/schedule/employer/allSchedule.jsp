@@ -93,7 +93,6 @@ $(function() {
 });
 	/*  <!--------------------- fullCalendar --------------------->  */
 	$(document).ready(function() {
-		alert("zzzzzzzzzzzzzzzzzzzz");
 		$('#calendar').fullCalendar({	
 			// alert("확인");
 			header: {

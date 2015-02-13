@@ -33,7 +33,7 @@
 			editable: false,
 			businessHours: true,
 			eventLimit: true, // allow "more" link when too many events
-			events: function(start, end, timezone, callback) {
+			events: function(start, end, color, timezone, callback) {
 				$.ajax({
 					url: "<%=request.getContextPath()%>/ajax",
 					success: function(result) {

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -358,7 +359,16 @@ public class UsersController {
 
 	// ////////////사장 시간표 메뉴
 	@RequestMapping(value = "/registerSchedule")
-	public String registerScheduleGo() { // 시간표 - 시간표 등록
+	public String registerScheduleGo(Model model, HttpSession session) { // 시간표 - 시간표 등록
+		Users user = (Users)session.getAttribute("addUser");
+		String userId = user.getUserId();
+		logger.trace("수업 UserId : " + user);
+		// 나의 회사 코드 가져오기...!
+		CompanyPerson companyperson = cpService.selectCompanyCodeByUserId(userId);
+		logger.trace("수업 CompanyCode : " + companyperson.getCompanyCode());
+		// company_person에 가서 직원 아이디 갖고오기!!
+		//cpService.s
+		
 		return "/schedule/employer/registerSchedule";
 	}
 
@@ -393,6 +403,12 @@ public class UsersController {
 	@RequestMapping(value = "/qna")
 	public String qnaBoardGo() { // Q&A게시판
 		return "/board/qnaBoard";
+	}
+	
+	@ExceptionHandler
+	public String exceptionParameter(RuntimeException e) {
+		logger.trace("Null....!", e);
+		return "/main/index";
 	}
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////////

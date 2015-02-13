@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bmj.dao.TimeTableDao;
+import com.bmj.entity.Stats;
 import com.bmj.entity.TimeTable;
 
 @Service
@@ -41,6 +42,13 @@ public class TimeTableServiceImpl implements TimeTableService {
 		logger.trace("여기는 Time Table 서비스~~~~~~~~~~~~~~~~~~~~~!" + memberId);
 		List<TimeTable> timetable = dao.selectByMemberId(memberId);
 		return timetable;
+	}
+
+	@Override
+	public List<Stats> selectStatsByMemberId(int memberId) {
+		logger.trace("여기는 Time Table 서비스~~~~~~~~~~~~~~~~~~~~~!" + memberId);
+		List<Stats> result = dao.selectStatsByMemberId(memberId);
+		return result;
 	}
 
 }

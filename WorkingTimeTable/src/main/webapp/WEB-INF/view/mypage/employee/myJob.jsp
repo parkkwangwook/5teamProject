@@ -159,7 +159,7 @@ select {
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			알바생의 직장관리~~
+			직원의 직장관리~~
 		</div>
 	</div>
 

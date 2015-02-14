@@ -159,7 +159,7 @@ select {
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			<h2>알바 JOB등록</h2><br>
+			<h2>직원 JOB등록</h2><br>
 			<c:url value="/addNewEmployee" var="action"></c:url>
 			<form method="post" action="${action}">
 				<table>

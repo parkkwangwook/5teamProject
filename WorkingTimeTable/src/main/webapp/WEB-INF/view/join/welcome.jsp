@@ -65,7 +65,7 @@
 			<c:url value="/registerCompany" var="url"></c:url>
 			<a href="${url }"><button>사장-회사등록</button></a>
 			<c:url value="/registerJob" var="url"></c:url>
-			<a href="${url }"><button>알바-회사등록</button></a>
+			<a href="${url }"><button>직원-회사등록</button></a>
 		</div>
 	</div>
 

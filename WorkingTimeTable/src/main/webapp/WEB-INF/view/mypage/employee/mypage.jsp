@@ -21,6 +21,10 @@ select {
 .overflow {
 	height: 200px;
 }
+label.error {
+	color: red;
+	/* font-style: italic */
+}
 </style>
 <meta charset="utf-8">
 <title>Welcome</title>
@@ -128,8 +132,8 @@ select {
 				},
 				userName : {
 					required : true,
-					minlength : 2,
-					maxlength : 10
+					minlength : 1,
+					maxlength : 3
 				},
 
 				email : {
@@ -150,13 +154,13 @@ select {
 				},
 				question : {
 					required : true,
-					minlength : 6, 
-					maxlength : 50
+					minlength : 2, 
+					maxlength : 18
 				},
 				answer : {
 					required : true,
-					minlength : 2, 
-					maxlength : 20
+					minlength : 1,
+					maxlength : 6
 				}
 			},
 			//규칙체크 실패시 출력될 메시지

@@ -45,8 +45,8 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public int selectbyUserId(String userId) {
-		String stmt = namespace + "selectbyUserId";
+	public int countByUserId(String userId) {
+		String stmt = namespace + "countByUserId";
 		return sqlSession.selectOne(stmt, userId);
 	}
 

@@ -105,7 +105,7 @@ select {
 								<c:if test="${addUser.grade=='사장' }">
 									<c:url value="/mypage_employer" var="url" />
 								</c:if>
-								<c:if test="${addUser.grade=='알바' }">
+								<c:if test="${addUser.grade=='직원' }">
 									<c:url value="/mypage_employee" var="url" />
 								</c:if>
 								<li><a href="${url }">Mypage</a></li>

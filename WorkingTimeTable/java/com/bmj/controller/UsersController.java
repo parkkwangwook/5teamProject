@@ -94,7 +94,33 @@ public class UsersController {
 	public String joinGGo() {
 		return "/join/join";
 	}
-
+	
+	@RequestMapping(value = "/checkIdPopUp", method = RequestMethod.GET)
+	public String checkIdPopUpGo(Model model) {
+		model.addAttribute("result", "First");
+		return "/join/checkId";
+	}
+	
+	@RequestMapping(value = "/checkId", method = RequestMethod.GET)
+	public String checkIdGo(@RequestParam String userId, Model model) {
+		int result = -1;
+		
+		result = service.countByUserId(userId);
+		model.addAttribute("availableId", userId);
+		
+		if(result == 0){
+			model.addAttribute("result", "OK");
+			logger.trace("DB조회결과 없는아이디임!!!!");
+		}
+		else if(result != 0){
+			model.addAttribute("result", "NO");
+			logger.trace("DB조회결과 존재하는 아이디임!!!!");
+		}
+		//result < 0 사용가능    //result > 0 사용불가능
+		
+		return "/join/checkId";
+	}
+	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	// join페이지에서 가입 성공했을 때
 	public String joinSuccess(@RequestParam String userId,

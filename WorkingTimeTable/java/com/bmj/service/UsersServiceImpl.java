@@ -39,8 +39,8 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public int selectbyUserId(String userId) {
-		int result = dao.selectbyUserId(userId);
+	public int countByUserId(String userId) {
+		int result = dao.countByUserId(userId);
 		return result;
 	}
 

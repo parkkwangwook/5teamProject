@@ -2,49 +2,26 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mybatis.mapper.CompanyPerson">
+<mapper namespace="mybatis.mapper.Message">
 
-	<!-- 사장이 회사등록시 자신을 등록할 때 salary, hiredate없이 DB등록이 안되서 임시로 추가-->
-	<insert id = "insertCompanyOwner" parameterType = "CompanyPerson">
-		insert into Company_Person(company_code, user_id, salary, hire_date) 
-		values (#{companyCode}, #{userId}, #{salary}, #{hireDate})
-	</insert>
-	<!-- 사장이 메세지에서 승낙버튼 누르면 알바생을 추가하게됨-->
-	<insert id = "insertCompanyEmployee" parameterType = "CompanyPerson">
-		insert into Company_Person(company_code, user_id, hire_date) 
-		values (#{companyCode}, #{userId}, #{hireDate})
+	<insert id="insertMessage" parameterType = "Message">
+		insert into message(company_code, user_id, message_content, flag) 
+		values (#{companyCode}, #{userId}, #{messageContent}, #{flag})
 	</insert>
 	
-	
-	
-	
-	
-	<insert id = "insertCompanyPerson" parameterType = "CompanyPerson">
-		insert into Company_Person(company_code, user_id, salary) 
-		values (#{companyCode}, #{userId}, #{salary})
-	</insert>
-	
-	
-	
-	
-	
-	
-	<!-- selectCompanyCodeByUserId 이름 바꿈 selectCompanyPersonByUserId controller도 다 바꿈-->
-	<select id = "selectCompanyPersonByUserId" parameterType = "String" resultType="CompanyPerson">
-		select * from company_person where user_id=#{userId}
+	<select id = "selectMessageByUserId" parameterType="String" resultType="Message">
+		select * from message where user_id = #{userId}
 	</select>
 	
-	<select id = "selectComCodeByUserId" parameterType = "String" resultType="Integer">
-		select company_code from company_person where user_id=#{userId}
+	<select id = "selectMessageByComCode" parameterType="Integer" resultType="Message">
+		select * from message where company_code = #{companyCode}
 	</select>
 	
-	<select id = "selectbyChairman" parameterType="String" resultType="Integer">
-		select company_code from company_person where user_id = #{userId}
-	</select>
-	
-	<select id = "selectByCompanyCode" parameterType="Integer" resultType="CompanyPerson">
-		select * from company_person where company_code = #{companyCode}
-	</select>
+	<update id = "updateMesageFlagByMsgNum" parameterType="Integer">
+		update message set 
+		flag = 1
+		where message_number= #{messageNumber}
+	</update>
 	
 	<!-- <mapper namespace="com.andy.mybatis.hr.mapper.RegionMapper"> -->
 	<!-- <insert id = "insertDept" parameterType = "Department">

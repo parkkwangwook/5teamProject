@@ -21,6 +21,10 @@ select {
 .overflow {
 	height: 200px;
 }
+
+.temp td{
+	border: 1px solid black;
+}
 </style>
 <meta charset="utf-8">
 <title>Welcome</title>
@@ -81,12 +85,11 @@ select {
 					window.location.href = "<%=request.getContextPath()%>/salary";
 				else if(this.selectedIndex == 5)			//쪽지
 					window.location.href = "<%=request.getContextPath()%>/alerts_employee";
-				
+
 			}
 		});
 	});
-	
-</script> 
+</script>
 
 </head>
 <body id="page5">
@@ -129,28 +132,29 @@ select {
 	<div class="slider-wrapper">
 		<article class="col-full">
 			<img src="images/logintitlebg.png">
-			
-			<fieldset>
-					<ul class="lowermenu">
 
-						<li><select name="MypageMenu" id="MypageMenu">
-								<optgroup label="My Info">
-									<option value="info">personal info</option>
-									<option value="password">change password</option>
-									<option value="leave">leave Aruba</option>
-								</optgroup>
-								<optgroup label="Job">
-									<option value="job">my job</option>
-								</optgroup>
-								<optgroup label="Salary">
-									<option value="salary">my salary</option>
-								</optgroup>
-								<optgroup label="Message">
-									<option value="message" selected="selected">check message</option>
-								</optgroup>
-						</select></li>
-					</ul>
-				</fieldset>
+			<fieldset>
+				<ul class="lowermenu">
+
+					<li><select name="MypageMenu" id="MypageMenu">
+							<optgroup label="My Info">
+								<option value="info">personal info</option>
+								<option value="password">change password</option>
+								<option value="leave">leave Aruba</option>
+							</optgroup>
+							<optgroup label="Job">
+								<option value="job">my job</option>
+							</optgroup>
+							<optgroup label="Salary">
+								<option value="salary">my salary</option>
+							</optgroup>
+							<optgroup label="Message">
+								<option value="message" selected="selected">check
+									message</option>
+							</optgroup>
+					</select></li>
+				</ul>
+			</fieldset>
 		</article>
 	</div>
 
@@ -159,7 +163,30 @@ select {
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			알바생의 쪽지관리~~
+			직원생의 쪽지관리~~<br>
+			<br>
+			<table class="temp">
+				<tr>
+					<th>쪽지번호</th>
+					<th>회사코드</th>
+					<th>아이디(보낸사람)</th>
+					<th>쪽지내용</th>
+					<th>보낸날짜</th>
+					<th>읽음여부</th>
+				</tr>
+
+				<c:forEach items="${myMessages }" var="myMessages">
+
+					<tr> 
+						<td>${myMessages.messageNumber}</td>
+						<td>${myMessages.companyCode}</td>
+						<td>${myMessages.userId}</td>
+						<td>${myMessages.messageContent}</td>
+						<td>${myMessages.regDate}</td>
+						<td>${myMessages.flag }</td>
+					</tr>
+				</c:forEach>
+			</table>
 		</div>
 	</div>
 

@@ -21,6 +21,9 @@ select {
 .overflow {
 	height: 200px;
 }
+.temp td{
+	border: 1px solid black;
+}
 </style>
 <meta charset="utf-8">
 <title>Welcome</title>
@@ -164,7 +167,32 @@ select {
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			사장의 쪽지관리~~~~
+			사장의 쪽지관리~~~~<br><br>
+			<table class="temp">
+				<tr>
+					<th>쪽지번호</th>
+					<th>회사코드</th>
+					<th>아이디(보낸사람)</th>
+					<th>쪽지내용</th>
+					<th>보낸날짜</th>
+					<th>읽음여부</th>
+					<th>승인버튼</th>
+				</tr>
+
+				<c:forEach items="${myComMessages }" var="myComMessages">
+
+					<tr> 
+						<td>${myComMessages.messageNumber}</td>
+						<td>${myComMessages.companyCode}</td>
+						<td>${myComMessages.userId}</td>
+						<td>${myComMessages.messageContent}</td>
+						<td>${myComMessages.regDate}</td>
+						<td>${myComMessages.flag }</td>
+						<td><c:url value="/addNewEmployee?userId=${myComMessages.userId }&companyCode=${myComMessages.companyCode }&messageNumber=${myComMessages.messageNumber }" var="url"/>
+						<a href="${url }"><button>승낙</button></a></td>
+					</tr>
+				</c:forEach>
+			</table>
 		</div>
 	</div>
 

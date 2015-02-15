@@ -17,6 +17,15 @@
 		select * from Company where company_code = #{companyCode}
 	</select>
 	
+	<update id = "updateCompany" parameterType = "Company">
+		update company set 
+		company_name=#{companyName},
+		company_tel=#{companyTel},
+		holiday_comm=#{holidayComm},
+		night_comm=#{nightComm}
+		where company_code= #{companyCode}
+	</update>
+	
 	<!-- <mapper namespace="com.andy.mybatis.hr.mapper.RegionMapper"> -->
 	<!-- <insert id = "insertDept" parameterType = "Department">
 		insert into departments(department_id, department_name,manager_id,location_id) 

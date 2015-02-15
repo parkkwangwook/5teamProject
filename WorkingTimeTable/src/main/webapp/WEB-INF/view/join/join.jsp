@@ -10,21 +10,12 @@
 <html>
 <head>
 <style>
-
-
-
-	#user_grade label.error {
-		display: none;
-		margin-left: 103px;
-	}
-	textarea{
-		width: 400px;
-		align: left;
-	}
-
+#user_grade label.error {
+	display: none;
+	margin-left: 103px;
+}
 
 label.error {
-	/* remove the next line when you have trouble in IE6 with labels in list */
 	color: red;
 	/* font-style: italic */
 }
@@ -82,6 +73,13 @@ label.error {
 			yearRange : "1930:2015"
 		};
 		$("#datepicker").datepicker(dp);
+		
+		$("#popUpBtn").click(function(){
+			alert("팝업창이 나올 것!!");
+					var url = "<%=request.getContextPath()%>/checkIdPopUp"; 
+					<%-- var url = "<%=request.getContextPath() %>/checkId?userId="+$("#userId").val(); --%>
+					window.open(url, "_blank", "width=450, height=200, toolbar=no, menubar=no, resizable=no");
+		});
 
 		$("#joinForm").validate({
 			//validation이 끝난 이후의 submit 직전 추가 작업할 부분
@@ -93,12 +91,16 @@ label.error {
 					return false;
 				}
 			}, */
+			ignore: "",
 			//규칙
 			rules : {
-				userId : {
+				/* userId : {
 					required : true,
 					minlength : 2,
 					maxlength : 20
+				}, */
+				buttonCheck : {
+					required : true
 				},
 				password : {
 					required : true,
@@ -113,8 +115,8 @@ label.error {
 				},
 				userName : {
 					required : true,
-					minlength : 2,
-					maxlength : 10
+					minlength : 1,
+					maxlength : 3
 				},
 				tel : {
 					minlength: 10, 
@@ -134,21 +136,24 @@ label.error {
 				},
 				question : {
 					required : true,
-					minlength : 6,
-					maxlength : 50
+					minlength : 2, 
+					maxlength : 18
 				},
 				answer : {
 					required : true,
-					minlength : 2,
-					maxlength : 20
+					minlength : 1,
+					maxlength : 6
 				}
 			},
 			//규칙체크 실패시 출력될 메시지
 			messages : {
-				userId : {
+				/* userId : {
 					required : "필수 입력사항 입니다.",
 					minlength : "최소 {0}글자이상이어야 합니다",
 					maxlength : "최대 {0}글자이하이어야 합니다"
+				}, */
+				buttonCheck : {
+					required : "아이디 중복체크는 필수입니다."
 				},
 				password : {
 					required : "필수 입력사항 입니다.",
@@ -222,14 +227,13 @@ label.error {
 					</h1>
 					<nav>
 						<ul class="menu">
-							<li><a class="active"
-								href="<%=request.getContextPath()%>/index">Home</a></li>
+							<li><a href="<%=request.getContextPath()%>/index">Home</a></li>
 
 							<c:url value="/login" var="url"></c:url>
 							<li><a href="${url }">Login</a></li>
 
 							<c:url value="/join" var="url"></c:url>
-							<li><a href="${url }">Join</a></li>
+							<li><a class="active" href="${url }">Join</a></li>
 
 							<li><a href="<%=request.getContextPath()%>/contact">Contact</a></li>
 						</ul>
@@ -258,11 +262,10 @@ label.error {
 			<div class="row">
 				<article class="col-full">
 
-					회원가입<br>
-					<br>
-					<br>
+					회원가입<br> <br> <br>
 					<c:url value="/join" var="url" />
 					<form id="joinForm" action="${url }" method="post">
+
 						<table class="table" style="border-collapse: seperate;">
 							<colgroup>
 								<col style="align: center;" />
@@ -270,8 +273,12 @@ label.error {
 							<tbody>
 								<tr>
 									<th><label>아이디</label></th>
-									<td><input type="text" name="userId" id="userId" value="" />
-									<button type="submit" name="idDup">중복확인</button></td>
+									<td><input type="text" name="fromId" id="formId" disabled />
+										<input type="hidden" name="userId" id="userId" value="" /> <!-- <input type ="button" id="popUpBtn" value="중복확인"/> -->
+										<!-- <button id="popUpBtn">중복확인</button> --> <input
+										type="button" id="popUpBtn" value="중복확인" /> <input
+										type="hidden" name="buttonCheck" id="buttonCheck" value="" />
+									</td>
 								</tr>
 								<tr>
 									<th><label>비밀번호</label></th>
@@ -298,17 +305,18 @@ label.error {
 								</tr>
 								<tr>
 									<th><label>생년월일</label></th>
-									<td><input type="text" id="datepicker" name="birth" /></td>
+									<td><input type="text" id="datepicker" name="birth"
+										value="" /></td>
 								</tr>
 								<tr>
-								<!-- <fieldset id = "user_grade"> -->
+									<!-- <fieldset id = "user_grade"> -->
 									<th><label>가입유형</label></th>
-								
-									<td><input type="radio" id="grade_employer" value="사장" name="grade" required>고용인
-										<input type="radio" id="grade_employer" value="알바" name="grade">아르바이트
-										<label for="grade" class="error"></label>
-									</td>
-								<!-- </fieldset> -->
+
+									<td><input type="radio" id="grade_employer" value="사장"
+										name="grade" required>고용인 <input type="radio"
+										id="grade_employer" value="직원" name="grade">아르바이트 <label
+										for="grade" class="error"></label></td>
+									<!-- </fieldset> -->
 								</tr>
 								<tr>
 									<th><label for="question">비번찾기질문</label></th>

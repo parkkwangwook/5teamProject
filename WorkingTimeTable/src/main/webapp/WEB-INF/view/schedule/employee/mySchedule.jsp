@@ -190,7 +190,7 @@ select {
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			알바생 자기자신 시간표 조회~~~~~~~~~~~~~~
+			직원생 자기자신 시간표 조회~~~~~~~~~~~~~~
 		</div>
 	</div>
 	<br><br><br>

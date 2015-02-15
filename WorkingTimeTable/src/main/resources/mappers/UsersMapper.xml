@@ -18,8 +18,8 @@
 		where user_id = #{userId} and password = #{password}
 	</select>
 	
-	<select id = "selectbyUserId" parameterType = "String" resultType = "Users">
-		select * from users where user_id = #{userId}
+	<select id = "countByUserId" parameterType = "String" resultType = "Integer">
+		select count(*) from users where user_id = #{userId}
 	</select>
 	
 	<update id = "updateUser" parameterType = "Users">

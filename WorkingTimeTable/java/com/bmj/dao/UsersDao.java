@@ -9,5 +9,5 @@ public interface UsersDao {
 	int deleteUser(Users user);
 	int updatePassUser(Users user);
 	Users loginUser(Users user);
-	int selectbyUserId(String userId);
+	int countByUserId(String userId);
 }

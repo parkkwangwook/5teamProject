@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -94,7 +93,33 @@ public class UsersController {
 	public String joinGGo() {
 		return "/join/join";
 	}
-
+	
+	@RequestMapping(value = "/checkIdPopUp", method = RequestMethod.GET)
+	public String checkIdPopUpGo(Model model) {
+		model.addAttribute("result", "First");
+		return "/join/checkId";
+	}
+	
+	@RequestMapping(value = "/checkId", method = RequestMethod.GET)
+	public String checkIdGo(@RequestParam String userId, Model model) {
+		int result = -1;
+		
+		result = service.countByUserId(userId);
+		model.addAttribute("availableId", userId);
+		
+		if(result == 0){
+			model.addAttribute("result", "OK");
+			logger.trace("DB조회결과 없는아이디임!!!!");
+		}
+		else if(result != 0){
+			model.addAttribute("result", "NO");
+			logger.trace("DB조회결과 존재하는 아이디임!!!!");
+		}
+		//result < 0 사용가능    //result > 0 사용불가능
+		
+		return "/join/checkId";
+	}
+	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	// join페이지에서 가입 성공했을 때
 	public String joinSuccess(@RequestParam String userId,
@@ -227,7 +252,6 @@ public class UsersController {
 	// 회원탈퇴 - 사장,알바 공통
 	public String mypageLeaveArubaSuccessGo(@RequestParam String nowPassword,
 			Model model, HttpSession session) {
-		String viewPath = "";
 		Users leaveUser = new Users();
 		Users loginUser = (Users) session.getAttribute("addUser");
 
@@ -259,26 +283,29 @@ public class UsersController {
 		return "/mypage/employer/leaveAruba";
 	}
 
-	@RequestMapping(value = "/myCompany")
+	/*@RequestMapping(value = "/myCompany")
 	// 사장 mypage 메뉴에서 Store(매장관리)
 	public String mypageMyCompanyGo(Model model, HttpSession session) {
 		Users owner = (Users) session.getAttribute("addUser");
-		CompanyPerson companyCode = null;
+		CompanyPerson companyPerson = null;
 		String viewPath = "";
 
-		companyCode = cpService.selectCompanyCodeByUserId(owner.getUserId());
+		 companyPerson = cpService.selectCompanyCodeByUserId(owner.getUserId());
 
-		if (companyCode == null) {
+		if (companyPerson == null) {
 			// 등록된 회사 코드가 없는 것
 			model.addAttribute("addCmp", new Company());
 			viewPath = "/mypage/employer/registerCompany";
 		} else {
 			// 등록한 회사가 있는 것
+			Company myCompany = new Company();
+			myCompany.setCompanyCode(companyPerson.getCompanyCode());
+			myCompany = 
 			viewPath = "/mypage/employer/myCompany";
 		}
 
 		return viewPath;
-	}
+	}*/
 
 	@RequestMapping(value = "/wage")
 	// 사장 mypage 메뉴에서 Wage(알바생들 줄 급여관리)
@@ -290,12 +317,6 @@ public class UsersController {
 	// 사장 mypage 메뉴에서 Staff(알바생관리)
 	public String mypageStaffGo() {
 		return "/mypage/employer/staff";
-	}
-
-	@RequestMapping(value = "/alerts_employer")
-	// 사장 mypage 메뉴에서 Alerts(쪽지관리)
-	public String mypagAlertsEmployerGo() {
-		return "/mypage/employer/alerts";
 	}
 
 	// =============================================================== 알바 마이페이지
@@ -330,11 +351,11 @@ public class UsersController {
 		CompanyPerson companyCode = null;
 		String viewPath = "";
 
-		companyCode = cpService.selectCompanyCodeByUserId(alba.getUserId());
+		companyCode = cpService.selectCompanyPersonByUserId(alba.getUserId());
 
 		if (companyCode == null) {
 			// 등록된 직장이 없는 것
-			/* model.addAttribute("addCmp", new Company()); */
+			 model.addAttribute("addCmp", new Company()); 
 			viewPath = "/mypage/employee/registerJob";
 		} else {
 			// 이미 직장 등록되 있음
@@ -351,12 +372,6 @@ public class UsersController {
 		return "/mypage/employee/salary";
 	}
 
-	@RequestMapping(value = "/alerts_employee")
-	// 알바 mypage 메뉴에서 Alerts(쪽지관리)
-	public String mypagAlertsEmployeeGo() {
-		return "/mypage/employee/alerts";
-	}
-
 	// =============================================================== 시간표
 
 	// ////////////사장 시간표 메뉴
@@ -366,7 +381,7 @@ public class UsersController {
 		String userId = user.getUserId();
 		logger.trace("수업 UserId : " + user);
 		// 나의 회사 코드 가져오기...!
-		CompanyPerson companyperson = cpService.selectCompanyCodeByUserId(userId);
+		CompanyPerson companyperson = cpService.selectCompanyPersonByUserId(userId);
 		int companyCode = companyperson.getCompanyCode();
 		logger.trace("수업 CompanyCode : " + companyperson.getCompanyCode());
 		// company_person에 가서 직원 아이디 갖고오기!!

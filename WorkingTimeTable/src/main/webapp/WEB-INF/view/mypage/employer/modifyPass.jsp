@@ -21,6 +21,10 @@ select {
 .overflow {
 	height: 200px;
 }
+label.error {
+	color: red;
+	/* font-style: italic */
+}
 </style>
 <meta charset="utf-8">
 <title>Welcome</title>
@@ -111,7 +115,6 @@ select {
 			rules : {
 				nowPassword : {
 					required : true,
-					minlength : 3,
 					equalTo : "#password"
 				},
 				modifyPass1 : {
@@ -130,7 +133,6 @@ select {
 			messages : {
 				nowPassword : {
 					required : "필수 입력사항 입니다.",
-					minlength :"최소 {0}글자이상이어야 합니다",
 					equalTo : "기존 비밀번호와 불일치합니다."
 				},
 				modifyPass1 : {

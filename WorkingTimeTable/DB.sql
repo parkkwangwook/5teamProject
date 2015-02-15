@@ -266,13 +266,13 @@ END;
 
 
 insert into users(user_id, password, password2, user_name, tel, email, birth, grade, question, answer) 
-values ('park', '1', '1', 'kwangwook', '010-', 'p@naver.com', '06/08/1987', '사장', '몇살?', '20살');
+values ('park', '123', '123', '박광욱', '010-', 'p@naver.com', '06/08/1987', '사장', '몇살?', '20살');
 insert into users(user_id, password, password2, user_name, tel, email, birth, grade, question, answer) 
-values ('Kim', '1', '1', 'YunJoon', '010-', 's@naver.com', '06/08/1987', '직원', '몇살?', '20살');
+values ('Kim', '123', '123', '김연준', '010-', 'k@naver.com', '06/08/1987', '직원', '몇살?', '20살');
 insert into users(user_id, password, password2, user_name, tel, email, birth, grade, question, answer) 
-values ('Choi', '1', '1', 'JungIn', '010-', 's@naver.com', '06/08/1987', '직원', '몇살?', '20살');
+values ('Choi', '123', '123', '최정인', '010-', 'c@naver.com', '06/08/1987', '직원', '몇살?', '20살');
 insert into users(user_id, password, password2, user_name, tel, email, birth, grade, question, answer) 
-values ('Yoo', '1', '1', 'JiYeon', '010-', 's@naver.com', '06/08/1987', '직원', '몇살?', '20살');
+values ('Yoo', '123', '123', '유지연', '010-', 'y@naver.com', '06/08/1987', '직원', '몇살?', '20살');
 
 
 insert into Company(company_name, company_tel, holiday_comm, night_comm) 

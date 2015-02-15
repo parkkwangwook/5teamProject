@@ -1,5 +1,6 @@
 package com.bmj.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -32,17 +33,21 @@ public class ChartController {
 	@Autowired
 	CompanyPersonService cpservice;
 	
-	// 개인 조회~~
-	@RequestMapping(value = "/chart")
+	// 개인 급여 조회~~
+	@RequestMapping(value = "/mychart")
 	public String goChartAlba() {
 		Calendar c1 = Calendar.getInstance();
 		logger.trace("수업 : Chart~~~~~~~~~~~~~~!");
-
-		
-		
-		
-		return "chart/ssalbamode";
+		return "chart/myChart";
 	}
+	
+	// 직원 급여 조회~~
+		@RequestMapping(value = "/companychart")
+		public String goChartcompany() {
+			Calendar c1 = Calendar.getInstance();
+			logger.trace("수업 : CompanyChart~~~~~~~~~~~~~~!");
+			return "chart/CompanyChart";
+		}
 	
 	@RequestMapping(value = "/ajaxChart")
 	public @ResponseBody String ajaxReceive(Model model, HttpSession session) {
@@ -53,10 +58,24 @@ public class ChartController {
 		// String memberId = service.select~~(userId);
 		// 일단여기에선 UserId : Kim , memberId = 6
 		// 3. 직원 아이디로 근무표를 조회한다.
-		List<Stats> myTimes = null;
-		myTimes = service.selectStatsByMemberId(6);
+		logger.trace("수업 : 어디까지..?0");
+		List<Stats> myTimes = new ArrayList<Stats>();
+		// myTimes = service.selectStatsByMemberId(6);
+		myTimes.add(new Stats("JAN", 6, 30));
+		myTimes.add(new Stats("FEB", 6, 25));
+		myTimes.add(new Stats("MAR", 6, 28));
+		myTimes.add(new Stats("JAN", 2, 19));
+		myTimes.add(new Stats("FEB", 2, 33));
+		myTimes.add(new Stats("MAR", 2, 25));
+		myTimes.add(new Stats("JAN", 3, 10));
+		myTimes.add(new Stats("FEB", 3, 25));
+		myTimes.add(new Stats("MAR", 3, 41));
+		// month, memberId, count
+		
+		
 		logger.trace("수업 ::::::::::::::::" + myTimes);
 		CompanyPerson companyperson = cpservice.selectCompanyCodeByUserId("Kim");
+		
 		int salary = companyperson.getSalary();
 		for (int i = 0; i < myTimes.size(); i++) {
 			// 월급 계산.....! 시간 * 시급

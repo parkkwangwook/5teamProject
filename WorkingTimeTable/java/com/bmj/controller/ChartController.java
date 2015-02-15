@@ -70,6 +70,12 @@ public class ChartController {
 		myTimes.add(new Stats("JAN", 3, 10));
 		myTimes.add(new Stats("FEB", 3, 25));
 		myTimes.add(new Stats("MAR", 3, 41));
+		myTimes.add(new Stats("JAN", 1, 18));
+		myTimes.add(new Stats("FEB", 1, 25));
+		myTimes.add(new Stats("MAR", 1, 31));
+		myTimes.add(new Stats("JAN", 5, 10));
+		myTimes.add(new Stats("FEB", 5, 25));
+		myTimes.add(new Stats("MAR", 5, 21));
 		// month, memberId, count
 		
 		

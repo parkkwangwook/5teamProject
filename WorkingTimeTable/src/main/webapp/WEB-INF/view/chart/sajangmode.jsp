@@ -170,9 +170,9 @@ $(function () {
 	</script>
 	</head>
 	<body>
-<script src="js/highcharts.js"></script>
-<script src="js/highcharts-3d.js"></script>
-<script src="js/modules/exporting.js"></script>
+<script src="chartlib/highcharts.js"></script>
+<script src="chartlib/highcharts-3d.js"></script>
+<script src="chartlib/exporting.js"></script>
 
 <div id="container" style="min-width: 400px; height: 600px; margin: 0 auto"></div>
 

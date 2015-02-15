@@ -29,6 +29,7 @@
         var count = 0;							// 배열의 Count.
         var outArr = new Array();				// Json을 저장할 배열.
         var nameArr = new Array();				// Json에서 이름만 추출하여 저장할 배열.
+        var Xcategorie = new Array();			// categorie의 x축 이름.
 		$('#chartBtn').on('click',function(){
 			$.ajax({
 				url:"<%=request.getContextPath()%>/ajaxChart",   
@@ -48,6 +49,7 @@
 
                     //차트를 뿌리는 코드.
 					console.log("------------OutArr-------------");
+                    console.log("OutArr : " + outArr);
                     for(var i in outArr) {
                     	console.log(i + " , " + outArr[i][0]);
                     	nameArr.push(outArr[i][2]);
@@ -78,7 +80,15 @@
                     dataArr.push(tempArr);
             		seriesData.push({name:name[count], data:dataArr[count]});
 					console.log("------------seriesData-------------");
-					console.log(seriesData);
+					console.log("seriesData : " + seriesData);
+					
+					/* categories의 x축 설정. */
+					Xcategorie.push(outArr[0][0]);		// 초기값 설정.
+					for (var idx in outArr) {
+						if(Xcategorie != outArr[idx][0]) {
+							Xcategorie.push(outArr[idx][0]);							
+						}
+					}
                     
 			$('#container').highcharts({
 				chart: {
@@ -106,13 +116,16 @@
 				},
 				title: {
 	                text: '나의 월급 관리',
-	                color: 'white'
+	                style : {
+	                	color: 'gray'
+	                }
 	            },
 				subtitle: {
 					text: 'ARUBA Program.....! By.MALSIKIZIMA'
 				},
 				xAxis: {
-					type: 'category',
+					//type: 'category',
+					categories: Xcategorie
 				},
 				yAxis: {
 					min: 0,

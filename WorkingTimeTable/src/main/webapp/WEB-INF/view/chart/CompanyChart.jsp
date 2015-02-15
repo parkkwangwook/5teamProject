@@ -22,18 +22,14 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
-		/* var series = [];
-        var series1 = {
- 			   name : [],
-                data : []
-              }; */
-        var seriesData = new Array();
-        var tempArr = new Array();
-        var dataArr = new Array();
-        var name = new Array();
-        var count = 0;
-        var outArr = new Array();
-        var nameArr = new Array();
+        var seriesData = new Array();			// Series에 저장할 내용 name, data
+        var tempArr = new Array();				// 직원별 저장할 임시 Data 배열.
+        var dataArr = new Array();				// series에 저장할 Data 배열.
+        var name = new Array();					// 직원 이름 저장할 배열.
+        var count = 0;							// 배열의 Count.
+        var outArr = new Array();				// Json을 저장할 배열.
+        var nameArr = new Array();				// Json에서 이름만 추출하여 저장할 배열.
+        var Xcategorie = new Array();			// categorie의 x축 이름.
 		$('#chartBtn').on('click',function(){
 			$.ajax({
 				url:"<%=request.getContextPath()%>/ajaxChart",   
@@ -91,6 +87,14 @@
 					console.log("------------seriesData-------------");
 					console.log(seriesData);
                     
+					/* categories의 x축 설정. */
+					Xcategorie.push(outArr[0][0]);		// 초기값 설정.
+					for (var idx in outArr) {
+						if(Xcategorie != outArr[idx][0]) {
+							Xcategorie.push(outArr[idx][0]);							
+						}
+					}
+					
 			$('#container').highcharts({
 				
 				chart : {
@@ -112,7 +116,7 @@
 					text: 'ARUBA Program.....! By.MALSIKIZIMA'
 				},
 				xAxis: {
-					type: 'category',
+					categories: Xcategorie
 				},
 				yAxis: {
 					min: 0,
@@ -132,7 +136,7 @@
 						}
 					}
 				},
-				legend: {
+				/* legend: {
 					//enabled: false <-- 원래 이것만 있었음...!
 		            align: 'right',
 		            x: -70,
@@ -143,7 +147,7 @@
 		            borderColor: '#CCC',
 		            borderWidth: 1,
 		            shadow: false
-				},
+				}, */
 				/* 나의 월급현황 관리 tooltip. 
 				tooltip: {
 					//pointFormat: '{series.name}: <b>{point.y:.1f}원 </b>',

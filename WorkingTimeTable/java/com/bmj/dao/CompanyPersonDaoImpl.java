@@ -21,15 +21,15 @@ public class CompanyPersonDaoImpl implements CompanyPersonDao {
 	private static final String namespace = "mybatis.mapper.CompanyPerson.";
 	@Override
 	public int insertCompanyPerson(CompanyPerson companyperson) {
-		logger.trace("수업 : 여기는 ComapnPersonDaoImpl......!" + companyperson);		
+		logger.trace("수업 : 여기는 ComapnPersonDaoImpl.....!!!" + companyperson);		
 		String stmt = namespace + "insertCompanyPerson";
 		return sqlSession.insert(stmt, companyperson);
 	}
 	
 	@Override
-	public CompanyPerson selectCompanyCodeByUserId(String userId) {
-		logger.trace("!!!!!!!!!!!!!!!!!!!!!사장이 아이디로 CompanyCode찾기위해 DB로 가기전");
-		String stmt = namespace + "selectCompanyCodeByUserId";
+	public CompanyPerson selectCompanyPersonByUserId(String userId) {
+		logger.trace("!!!!!!사장이 아이디로 CompanyCode찾기위해 DB로 가기전");
+		String stmt = namespace + "selectCompanyPersonByUserId";
 		return sqlSession.selectOne(stmt, userId);
 	}
 
@@ -39,4 +39,24 @@ public class CompanyPersonDaoImpl implements CompanyPersonDao {
 		String stmt = namespace + "selectByCompanyCode";
 		return sqlSession.selectList(stmt, companyCode);
 	}
+
+	@Override
+	public int insertCompanyOwner(CompanyPerson companyperson) {
+		logger.trace("!!사장회사에 추가하러DB가기전!!");		
+		String stmt = namespace + "insertCompanyOwner";
+		return sqlSession.insert(stmt, companyperson);
+	}
+
+	@Override
+	public int selectComCodeByUserId(String userId) {
+		String stmt = namespace + "selectComCodeByUserId";
+		return sqlSession.selectOne(stmt, userId);
+	}
+
+	@Override
+	public int insertCompanyEmployee(CompanyPerson companyperson) {
+		String stmt = namespace + "insertCompanyEmployee";
+		return sqlSession.insert(stmt, companyperson);
+	}
+
 }

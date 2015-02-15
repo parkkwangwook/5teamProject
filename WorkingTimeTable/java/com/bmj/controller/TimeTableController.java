@@ -63,7 +63,7 @@ public class TimeTableController {
 		Users user = (Users)session.getAttribute("addUser");
 		logger.trace("수업 : User " + user);
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		CompanyPerson companyperson = service2.selectCompanyCodeByUserId(user.getUserId());
+		CompanyPerson companyperson = service2.selectCompanyPersonByUserId(user.getUserId());
 		int companyCode = companyperson.getCompanyCode();
 		for (int i = 0; i < arraylist.size(); i++) {
 
@@ -124,7 +124,7 @@ public class TimeTableController {
 	@RequestMapping(value = "/ajax")
 	public @ResponseBody String ajaxReceive(Model model, HttpSession session) {
 		Users user = (Users)session.getAttribute("addUser");
-		CompanyPerson companyperson = service2.selectCompanyCodeByUserId(user.getUserId());
+		CompanyPerson companyperson = service2.selectCompanyPersonByUserId(user.getUserId());
 		logger.trace("수업 : " + companyperson);
 		TimeTable timetable = new TimeTable();
 		List<TimeTable> lists = null;	// DB에서 Get.!

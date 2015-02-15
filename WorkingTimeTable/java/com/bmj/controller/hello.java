@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
@@ -18,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,7 +78,7 @@ public class hello {
 		// User_id....! get하고, userId로 컴패니 코드를 조회..!
 		// 일단 기본 아이디 사장이라 생각하고! Park, 123....!
 		//CompanyPerson companyperson = service2.selectCompanyCodeByUserId(UserId);
-		CompanyPerson companyperson = service2.selectCompanyCodeByUserId("park");
+		CompanyPerson companyperson = service2.selectCompanyPersonByUserId("park");
 		logger.trace("수업 : " + companyperson);
 		TimeTable timetable = new TimeTable();
 		List<TimeTable> lists = null;	// DB에서 Get.!

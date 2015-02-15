@@ -6,7 +6,12 @@ import com.bmj.entity.CompanyPerson;
 
 
 public interface CompanyPersonService {
+	int insertCompanyOwner(CompanyPerson companyperson);
+	int insertCompanyEmployee(CompanyPerson companyperson);
+	
 	int insertCompanyPerson(CompanyPerson companyperson);
-	CompanyPerson selectCompanyCodeByUserId(String userId);
+	
+	CompanyPerson selectCompanyPersonByUserId(String userId);
+	int selectComCodeByUserId(String userId);
 	List<CompanyPerson> selectByCompanyCode(int companyCode);
 }

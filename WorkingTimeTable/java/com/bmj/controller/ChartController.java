@@ -56,7 +56,7 @@ public class ChartController {
 		List<Stats> myTimes = null;
 		myTimes = service.selectStatsByMemberId(6);
 		logger.trace("수업 ::::::::::::::::" + myTimes);
-		CompanyPerson companyperson = cpservice.selectCompanyCodeByUserId("Kim");
+		CompanyPerson companyperson = cpservice.selectCompanyPersonByUserId("Kim");
 		int salary = companyperson.getSalary();
 		for (int i = 0; i < myTimes.size(); i++) {
 			// 월급 계산.....! 시간 * 시급

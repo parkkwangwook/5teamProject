@@ -21,9 +21,17 @@ select {
 .overflow {
 	height: 200px;
 }
+label.error {
+	color: red;
+	/* font-style: italic */
+}
 </style>
 <meta charset="utf-8">
 <title>Welcome</title>
+
+<!--------------------- Validate --------------------->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="lib/jquery.validate.min.js"></script>
 
 <!--------------------- Homepage --------------------->
 
@@ -40,7 +48,7 @@ select {
 	href="<%=request.getContextPath()%>/css/responsive.css" type="text/css"
 	media="all">
 
-<script src="js/jquery-1.6.3.min.js" type="text/javascript"></script>
+<!-- <script src="js/jquery-1.6.3.min.js" type="text/javascript"></script> -->
 <script src="js/cufon-yui.js" type="text/javascript"></script>
 <script src="js/cufon-replace.js" type="text/javascript"></script>
 <script src="js/Kozuka_Gothic_Pro_OpenType_300.font.js"
@@ -61,7 +69,7 @@ select {
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<!-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
 <script>
@@ -86,6 +94,86 @@ select {
 				
 			}
 		});
+		
+		$("#modifyComForm").validate({
+			//validation이 끝난 이후의 submit 직전 추가 작업할 부분
+			/* submitHandler : function() {
+				var f = confirm("글을 등록하시겠습니까?");
+				if (f) {
+					return true;
+				} else {
+					return false;
+				}
+			}, */
+			//규칙
+			rules : {
+				companyName : {
+					required : true,
+					minlength : 1,
+					maxlength : 6
+				},
+				companyTel : {
+					required : true,
+					minlength: 9, 
+					maxlength: 12, 
+					digits : true 
+				},
+
+				holidayComm : {
+					required : true,
+					minlength: 1, 
+					maxlength: 3, 
+					digits : true 
+				},
+				nightComm : {
+					required : true,
+					minlength: 1, 
+					maxlength: 3, 
+					digits : true 
+				},
+				nowPass : {
+					required : true,
+					equalTo : "#ownerPass"
+				}
+			},
+			//규칙체크 실패시 출력될 메시지
+			messages : {
+				companyName : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다"
+				},
+				companyTel : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다",
+					digits : "전화번호는 숫자만 입력해주세요."
+				},
+				
+				holidayComm : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다",
+					digits : "휴일수당은 숫자만 입력해주세요."
+				},
+				nightComm : {
+					required : "필수 입력사항 입니다.",
+					minlength : "최소 {0}글자이상이어야 합니다",
+					maxlength : "최대 {0}글자이하이어야 합니다",
+					digits : "야근수당은 숫자만 입력해주세요."
+				},
+				nowPass : {
+					required : "필수 입력사항 입니다.",
+					equalTo : "비밀번호가 불일치합니다"
+				}
+			}
+		});
+
+		var modifyComForm = $("#modifyComForm");
+		for ( var item in modifyComForm) {
+			console.log(item + " : " + modifyComForm[item]);
+		}
+		
 	});
 	
 </script> 
@@ -163,7 +251,44 @@ select {
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			사장의 매장관리~~~~
+			사장의 매장관리~~~~<br><br>
+			
+			<c:url value="/modifyMyCom" var="action" />
+			<form:form modelAttribute="myCom" mehtod="post" action="${action }" id="modifyComForm">
+			<table>
+			<tr>
+				<td><label>Code</label></td>
+				<td><form:hidden path="companyCode" name="companyCode" id="companyCode"/></td>
+			</tr>
+			<tr>
+				<td><label>OwnerPass</label></td>
+				<td><input type="hidden" name="ownerPass" id="ownerPass" value=${ownerPass} /></td>
+			</tr>
+			<tr>
+			<tr>
+				<td><label>회사명</label></td>
+				<td><form:input path="companyName" name="companyName" id="companyName"/></td>
+			</tr>		
+			<tr>
+				<td><label>회사전화번호</label></td>
+				<td><form:input path="companyTel" name="companyTel" id="companyTel" /></td>
+			</tr>
+			<tr>
+				<td><label>주말수당(%)</label></td>
+				<td><form:input path="holidayComm" name="holidayComm" id="holidayComm"/></td>
+			</tr>			
+			<tr>
+				<td><label>야근수당(%)</label></td>
+				<td> <form:input path="nightComm" name="nightComm" id="nightComm"/></td>
+			</tr>		
+			<tr>
+				<td><label>비밀번호</label></td>
+				<td><input type="text" name="nowPass" id="nowPass" /></td>
+			</tr>
+				</table>
+					<input type="submit" value="수정"/>
+			
+			</form:form>
 		</div>
 	</div>
 

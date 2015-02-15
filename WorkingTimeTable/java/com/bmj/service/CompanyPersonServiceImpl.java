@@ -29,8 +29,8 @@ public class CompanyPersonServiceImpl implements CompanyPersonService {
 	}
 
 	@Override
-	public CompanyPerson selectCompanyCodeByUserId(String userId) {
-		CompanyPerson result = dao.selectCompanyCodeByUserId(userId);
+	public CompanyPerson selectCompanyPersonByUserId(String userId) {
+		CompanyPerson result = dao.selectCompanyPersonByUserId(userId);
 		if(result == null){
 			logger.trace("nulllllllllllllllllllllllllllllllllllllllllllll");
 		}
@@ -43,6 +43,25 @@ public class CompanyPersonServiceImpl implements CompanyPersonService {
 		List<CompanyPerson> result = dao.selectByCompanyCode(companyCode);
 		return result;
 	}
-	
+
+	@Override
+	public int insertCompanyOwner(CompanyPerson companyperson) {
+		logger.trace("여기는 서비스~~~~~~~~~~~~~~~!");
+		int result = dao.insertCompanyOwner(companyperson);
+		return result;
+	}
+
+	@Override
+	public int selectComCodeByUserId(String userId) {
+		int result = dao.selectComCodeByUserId(userId);
+		return result;
+	}
+
+	@Override
+	public int insertCompanyEmployee(CompanyPerson companyperson) {
+		int result = dao.insertCompanyEmployee(companyperson);
+		return result;
+	}
+
 
 }

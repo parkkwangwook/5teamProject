@@ -298,7 +298,7 @@ label.error {
 			</tr>
 			<tr>
 				<td><label>PASSWORD</label></td>
-				<td><input type="text" id="nowPassword" name="nowPassword"/><div id="passChk"></div></td>
+				<td><input type="text" id="nowPassword" name="nowPassword"/></td>
 			</tr>
 			<tr>
 				<td><label>이름</label></td>

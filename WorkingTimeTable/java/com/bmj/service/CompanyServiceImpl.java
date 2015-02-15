@@ -39,4 +39,10 @@ public class CompanyServiceImpl implements CompanyService {
 		return result;
 	}
 
+	@Override
+	public int updateCompany(Company company) {
+		int result = dao.update(company);
+		return result;
+	}
+
 }

@@ -11,17 +11,17 @@
 <head>
 <meta charset="utf-8">
 <title>Welcome</title>
-
 <!--------------------- Validate --------------------->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="lib/jquery.validate.min.js"></script>
 
 <!--------------------- Homepage --------------------->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/style.css" type="text/css"
-	media="screen">
+
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/reset.css" type="text/css"
+	media="screen">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/style.css" type="text/css"
 	media="screen">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/zerogrid.css" type="text/css"
@@ -46,7 +46,6 @@
 <script type="text/javascript" src="js/easyTooltip.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript" src="js/css3-mediaqueries.js"></script>
-
 <script>
 	$(document).ready(function() {
 

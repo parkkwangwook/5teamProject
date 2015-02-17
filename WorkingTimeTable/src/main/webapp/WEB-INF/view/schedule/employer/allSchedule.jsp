@@ -201,14 +201,12 @@ $(function() {
 
 	<!--==============================contents================================-->
 
-	<br><br><br>
 	<div class="mainmenubg">
 		<div class="main zerogrid">
 		
 		</div>
 	</div>
 	
-	<br><br><br>
 	<div id='calendar'></div>
 	<br>
 	<%-- <table>

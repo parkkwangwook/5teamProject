@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<!-- 기존의 Ajax 방법 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -93,34 +93,26 @@ $(function() {
 });
 	/*  <!--------------------- fullCalendar --------------------->  */
 	$(document).ready(function() {
-		var outArr = new Array();
-		var inArr = new Array();
-		var e = new Array();
-		$.ajax({
-			url: "<%=request.getContextPath()%>/ajax",
-			success: function(result) {
-				var jobj = JSON.parse(result);
-				var e = jobj["event"];
-				console.log(e);
-				console.log(e[0]);
-				//callback(e);
-			for (var a in e) {
-				outArr.push({title:e[a].title, start:e[a].start, end: e[a].end,color:e[a].color});				
-			}
-			console.log(outArr);
-			$('#calendar').fullCalendar({	
-				// alert("확인");
-			
-				header: {
-					left: 'prev,next today',
-					center: 'title',
-					right: 'month,agendaWeek,agendaDay'
-				},
-				editable: false,
-				businessHours: true,
-				eventLimit: true, // allow "more" link when too many events
-				events: outArr
-			});
+		$('#calendar').fullCalendar({	
+			// alert("확인");
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			editable: false,
+			businessHours: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: function(start, end, timezone, callback) {
+				$.ajax({
+					url: "<%=request.getContextPath()%>/ajax",
+					success: function(result) {
+						var jobj = JSON.parse(result);
+						var e = jobj["event"];
+						console.log(e);
+						callback(e);
+					}
+				});
 			}
 		});
 	});

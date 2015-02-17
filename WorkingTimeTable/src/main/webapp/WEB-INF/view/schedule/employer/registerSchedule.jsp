@@ -336,7 +336,7 @@ $(function() {
 				<table border = "1">
 					<c:forEach items="${employees}" var = "employee">
 						<tr>
-							<td><div class='fc-event'><c:out value="${employee.memberId}"/></div></td>
+							<td><div class='fc-event'><c:out value="${employee.memberId}@@@${employee.userId}"/></div></td>
 						</tr>
 					</c:forEach>
 				</table>

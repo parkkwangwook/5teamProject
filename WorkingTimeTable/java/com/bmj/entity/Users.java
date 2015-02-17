@@ -1,5 +1,6 @@
 package com.bmj.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Users {
@@ -14,6 +15,7 @@ public class Users {
 	private Date joinDate;
 	private String question;
 	private String answer;
+	private ArrayList<CompanyPerson> cp;
 	
 	public Users() {}
 	

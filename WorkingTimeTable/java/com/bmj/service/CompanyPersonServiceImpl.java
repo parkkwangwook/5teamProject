@@ -67,4 +67,10 @@ public class CompanyPersonServiceImpl implements CompanyPersonService {
 		return result;
 	}
 
+	@Override
+	public int updateSalary(CompanyPerson companyperson) {
+		int result = dao.updateSalary(companyperson);
+		return result;
+	}
+
 }

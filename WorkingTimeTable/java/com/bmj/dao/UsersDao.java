@@ -10,4 +10,5 @@ public interface UsersDao {
 	int updatePassUser(Users user);
 	Users loginUser(Users user);
 	int countByUserId(String userId);
+	Users selectUserByUserId(String userId);
 }

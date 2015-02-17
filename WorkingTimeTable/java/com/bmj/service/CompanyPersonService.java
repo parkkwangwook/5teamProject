@@ -15,4 +15,6 @@ public interface CompanyPersonService {
 	/*int selectComCodeByUserId(String userId);*/
 	List<Integer> selectComCodeByUserId(String userId);
 	List<CompanyPerson> selectByCompanyCode(int companyCode);
+	
+	int updateSalary(CompanyPerson companyperson);
 }

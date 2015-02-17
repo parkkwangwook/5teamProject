@@ -313,11 +313,6 @@ public class UsersController {
 		return "/mypage/employer/wage";
 	}
 
-	@RequestMapping(value = "/staff")
-	// 사장 mypage 메뉴에서 Staff(알바생관리)
-	public String mypageStaffGo() {
-		return "/mypage/employer/staff";
-	}
 
 	// =============================================================== 알바 마이페이지
 	@RequestMapping(value = "/mypage_employee")

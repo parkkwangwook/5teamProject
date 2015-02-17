@@ -21,6 +21,9 @@ select {
 .overflow {
 	height: 200px;
 }
+.temp td{
+	border: 1px solid black;
+}
 </style>
 <meta charset="utf-8">
 <title>Welcome</title>
@@ -66,6 +69,25 @@ select {
 
 <script>
 	$(function() {
+		
+		$(".btn").click(function(){
+			var bid = $(this).attr("id");
+			alert(bid);
+			var tid = "#salary"+bid;
+			var tid2 = "#code"+bid;
+			var tid3 = "#id"+bid;
+			alert(tid);
+			alert("월급"+$(tid).val());
+			alert("코드"+$(tid2).html());
+			alert("아이디"+$(tid3).html());
+			
+			var url = "<%=request.getContextPath()%>/modifySalary?companyCode="+$(tid2).html()+"&userId="+$(tid3).html()+"&salary="+$(tid).val();
+			
+			$(location).attr('href',url);
+			
+			
+		});
+		
 		$("#MypageMenu").selectmenu({
 			change: function(event, ui){
 				
@@ -161,7 +183,38 @@ select {
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			사장의 직원관리~~~~~~~~
+			사장의 직원관리<br><br>
+			
+			<table class="temp">
+				<tr>
+					<th>status</th>
+					<th>회사코드</th>
+					<th>이름</th>
+					<th>아이디</th>
+					<th>전화번호</th>
+					<th>이메일</th>
+					<th>시급</th>
+					<th>고용일</th>
+				</tr>
+
+				<c:forEach items="${staffList }" var="staffList" varStatus="status">
+
+					<tr> 
+						<td>${status.index }</td>
+						<td id="codebtn${status.index }">${staffList.companyCode}</td>
+						<td>${staffList.userName}</td>
+						<td id="idbtn${status.index }">${staffList.userId}</td>
+						<td>${staffList.tel}</td>
+						<td>${staffList.email}</td>
+						<td><input type="text" name="salary${status.index }" id="salarybtn${status.index }" value="${staffList.salary}">
+						<%-- <c:url value="/modifySalary?companyCode=${staffList.companyCode}&userId=${staffList.userId}&salary=" var="url"/> --%>
+						<br><button id="btn${status.index }" class="btn">시급수정</button></td>
+						<td>${staffList.hireDate}</td>
+						<td><c:url value="/deleteStaff?companyCode=${staffList.companyCode}&userId=${staffList.userId}" var="url"/>
+						<a href="${url }"><button>삭제</button></a></td>
+					</tr>
+				</c:forEach>
+			</table>
 		</div>
 	</div>
 

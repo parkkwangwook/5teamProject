@@ -66,6 +66,12 @@ public class CompanyPersonDaoImpl implements CompanyPersonDao {
 		return sqlSession.insert(stmt, companyperson);
 	}
 
+	@Override
+	public int updateSalary(CompanyPerson companyperson) {
+		String stmt = namespace + "updateSalary";
+		return sqlSession.update(stmt, companyperson);
+	}
+
 
 
 }

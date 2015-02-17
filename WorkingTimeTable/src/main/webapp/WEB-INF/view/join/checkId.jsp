@@ -14,7 +14,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-
 		window.$("#useIdBtn").click(function() {
 			opener.$("#formId").val("${availableId}");
 			opener.$("#userId").val("${availableId}");

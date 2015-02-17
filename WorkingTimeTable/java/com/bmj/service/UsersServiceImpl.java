@@ -62,4 +62,10 @@ public class UsersServiceImpl implements UsersService {
 		return result;
 	}
 
+	@Override
+	public Users selectUserByUserId(String userId) {
+		Users result = dao.selectUserByUserId(userId);
+		return result;
+	}
+
 }

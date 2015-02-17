@@ -8,6 +8,9 @@
 		select count(*) from users
 	</select>
 	
+	<select id ="selectUserByUserId" parameterType = "String" resultType="Users">
+		select * from users where user_id = #{userId}
+	</select>
 	<insert id = "insertUser" parameterType = "Users">
 		insert into users(user_id, password, password2, user_name, tel, email, birth, grade, question, answer) 
 		values (#{userId}, #{password}, #{password2}, #{userName}, #{tel}, #{email}, #{birth}, #{grade}, #{question}, #{answer})

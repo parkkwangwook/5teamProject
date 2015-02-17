@@ -30,7 +30,7 @@
         var outArr = new Array();				// Json을 저장할 배열.
         var nameArr = new Array();				// Json에서 이름만 추출하여 저장할 배열.
         var Xcategorie = new Array();			// categorie의 x축 이름.
-		$('#chartBtn').on('click',function(){
+		//$('#chartBtn').on('click',function(){
 			$.ajax({
 				url:"<%=request.getContextPath()%>/ajaxChart",   
                 type:'POST',
@@ -169,9 +169,7 @@
 		                 + '<td style="padding:0"><b>{point.y:.f}원</b></td></tr>',
 		            footerFormat: '</table>',
 		            
-		            
 		            /* total을 출력하고 싶다. 모르겠다, 나중에 */
-		            
 		            shared: true,
 		            useHTML: true
 		        },
@@ -191,48 +189,41 @@
 		            }
 		        },
 				series: seriesData
-				});
-				
-	/*알파 베타 각도로 그래프를 움직일 수 있는 부분 */
-	function showValues() {
-        $('#R0-value').html(chart.options.chart.options3d.alpha);
-        $('#R1-value').html(chart.options.chart.options3d.beta);
-    }
-	
-	
-	 $('#R0').on('change', function () {
-	 	chart.options.chart.options3d.alpha = this.value;
-		showValues();
-	 	chart.redraw(false);
-	 });
-	 $('#R1').on('change', function () {
-	 	chart.options.chart.options3d.beta = this.value;
-	 	showValues();
-	 	chart.redraw(false);
-	 });
-
-	 showValues();
-		
-    });
-			}
-                
-	});
 			});
+				/*알파 베타 각도로 그래프를 움직일 수 있는 부분 */
+				function showValues() {
+			        $('#R0-value').html(chart.options.chart.options3d.alpha);
+			        $('#R1-value').html(chart.options.chart.options3d.beta);
+			    }
+				
+				
+				 $('#R0').on('change', function () {
+				 	chart.options.chart.options3d.alpha = this.value;
+					showValues();
+				 	chart.redraw(false);
+				 });
+				 $('#R1').on('change', function () {
+				 	chart.options.chart.options3d.beta = this.value;
+				 	showValues();
+				 	chart.redraw(false);
+				 });
+				 showValues();
+				});
+			}
 		});
-			
+	//});
+});
     	
-  	</script>
-	</head>
+</script>
+</head>
 <body>
 <script src="chartlib/highcharts.js"></script>
 <script src="chartlib/highcharts-3d.js"></script>
 <script src="chartlib/exporting.js"></script>
-<button id="chartBtn">직원 월급 조회하기</button>
-
+<!-- <button id="chartBtn">직원 월급 조회하기</button>
+ -->
 <!-- 그래프 -->
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-
 
 <!-- 각도조절 바 -->
 <div id="sliders">
@@ -241,5 +232,5 @@
 	    <tr><td>Beta Angle</td><td><input id="R1" type="range" min="0" max="45" value="15"/> <span id="R1-value" class="value"></span></td></tr>
 	</table>
 </div>
-	</body>
+</body>
 </html>

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,6 +28,7 @@ import com.bmj.entity.TimeTable;
 import com.bmj.entity.Users;
 import com.bmj.service.CompanyPersonService;
 import com.bmj.service.TimeTableService;
+import com.google.gson.Gson;
 @Controller
 public class TimeTableController {
 	private static final Logger logger;
@@ -34,7 +36,7 @@ public class TimeTableController {
 		logger = LoggerFactory.getLogger(TimeTableController.class);
 	}
 	
-	private String[] color = {"000000", "FF0000", "00FF00", "0000FF", "FFFF00", "00FFFF", "FF00FF"};
+	private String[] color = {"#000000", "#ff0000", "#00ff00", "#0000ff", "#ffff00", "#00ffff", "#ff00ff"};
 	
 	@Autowired
 	CompanyPersonService service2;
@@ -45,63 +47,45 @@ public class TimeTableController {
 	@RequestMapping(value="/addTimeTable", method = RequestMethod.GET)
 	public String saveExternal(@RequestParam String list, HttpSession session) {
 		logger.trace("수업 : " + list);
-		
-		JSONParser parser = new JSONParser();
-		Object obj = null;
-		TimeTable timetable = new TimeTable();
-		try {
-			obj = parser.parse(list);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		logger.trace("수업 Object : " + obj);
-		logger.trace("수업 확인 1 : " + obj.getClass());
-		JSONArray arraylist = (JSONArray) obj;
-		// arraylist.get(0);
+		Gson gson = new Gson();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		ArrayList templ = new ArrayList();
+		// ArrayList에 gson으로 List 저장.
+		templ = gson.fromJson(list, ArrayList.class);
 		Date date = new Date();
+		TimeTable timetable = new TimeTable();
 		Users user = (Users)session.getAttribute("addUser");
 		logger.trace("수업 : User " + user);
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		CompanyPerson companyperson = service2.selectCompanyPersonByUserId(user.getUserId());
 		int companyCode = companyperson.getCompanyCode();
-		for (int i = 0; i < arraylist.size(); i++) {
-
-			logger.trace("수업 확인 : " + arraylist.get(i));
-			SaveTime st1 = new SaveTime(arraylist.get(i));
-			logger.trace("수업 마지막 확인 : " + st1);
-						// 직원 아이디...
-			st1.getStart();		// 시작 날짜 + 시간
-			st1.getEnd();		// 끝난 날짜 + 시간
+		
+		logger.trace("Gson : " + templ);
+		for(int i = 0; i < templ.size(); i++) {
+			com.google.gson.internal.LinkedTreeMap map = (com.google.gson.internal.LinkedTreeMap)templ.get(i);
+			logger.trace("수업 Map : " + map);
+			logger.trace("수업 확인 Id : " +map.get("title"));
+			StringTokenizer st1 = new StringTokenizer(map.get("title").toString(), "@@");
+			int id = Integer.parseInt(st1.nextToken());
+			logger.trace("수업 확인 Data : " + date);
 			try {
-				date = formatter.parse(st1.getStart());
+				date = formatter.parse(map.get("start").toString());
 			} catch (java.text.ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			// TimeTable timetb = new TimeTable();
-/*			worktable.setMemberId(Integer.parseInt(st1.getTitle()));
-			
-*/			//st1 0 : eventId, 1 : memberId, 2 : timestart, 3 : timeEnd
-			//날짜 분해하는 클래스 호출....!
-			//service에서 한번에 해봐....
-//			timetable.setCompanyCode(companyCode);
-			// 일단 Test User : Park , 123....
+			logger.trace("수업 확인 Start : " + map.get("start"));
+			String start = map.get("start").toString();
+			logger.trace("수업 확인 End : " + map.get("end"));
+			String end = map.get("end").toString();
 			timetable.setCompanyCode(companyCode);
-//			timetable.setMemberId(st1.getTitle);
-			//timetable.setMemberId(23);
-			timetable.setMemberId(Integer.parseInt(st1.getTitle()));
+			timetable.setMemberId(id);
 			timetable.setWorkingDate(date);
-			timetable.setWorkingStart(st1.getStart());
-			timetable.setWorkingEnd(st1.getEnd());
+			timetable.setWorkingStart(start);
+			timetable.setWorkingEnd(end);
 			logger.trace("수업 111111111 : " + timetable);
+		
 			int result = service.insertTimeTable(timetable);
-		}
-		
-		/*while(arraylist.iterator().hasNext()) {
-			logger.trace("수업 1 " + arraylist.iterator());
-		}*/
-		
+		}		
 		// 여기 나중에 수정...!
 		return "calendar/register";
 	}

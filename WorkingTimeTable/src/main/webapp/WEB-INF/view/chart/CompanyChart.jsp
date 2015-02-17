@@ -95,7 +95,9 @@
 						}
 					}
 					
-			$('#container').highcharts({
+			//$('#container').highcharts({
+		$(function () {
+			var chart = new Highcharts.Chart({
 				
 				chart : {
 					renderTo: 'container',
@@ -189,15 +191,10 @@
 		            }
 		        },
 				series: seriesData
-					});
-				}
-			});
-		});
-
-	
-	
-	/* 알파 베타 각도로 그래프를 움직일 수 있는 부분 */
-	/* function showValues() {
+				});
+				
+	/*알파 베타 각도로 그래프를 움직일 수 있는 부분 */
+	function showValues() {
         $('#R0-value').html(chart.options.chart.options3d.alpha);
         $('#R1-value').html(chart.options.chart.options3d.beta);
     }
@@ -214,9 +211,15 @@
 	 	chart.redraw(false);
 	 });
 
-	 showValues();*/
-	}); 
-
+	 showValues();
+		
+    });
+			}
+                
+	});
+			});
+		});
+			
     	
   	</script>
 	</head>
@@ -232,11 +235,11 @@
 
 
 <!-- 각도조절 바 -->
-<!-- <div id="sliders">
+<div id="sliders">
 	<table>
 		<tr><td>Alpha Angle</td><td><input id="R0" type="range" min="0" max="45" value="15"/> <span id="R0-value" class="value"></span></td></tr>
 	    <tr><td>Beta Angle</td><td><input id="R1" type="range" min="0" max="45" value="15"/> <span id="R1-value" class="value"></span></td></tr>
 	</table>
-</div> -->
+</div>
 	</body>
 </html>

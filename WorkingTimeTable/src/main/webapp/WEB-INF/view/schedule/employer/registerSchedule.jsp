@@ -218,7 +218,6 @@ $(function() {
 			var url = "${addTimeTable}?list=" + objstr;
 			location.href = url;
 		})
-		
 	});
 
 </script>
@@ -347,7 +346,7 @@ $(function() {
 		</div>
 		
 		<div id='calendar'></div>
-		
+		<br>
 		<div style='clear:both'></div>
 
 	</div>

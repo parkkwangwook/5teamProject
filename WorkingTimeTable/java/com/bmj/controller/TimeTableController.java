@@ -127,13 +127,13 @@ public class TimeTableController {
 			savetime.setTitle(String.valueOf(lists.get(idx).getMemberId()));
 			savetime.setStart(settingTime(lists.get(idx).getWorkingStart()));
 			savetime.setEnd(settingTime(lists.get(idx).getWorkingEnd()));
-			if(idx > 6) {
-				int length = idx;
-				savetime.setColor(color[length%6]);
-				
+			//if(idx > 6) {
+				//int length = idx;
+			savetime.setColor(color[lists.get(idx).getMemberId()%6]);
+			/*	
 			}else {
 				savetime.setColor(color[idx]);
-			}
+			}*/
 			logger.trace("수업 savetime : " + savetime);
 			list2.add(idx, savetime);
 		}

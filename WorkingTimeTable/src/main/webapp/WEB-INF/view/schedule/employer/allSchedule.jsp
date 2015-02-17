@@ -210,6 +210,7 @@ $(function() {
 	
 	<br><br><br>
 	<div id='calendar'></div>
+	<br>
 	<%-- <table>
 		<c:forEach items="${Calendar}" var = "calen">
 		<tr>

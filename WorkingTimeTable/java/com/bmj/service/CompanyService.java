@@ -1,5 +1,7 @@
 package com.bmj.service;
 
+import java.util.List;
+
 import com.bmj.entity.Company;
 
 public interface CompanyService {

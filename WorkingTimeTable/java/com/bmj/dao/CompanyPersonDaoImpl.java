@@ -47,16 +47,25 @@ public class CompanyPersonDaoImpl implements CompanyPersonDao {
 		return sqlSession.insert(stmt, companyperson);
 	}
 
-	@Override
+	/*@Override
 	public int selectComCodeByUserId(String userId) {
 		String stmt = namespace + "selectComCodeByUserId";
 		return sqlSession.selectOne(stmt, userId);
+	}*/
+	
+	@Override
+	public List<Integer> selectComCodeByUserId(String userId) {
+		String stmt = namespace + "selectComCodeByUserId";
+		List<Integer> result = sqlSession.selectList(stmt, userId);
+		return result;
 	}
-
+	
 	@Override
 	public int insertCompanyEmployee(CompanyPerson companyperson) {
 		String stmt = namespace + "insertCompanyEmployee";
 		return sqlSession.insert(stmt, companyperson);
 	}
+
+
 
 }

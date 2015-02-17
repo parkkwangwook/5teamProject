@@ -50,17 +50,21 @@ public class CompanyPersonServiceImpl implements CompanyPersonService {
 		return result;
 	}
 
-	@Override
+	/*@Override
 	public int selectComCodeByUserId(String userId) {
 		int result = dao.selectComCodeByUserId(userId);
 		return result;
+	}*/
+	@Override
+	public List<Integer> selectComCodeByUserId(String userId) {
+		List<Integer> result = dao.selectComCodeByUserId(userId);
+		return result;
 	}
-
+	
 	@Override
 	public int insertCompanyEmployee(CompanyPerson companyperson) {
 		int result = dao.insertCompanyEmployee(companyperson);
 		return result;
 	}
-
 
 }

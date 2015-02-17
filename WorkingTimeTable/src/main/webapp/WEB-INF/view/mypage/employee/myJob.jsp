@@ -21,9 +21,14 @@ select {
 .overflow {
 	height: 200px;
 }
+
 label.error {
 	color: red;
 	/* font-style: italic */
+}
+
+.temp td {
+	border: 1px solid black;
 }
 </style>
 <meta charset="utf-8">
@@ -88,12 +93,12 @@ label.error {
 				else if(this.selectedIndex == 4)			//급여관리
 					window.location.href = "<%=request.getContextPath()%>/salary";
 				else if(this.selectedIndex == 5)			//쪽지
-					window.location.href = "<%=request.getContextPath()%>/alerts_employee";
-				
-			}
-		});
-		
-		
+					window.location.href = "<%=request.getContextPath()%>
+	/alerts_employee";
+
+							}
+						});
+
 		$("#addJobForm").validate({
 			//validation이 끝난 이후의 submit 직전 추가 작업할 부분
 			/* submitHandler : function() {
@@ -106,16 +111,16 @@ label.error {
 			}, */
 			//규칙
 			rules : {
-				companyCode: {
+				companyCode : {
 					required : true,
 					minlength : 1,
-					digits : true 
+					digits : true
 				},
 				companyTel : {
 					required : true,
-					minlength: 9, 
-					maxlength: 12, 
-					digits : true 
+					minlength : 9,
+					maxlength : 12,
+					digits : true
 				}
 			},
 			//규칙체크 실패시 출력될 메시지
@@ -138,11 +143,9 @@ label.error {
 		for ( var item in addJobForm) {
 			console.log(item + " : " + addJobForm[item]);
 		}
-		
-		
+
 	});
-	
-</script> 
+</script>
 
 </head>
 <body id="page5">
@@ -185,28 +188,28 @@ label.error {
 	<div class="slider-wrapper">
 		<article class="col-full">
 			<img src="images/logintitlebg.png">
-			
-			<fieldset>
-					<ul class="lowermenu">
 
-						<li><select name="MypageMenu" id="MypageMenu">
-								<optgroup label="My Info">
-									<option value="info">personal info</option>
-									<option value="password">change password</option>
-									<option value="leave">leave Aruba</option>
-								</optgroup>
-								<optgroup label="Job">
-									<option value="job" selected="selected">my job</option>
-								</optgroup>
-								<optgroup label="Salary">
-									<option value="salary">my salary</option>
-								</optgroup>
-								<optgroup label="Message">
-									<option value="message">check message</option>
-								</optgroup>
-						</select></li>
-					</ul>
-				</fieldset>
+			<fieldset>
+				<ul class="lowermenu">
+
+					<li><select name="MypageMenu" id="MypageMenu">
+							<optgroup label="My Info">
+								<option value="info">personal info</option>
+								<option value="password">change password</option>
+								<option value="leave">leave Aruba</option>
+							</optgroup>
+							<optgroup label="Job">
+								<option value="job" selected="selected">my job</option>
+							</optgroup>
+							<optgroup label="Salary">
+								<option value="salary">my salary</option>
+							</optgroup>
+							<optgroup label="Message">
+								<option value="message">check message</option>
+							</optgroup>
+					</select></li>
+				</ul>
+			</fieldset>
 		</article>
 	</div>
 
@@ -215,35 +218,61 @@ label.error {
 
 	<div class="mainmenubg">
 		<div class="main zerogrid">
-			<h2>직원 JOB등록</h2><br>
-			<c:url value="/sendMsgToOwner" var="url"></c:url>
-			<form id="addJobForm" method="post" action="${url }">
-				
-				<table class="table" style="border-collapse: seperate;">
-							<colgroup>
-								<col style="align: center;" />
-							</colgroup>
-							<tbody>
-								<tr>
-									<th><label>회사코드</label></th>
-									<td><input type="text" name="companyCode" id="companyCode"
-										value="" /></td>
-								</tr>
-								<tr>
-									<th><label>회사전화번호</label></th>
-									<td><input type="text" name="companyTel" id="companyTel" value="" /></td>
-								</tr>
 
-							</tbody>
-						</table>
-						<div align="center" style="margin-bottom: 50px; margin-top: 30px;">
-							<button type="submit">등록</button>
-							<button type="reset" id="cancel">취소</button>
-						</div>
-			</form>
-			<br><br>
-			
+			<c:if test="${emptyCompany =='YES' }">
+				<h2>직원 JOB등록</h2>
+				<br>
+				<c:url value="/sendMsgToOwner" var="url"></c:url>
+				<form id="addJobForm" method="post" action="${url }">
+
+					<table class="table" style="border-collapse: seperate;">
+						<colgroup>
+							<col style="align: center;" />
+						</colgroup>
+						<tbody>
+							<tr>
+								<th><label>회사코드</label></th>
+								<td><input type="text" name="companyCode" id="companyCode"
+									value="" /></td>
+							</tr>
+							<tr>
+								<th><label>회사전화번호</label></th>
+								<td><input type="text" name="companyTel" id="companyTel"
+									value="" /></td>
+							</tr>
+
+						</tbody>
+					</table>
+					<div align="center" style="margin-bottom: 50px; margin-top: 30px;">
+						<button type="submit">등록</button>
+						<button type="reset" id="cancel">취소</button>
+					</div>
+				</form>
+			</c:if>
+			<c:if test="${emptyCompany =='NO' }">
+				<h2>아르바이트 등록은 최대 3개까지 가능합니다.</h2>
+			</c:if>
+			<br>
+			<br>
+
 			<h2>직원 직장정보</h2>
+
+			<table class="temp">
+				<tr>
+					<th>회사코드</th>
+					<th>회사명</th>
+					<th>전화번호</th>
+				</tr>
+
+				<c:forEach items="${myCompanies }" var="myCompanies">
+
+					<tr>
+						<td>${myCompanies.companyCode}</td>
+						<td>${myCompanies.companyName}</td>
+						<td>${myCompanies.companyTel}</td>
+					</tr>
+				</c:forEach>
+			</table>
 		</div>
 	</div>
 

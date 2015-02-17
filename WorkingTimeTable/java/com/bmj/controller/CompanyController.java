@@ -1,5 +1,8 @@
 package com.bmj.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bmj.entity.Company;
 import com.bmj.entity.CompanyPerson;
+import com.bmj.entity.Message;
 import com.bmj.entity.Users;
 import com.bmj.service.CompanyPersonService;
 import com.bmj.service.CompanyService;
@@ -151,4 +155,28 @@ public class CompanyController {
 		
 		return "";
 	}
+	
+	@RequestMapping(value = "/myJob")
+	// 알바 mypage 메뉴에서 직업관리
+	public String mypageMyJobGo(Model model, HttpSession session) {
+		Users loginUser = (Users) session.getAttribute("addUser"); // 로그인하고 있는 알바생 정보 가져오고
+		String viewPath = "";
+		
+		List<Integer> codeList = cpService.selectComCodeByUserId(loginUser.getUserId());
+		List<Company> comList = new ArrayList<Company>();
+		for(int i = 0; i < codeList.size(); i++){
+			comList.add(i, service.selectCompanyByCompanyCode( codeList.get(i).intValue() ) );
+		}
+		
+		if(codeList.size() > 2){
+			model.addAttribute("emptyCompany", "NO");
+		}else{
+			model.addAttribute("emptyCompany", "YES");
+		}
+		logger.trace("가져온 나의 회사 정보!! " + comList);
+		model.addAttribute("myCompanies", comList);
+		
+		return "/mypage/employee/myJob";
+	}
+
 }

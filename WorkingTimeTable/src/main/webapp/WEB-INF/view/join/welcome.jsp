@@ -64,7 +64,7 @@
 			가입축하축하(grade에 따라서 두 버튼 중 한 버튼만 보이게 바꿀꺼임)
 			<c:url value="/registerCompany" var="url"></c:url>
 			<a href="${url }"><button>사장-회사등록</button></a>
-			<c:url value="/registerJob" var="url"></c:url>
+			<c:url value="/myJob" var="url"></c:url>
 			<a href="${url }"><button>직원-회사등록</button></a>
 		</div>
 	</div>

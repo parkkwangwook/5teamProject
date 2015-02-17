@@ -10,7 +10,6 @@ import com.bmj.dao.CompanyDao;
 import com.bmj.entity.Company;
 
 @Service
-@Transactional(rollbackFor=com.bmj.exception.ServiceFailException.class)
 public class CompanyServiceImpl implements CompanyService {
 	private static final Logger logger;
 	static {
@@ -42,6 +41,12 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public int updateCompany(Company company) {
 		int result = dao.update(company);
+		return result;
+	}
+
+	@Override
+	public Company selectCompanyByCodeAndTel(Company company) {
+		Company result = dao.selectCompanyByCodeAndTel(company);
 		return result;
 	}
 

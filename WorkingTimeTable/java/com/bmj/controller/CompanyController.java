@@ -48,8 +48,8 @@ public class CompanyController {
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-	@RequestMapping(value="/registerCompany")
-	public String registerCompany(Model model) {					//가입완료 후, 사장-회사 등록 버튼
+	@RequestMapping(value="/registerCompany", method = RequestMethod.GET)
+	public String registerCompany(Model model) {					//가입완료 후, 사장-회사 등록 버튼 - 회사등록페이지
 		model.addAttribute("addCmp", new Company());
 		return "mypage/employer/registerCompany";
 	}
@@ -106,7 +106,7 @@ public class CompanyController {
 
 		return "mypage/employer/myCompany";
 	}*/
-	@RequestMapping(value="/mypage_myCompany")
+	@RequestMapping(value="/registerCompany", method = RequestMethod.POST)
 	public String registerCompanySuccess(@RequestParam String companyName, @RequestParam String companyTel,
 										@RequestParam Float holidayComm, @RequestParam Float nightComm,
 										HttpSession session) {
@@ -134,7 +134,8 @@ public class CompanyController {
 		// service.company_person.insert();
 		cpService.insertCompanyOwner(companyperson);
 
-		return "mypage/employer/myCompany";
+		/*return "mypage/employer/myCompany";*/
+		return "redirect:/myCompany"; 
 	}
 	
 

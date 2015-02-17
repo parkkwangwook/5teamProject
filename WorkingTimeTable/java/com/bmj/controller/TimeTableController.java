@@ -28,7 +28,7 @@ import com.bmj.entity.TimeTable;
 import com.bmj.entity.Users;
 import com.bmj.service.CompanyPersonService;
 import com.bmj.service.TimeTableService;
-import com.google.gson.Gson;
+import com.google.gson.Gson; 
 @Controller
 public class TimeTableController {
 	private static final Logger logger;

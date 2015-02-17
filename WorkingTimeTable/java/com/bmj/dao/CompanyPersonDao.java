@@ -11,6 +11,7 @@ public interface CompanyPersonDao {
 	int insertCompanyPerson(CompanyPerson companyperson);
 	
 	CompanyPerson selectCompanyPersonByUserId(String userId);
-	int selectComCodeByUserId(String userId);
+	/*int selectComCodeByUserId(String userId);*/
+	List<Integer> selectComCodeByUserId(String userId);
 	List<CompanyPerson> selectByCompanyCode(int companyCode);
 }

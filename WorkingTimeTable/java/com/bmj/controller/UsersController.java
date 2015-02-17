@@ -342,31 +342,7 @@ public class UsersController {
 	 * @RequestMapping(value = "/myJob") // 알바 mypage 메뉴에서 직업관리 public String
 	 * mypageMyJobGo() { return "/mypage/employee/myJob"; }
 	 */
-
-	@RequestMapping(value = "/myJob")
-	// 알바 mypage 메뉴에서 직업관리
-	public String mypageMyJobGo(Model model, HttpSession session) {
-		Users alba = (Users) session.getAttribute("addUser"); // 로그인하고 있는 알바생 정보
-																// 가져오고
-		CompanyPerson companyCode = null;
-		String viewPath = "";
-
-		companyCode = cpService.selectCompanyPersonByUserId(alba.getUserId());
-		
-		//직장이 3개까지 등록되므로 직장등록 유무따져줄필요가 없음 
-		/*if (companyCode == null) {
-			// 등록된 직장이 없는 것
-			 model.addAttribute("addCmp", new Company()); 
-			viewPath = "/mypage/employee/registerJob";
-		} else {
-			// 이미 직장 등록되 있음
-			viewPath = "/mypage/employee/myJob";
-		}
-
-		return viewPath;*/
-		return "/mypage/employee/myJob";
-	}
-
+	
 	@RequestMapping(value = "/salary")
 	// 알바 mypage 메뉴에서 Salary(월급관리)
 	public String mypageSalaryGo() {

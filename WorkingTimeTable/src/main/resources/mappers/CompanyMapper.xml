@@ -20,7 +20,7 @@
 	<select id = "selectCompanyByCompanyCode" resultType="Company" parameterType="Integer">
 		select * from Company where company_code = #{companyCode}
 	</select>
-	
+
 	<update id = "updateCompany" parameterType = "Company">
 		update company set 
 		company_name=#{companyName},

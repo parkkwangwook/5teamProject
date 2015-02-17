@@ -108,7 +108,8 @@ label.error {
 			rules : {
 				companyCode: {
 					required : true,
-					minlength : 1
+					minlength : 1,
+					digits : true 
 				},
 				companyTel : {
 					required : true,
@@ -121,7 +122,8 @@ label.error {
 			messages : {
 				companyCode : {
 					required : "필수 입력사항 입니다.",
-					minlength : "최소 {0}글자이상이어야 합니다"
+					minlength : "최소 {0}글자이상이어야 합니다",
+					digits : "회사코드는 숫자만 입력해주세요."
 				},
 				companyTel : {
 					required : "필수 입력사항 입니다.",

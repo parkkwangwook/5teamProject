@@ -93,6 +93,6 @@ public class MessageController {
 	@ExceptionHandler
 	public String RegisterJobFail(RegisterJobException e) {
 		logger.trace("직원이 직장등록하려했으나 없는회사임!!!!!");
-		return "/mypage/employee/myJob";
+		return "redirect:/myJob";
 	}
 }

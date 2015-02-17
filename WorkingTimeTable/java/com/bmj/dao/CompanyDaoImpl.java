@@ -5,10 +5,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bmj.entity.Company;
+import com.bmj.exception.RegisterJobException;
 
-@Repository
+@Repository 
+@Transactional(rollbackFor=com.bmj.exception.RegisterJobException.class)
 public class CompanyDaoImpl implements CompanyDao {
 	private static final Logger logger;
 	static {
@@ -32,7 +35,7 @@ public class CompanyDaoImpl implements CompanyDao {
 		return sqlSession.insert(stmt, company);
 	}
 	@Override
-	public Company select(Company company) {
+	public Company select(Company company){
 		String stmt = namespace + "selectCompany";
 		return sqlSession.selectOne(stmt, company);
 	}
@@ -45,5 +48,14 @@ public class CompanyDaoImpl implements CompanyDao {
 	public int update(Company company) {
 		String stmt = namespace + "updateCompany";
 		return sqlSession.update(stmt, company);
+	}
+	@Override
+	public Company selectCompanyByCodeAndTel(Company company) throws RegisterJobException{
+		String stmt = namespace + "selectCompanyByCodeAndTel";
+		Company result = sqlSession.selectOne(stmt, company);
+		if(sqlSession.selectOne(stmt, company) == null){
+			throw new RegisterJobException("!!!!회사코드,전화번호로 회사조회 결과 = NULL");
+		}
+		return result;
 	}
 }

@@ -270,7 +270,7 @@ label.error {
 			
 			
 		
-					<c:url value="/mypage_myCompany" var="url"/>
+					<c:url value="/registerCompany" var="url"/>
 					<form id="addComForm" action="${url }" method="post">
 
 						<table class="table" style="border-collapse: seperate;">

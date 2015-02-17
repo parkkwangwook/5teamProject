@@ -352,8 +352,9 @@ public class UsersController {
 		String viewPath = "";
 
 		companyCode = cpService.selectCompanyPersonByUserId(alba.getUserId());
-
-		if (companyCode == null) {
+		
+		//직장이 3개까지 등록되므로 직장등록 유무따져줄필요가 없음 
+		/*if (companyCode == null) {
 			// 등록된 직장이 없는 것
 			 model.addAttribute("addCmp", new Company()); 
 			viewPath = "/mypage/employee/registerJob";
@@ -362,8 +363,8 @@ public class UsersController {
 			viewPath = "/mypage/employee/myJob";
 		}
 
-		return viewPath;
-		// return "/mypage/employee/registerJob";
+		return viewPath;*/
+		return "/mypage/employee/myJob";
 	}
 
 	@RequestMapping(value = "/salary")
@@ -434,7 +435,7 @@ public class UsersController {
 	}
 	
 	@ExceptionHandler
-	public String LoginFailGo(LoginFailException e) {
+	public String LoginFail(LoginFailException e) {
 		logger.trace("로그인실패했으니 로그인페이지 못벗어남!!!!");
 		return "/login/login";
 	}

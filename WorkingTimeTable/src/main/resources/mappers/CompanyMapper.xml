@@ -13,6 +13,10 @@
 		select * from Company where company_name = #{companyName} and company_tel = #{companyTel}
 	</select>
 	
+	<select id = "selectCompanyByCodeAndTel" resultType="Company" parameterType="Company">
+		select * from Company where company_code = #{companyCode} and company_tel = #{companyTel}
+	</select>
+	
 	<select id = "selectCompanyByCompanyCode" resultType="Company" parameterType="Integer">
 		select * from Company where company_code = #{companyCode}
 	</select>

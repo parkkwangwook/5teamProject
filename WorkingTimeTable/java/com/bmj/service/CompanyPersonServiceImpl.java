@@ -12,7 +12,6 @@ import com.bmj.dao.CompanyPersonDao;
 import com.bmj.entity.CompanyPerson;
 
 @Service
-@Transactional(rollbackFor=com.bmj.exception.ServiceFailException.class)
 public class CompanyPersonServiceImpl implements CompanyPersonService {
 	private static final Logger logger;
 	static {

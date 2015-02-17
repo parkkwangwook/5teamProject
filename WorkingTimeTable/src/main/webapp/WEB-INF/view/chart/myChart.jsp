@@ -9,15 +9,15 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <style type="text/css">
 		
-	#container, #sliders {
-		min-width: 310px; 
-		max-width: 800px;
-		margin: 0 auto;
-	}
+#container, #sliders {
+	min-width: 310px; 
+	max-width: 800px;
+	margin: 0 auto;
+}
 		
-	#container {
-		height: 400px; 
-	}	
+#container {
+	height: 400px; 
+}	
 </style>
 <script type="text/javascript">
 $(document).ready(function() {

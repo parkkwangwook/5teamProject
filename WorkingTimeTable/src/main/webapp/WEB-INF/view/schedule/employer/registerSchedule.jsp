@@ -218,7 +218,6 @@ $(function() {
 			var url = "${addTimeTable}?list=" + objstr;
 			location.href = url;
 		})
-		
 	});
 
 </script>
@@ -333,13 +332,15 @@ $(function() {
 
 		<div id='external-events'>
 			<h4>Company!</h4>
-				<table border = "1">
+				<!-- <table border = "1"> -->
 					<c:forEach items="${employees}" var = "employee">
-						<tr>
-							<td><div class='fc-event'><c:out value="${employee.memberId}@@@${employee.userId}"/></div></td>
-						</tr>
+						<!-- <tr> -->
+							<!-- <td> -->
+							<div class='fc-event'>${employee.memberId}@@@${employee.userId}</div>
+							<!-- </td> -->
+						<!-- </tr> -->
 					</c:forEach>
-				</table>
+				<!-- </table> -->
 			<p>
 				<input type='checkbox' id='drop-remove' />
 				<label for='drop-remove'>remove after drop</label>
@@ -347,7 +348,7 @@ $(function() {
 		</div>
 		
 		<div id='calendar'></div>
-		
+		<br>
 		<div style='clear:both'></div>
 
 	</div>

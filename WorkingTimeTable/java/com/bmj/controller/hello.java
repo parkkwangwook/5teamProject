@@ -52,7 +52,7 @@ public class hello {
 		return "calendar/registerTest";
 	}
 	
-	//@RequestMapping(value="/viewCalendar")
+	@RequestMapping(value="/updateCalendar")
 	public String viewCalendar() {
 		
 		return "calendar/viewCalendar";
@@ -67,7 +67,7 @@ public class hello {
 	}
 	
 	// ajax.....
-	//@RequestMapping(value = "/ajax")
+	@RequestMapping(value = "/ajaxs")
 	public @ResponseBody String ajaxReceive(Model model) {
 		// @ModelAttribute("editDept") Department dept
 		// 작성하기 위한 CompanyCode..
@@ -144,8 +144,14 @@ public class hello {
 		
 		return objJson.toString();
 	}
-	
-	
+	@RequestMapping(value="/updateTimeTable")
+	public String updateCalendar(@RequestParam String updateStart, @RequestParam String updateEnd) {
+		logger.trace("수업 Start : " + updateStart);
+		logger.trace("수업 End : " + updateEnd);
+		
+		
+		return "";
+	}
 	
 	//@RequestMapping(value="/addTimeTable", method = RequestMethod.GET)
 	public String saveExternal(@RequestParam String list, HttpSession session) {

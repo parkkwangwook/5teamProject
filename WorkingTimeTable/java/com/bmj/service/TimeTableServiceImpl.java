@@ -51,4 +51,11 @@ public class TimeTableServiceImpl implements TimeTableService {
 		return result;
 	}
 
+	@Override
+	public List<Stats> selectStatsByCompanyCode(int companyCode) {
+		logger.trace("여기는 Time Table 서비스~~~~~~~~~~~~~~~~~~~~~!" + companyCode);
+		List<Stats> result = dao.selectStatsByCompanyCode(companyCode);
+		return result;
+	}
+
 }

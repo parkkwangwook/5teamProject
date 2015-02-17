@@ -9,4 +9,5 @@ public interface TimeTableService {
 	List<TimeTable> selectByCompanyCode(int CompanyCode);
 	List<TimeTable> selectByMemberId(int memberId);
 	List<Stats> selectStatsByMemberId(int memberId);
+	List<Stats> selectStatsByCompanyCode(int companyCode);
 }

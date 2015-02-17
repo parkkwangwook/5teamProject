@@ -49,4 +49,10 @@ public class TimeTableDaoImpl implements TimeTableDao {
 		return sqlSession.selectList(stmt, memberId);
 	}
 
+	@Override
+	public List<Stats> selectStatsByCompanyCode(int companyCode) {
+		String stmt = namespace + "selectStatsBycompanyCode";
+		return sqlSession.selectList(stmt, companyCode);
+	}
+
 }

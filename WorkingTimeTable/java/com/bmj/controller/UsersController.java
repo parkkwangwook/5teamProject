@@ -182,7 +182,8 @@ public class UsersController {
 		/*
 		 * session = (HttpSession) sessionStatus; session.invalidate();
 		 */
-		return "/main/logout";
+		//return "/main/logout";
+		return "logout/logout";
 	}
 
 	@RequestMapping(value = "/contact")

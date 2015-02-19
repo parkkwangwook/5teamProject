@@ -2,6 +2,7 @@ package com.bmj.controller;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.bmj.entity.Company;
 import com.bmj.entity.CompanyPerson;
 import com.bmj.entity.Users;
 import com.bmj.exception.LoginFailException;
@@ -359,6 +359,14 @@ public class UsersController {
 		logger.trace("수업 CompanyCode : " + companyperson.getCompanyCode());
 		// company_person에 가서 직원 아이디 갖고오기!!
 		List<CompanyPerson> result = cpService.selectByCompanyCode(companyCode);
+		logger.trace("수업 List : " + result);
+		// memberId -> userId 찾기
+		/*List<String> userIds = new ArrayList<String>();
+		for(int i = 0; i < result.size(); i++) {
+			userIds.add();
+		}*/
+		//logger.trace("수업 userIds : " + userIds);
+		//userIds.add();
 		for(int i = 0; i < result.size(); i++) {
 			//logger.trace("수업....??" + result.get(i).getUserId());
 			if(result.get(i).getUserId().equals(userId)) {

@@ -4,8 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.CompanyPerson">
 
-
-
 	<!-- 사장이 회사등록시 자신을 등록할 때 salary, hiredate없이 DB등록이 안되서 임시로 추가 -->
 	<insert id="insertCompanyOwner" parameterType="CompanyPerson">
 		insert into
@@ -21,20 +19,16 @@
 		(#{companyCode}, #{userId}, #{hireDate})
 	</insert>
 
-
-
-
-
 	<insert id="insertCompanyPerson" parameterType="CompanyPerson">
 		insert into
 		Company_Person(company_code, user_id, salary)
 		values (#{companyCode},
 		#{userId}, #{salary})
 	</insert>
-
-
-
-
+	
+	<select id = "selectUserIdbyMemberId" parameterType="Integer" resultType="String">
+		select user_id from company_person where member_id = #{memberId}
+	</select>
 
 
 	<!-- selectCompanyCodeByUserId 이름 바꿈 selectCompanyPersonByUserId controller도 
@@ -65,6 +59,12 @@
 		salary=#{salary}
 		where user_id=#{userId} and company_code=#{companyCode}
 	</update>
+	
+	<select id="selectMemberIdbyUserId" parameterType="String"
+		resultType="Integer">
+		select member_id from company_person where user_id =
+		#{userId}
+	</select>
 
 	<!-- <mapper namespace="com.andy.mybatis.hr.mapper.RegionMapper"> -->
 	<!-- <insert id = "insertDept" parameterType = "Department"> insert into 

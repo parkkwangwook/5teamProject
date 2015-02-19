@@ -11,4 +11,6 @@ public interface TimeTableDao {
 	List<TimeTable> selectByMemberId(int memberId);
 	List<Stats> selectStatsByMemberId(int memberId);
 	List<Stats> selectStatsByCompanyCode(int companyCode);
+	int selectKeybyTime(TimeTable timetable);
+	int updateTimeTable(TimeTable updateTable);
 }

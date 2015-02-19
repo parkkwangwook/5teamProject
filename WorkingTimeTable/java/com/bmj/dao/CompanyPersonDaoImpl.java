@@ -72,6 +72,18 @@ public class CompanyPersonDaoImpl implements CompanyPersonDao {
 		return sqlSession.update(stmt, companyperson);
 	}
 
+	@Override
+	public int selectMemberIdbyUserId(String userId) {
+		String stmt = namespace + "selectMemberIdbyUserId";
+		return sqlSession.selectOne(stmt, userId);
+	}
+
+	@Override
+	public String selectUserIdbyMemberId(int memberId) {
+		String stmt = namespace + "selectUserIdbyMemberId";
+		return sqlSession.selectOne(stmt, memberId);
+	}
+
 
 
 }

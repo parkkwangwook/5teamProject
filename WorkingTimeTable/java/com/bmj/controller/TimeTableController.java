@@ -56,6 +56,7 @@ public class TimeTableController {
 		TimeTable timetable = new TimeTable();
 		Users user = (Users)session.getAttribute("addUser");
 		logger.trace("수업 : User " + user);
+		
 		CompanyPerson companyperson = service2.selectCompanyPersonByUserId(user.getUserId());
 		int companyCode = companyperson.getCompanyCode();
 		
@@ -64,21 +65,27 @@ public class TimeTableController {
 			com.google.gson.internal.LinkedTreeMap map = (com.google.gson.internal.LinkedTreeMap)templ.get(i);
 			logger.trace("수업 Map : " + map);
 			logger.trace("수업 확인 Id : " +map.get("title"));
-			StringTokenizer st1 = new StringTokenizer(map.get("title").toString(), "@@");
-			int id = Integer.parseInt(st1.nextToken());
-			logger.trace("수업 확인 Data : " + date);
+			// token 분리.
+			/*StringTokenizer st1 = new StringTokenizer(map.get("title").toString(), "@@");
+			int id = Integer.parseInt(st1.nextToken());*/
+			
+			int memberId = service2.selectMemberIdbyUserId(map.get("title").toString());
+			
+			// 일한일자 저장. Date 타입으로 변환.
 			try {
 				date = formatter.parse(map.get("start").toString());
 			} catch (java.text.ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			logger.trace("수업 확인 Data : " + date);
 			logger.trace("수업 확인 Start : " + map.get("start"));
 			String start = map.get("start").toString();
 			logger.trace("수업 확인 End : " + map.get("end"));
 			String end = map.get("end").toString();
 			timetable.setCompanyCode(companyCode);
-			timetable.setMemberId(id);
+			timetable.setMemberId(memberId);
 			timetable.setWorkingDate(date);
 			timetable.setWorkingStart(start);
 			timetable.setWorkingEnd(end);
@@ -105,7 +112,7 @@ public class TimeTableController {
 	}
 	
 	// ajax.....
-	@RequestMapping(value = "/ajax")
+	@RequestMapping(value = "/display")
 	public @ResponseBody String ajaxReceive(Model model, HttpSession session) {
 		Users user = (Users)session.getAttribute("addUser");
 		CompanyPerson companyperson = service2.selectCompanyPersonByUserId(user.getUserId());
@@ -155,10 +162,107 @@ public class TimeTableController {
 			arrayJson.add(obj);
 		}
 		objJson.put("event", arrayJson);
+		logger.trace("수업 55 : " + objJson.get("event"));
+		return objJson.toString();
+	}
+	
+	/*----------------------여기부터 수정부분.----------------------*/
+	/*@RequestMapping(value="/updateCalendar")
+	public String viewsCalendar() {
+		// 여기 수정 준비...
+		return "calendar/viewCalendar";
+	}*/
+	
+	// ajax..... 수정할때 쓰는 ajax! 
+	@RequestMapping(value = "/updateAjax")
+	public @ResponseBody String ajaxReceive2(Model model, HttpSession session) {
+		Users user = (Users)session.getAttribute("addUser");
+		String userId = user.getUserId();
+		CompanyPerson companyperson = service2.selectCompanyPersonByUserId(userId);
+		logger.trace("수업 : " + companyperson);
+		TimeTable timetable = new TimeTable();
+		List<TimeTable> lists = null;	// DB에서 Get.!
+		List<SaveTime> list2 = new ArrayList<SaveTime>();	// Server에 보내기!
+		SaveTime savetime = null;
+		// 그리고 우리 회사 코드로 작성된 달력 정보 갖고 오기...!
+		lists = service.selectByCompanyCode(companyperson.getCompanyCode());
+		
+		for (int idx = 0; idx < lists.size(); idx++) {
+			logger.trace("수업 idx : " + idx);
+			savetime = new SaveTime();
+			savetime.setTitle(String.valueOf(lists.get(idx).getMemberId()));
+			savetime.setStart(settingTime(lists.get(idx).getWorkingStart()));
+			savetime.setEnd(settingTime(lists.get(idx).getWorkingEnd()));
+			logger.trace("수업 savetime : " + savetime);
+			list2.add(idx, savetime);
+		}
+		logger.trace("수업 lists : " + lists);
+		logger.trace("수업 SaveList : " + list2);
+		model.addAttribute("Calendar", list2);
+		logger.trace("수업 : " + list2);
+		JSONObject objJson = new JSONObject();
+		JSONArray arrayJson = new JSONArray();
+		
+		for (int i = 0; i < list2.size(); i++) {
+			JSONObject obj = new JSONObject();
+			obj.put("title", list2.get(i).getTitle());
+			obj.put("start", list2.get(i).getStart());
+			obj.put("end", list2.get(i).getEnd());
+			obj.put("color", list2.get(i).getColor());
+			
+			arrayJson.add(obj);
+		}
+		objJson.put("event", arrayJson);
 		
 		logger.trace("수업 55 : " + objJson.get("event"));
-		
 		return objJson.toString();
+	}
+	
+	@RequestMapping(value="/updateTimeTable")
+	public String updateCalendar(@RequestParam String updateStart, @RequestParam String updateEnd) {
+		// 수정 시작 시간.
+		logger.trace("수업 Start : " + updateStart);
+		// 수정 끝난 시간.
+		logger.trace("수업 End : " + updateEnd);
+		Gson gson = new Gson();
+		ArrayList start = new ArrayList();
+		ArrayList end = new ArrayList();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		start = gson.fromJson(updateStart, ArrayList.class);
+		end = gson.fromJson(updateEnd, ArrayList.class);
+		logger.trace("수업 Gson Start : " + start);
+		logger.trace("수업 Gson Start : " + end);
+		// update할 timeKey를 추출.
+		for(int i = 0; i < start.size(); i ++) {
+			TimeTable timetable = new TimeTable();
+			com.google.gson.internal.LinkedTreeMap map = (com.google.gson.internal.LinkedTreeMap)start.get(i);
+			com.google.gson.internal.LinkedTreeMap map2 = (com.google.gson.internal.LinkedTreeMap)end.get(i);
+			int memberId = Integer.parseInt(map.get("title").toString());
+			String workingStart = map.get("start").toString();
+			timetable.setMemberId(memberId);
+			timetable.setWorkingStart(workingStart);
+			logger.trace("수업 TimeTable : " + timetable);
+			int timeKey = service.selectKeybyTime(timetable);
+			logger.trace("수업 ㅠㅠ : " + timeKey);
+			// update할 내용 셋팅.
+			TimeTable updateTable = new TimeTable();
+			//updateTable.setWorkingDate(workingDate);
+			try {
+				date = formatter.parse(map2.get("start").toString());
+			} catch (java.text.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			updateTable.setTimeKey(timeKey);
+			updateTable.setMemberId(memberId);
+			updateTable.setWorkingDate(date);
+			updateTable.setWorkingStart(map2.get("start").toString());
+			updateTable.setWorkingEnd(map2.get("end").toString());
+			logger.trace("수업 Update : " + updateTable);
+			service.updateTimeTable(updateTable);
+		}
+		return "/schedule/employer/allSchedule";
 	}
 	
 }

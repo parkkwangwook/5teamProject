@@ -100,7 +100,7 @@ select {
 			eventLimit: true, // allow "more" link when too many events
 			events: function(start, end, timezone, callback) {
 				$.ajax({
-					url: "<%=request.getContextPath()%>/ajax",
+					url: "<%=request.getContextPath()%>/display",
 					success: function(result) {
 						var jobj = JSON.parse(result);
 						var e = jobj["event"];

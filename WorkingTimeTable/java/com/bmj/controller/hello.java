@@ -28,6 +28,7 @@ import com.bmj.entity.TimeTable;
 import com.bmj.entity.Users;
 import com.bmj.service.CompanyPersonService;
 import com.bmj.service.TimeTableService;
+import com.google.gson.Gson;
 
 @Controller
 public class hello {
@@ -52,11 +53,6 @@ public class hello {
 		return "calendar/registerTest";
 	}
 	
-	@RequestMapping(value="/updateCalendar")
-	public String viewCalendar() {
-		
-		return "calendar/viewCalendar";
-	}
 	
 	private String settingTime(String time) {
 		StringBuilder builder = new StringBuilder();
@@ -66,8 +62,13 @@ public class hello {
 		return builder.toString();
 	}
 	
-	// ajax.....
-	@RequestMapping(value = "/ajaxs")
+	//@RequestMapping(value="/updateCalendar")
+	public String viewCalendar() {
+		return "calendar/viewCalendar";
+	}
+	
+	// ajax..... 수정할때 쓰는 ajax! 
+	//@RequestMapping(value = "/ajaxs")
 	public @ResponseBody String ajaxReceive(Model model) {
 		// @ModelAttribute("editDept") Department dept
 		// 작성하기 위한 CompanyCode..
@@ -103,16 +104,10 @@ public class hello {
 			logger.trace("수업 savetime : " + savetime);
 			list2.add(idx, savetime);
 		}
-		
-
 		logger.trace("수업 lists : " + lists);
-
 		logger.trace("수업 SaveList : " + list2);
 		model.addAttribute("Calendar", list2);
-		
-		
 		logger.trace("수업 : " + list2);
-		
 		JSONObject objJson = new JSONObject();
 		JSONArray arrayJson = new JSONArray();
 		
@@ -144,12 +139,50 @@ public class hello {
 		
 		return objJson.toString();
 	}
-	@RequestMapping(value="/updateTimeTable")
+	//@RequestMapping(value="/updateTimeTable")
 	public String updateCalendar(@RequestParam String updateStart, @RequestParam String updateEnd) {
+		// 수정 시작 시간.
 		logger.trace("수업 Start : " + updateStart);
+		// 수정 끝난 시간.
 		logger.trace("수업 End : " + updateEnd);
-		
-		
+		Gson gson = new Gson();
+		ArrayList start = new ArrayList();
+		ArrayList end = new ArrayList();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		start = gson.fromJson(updateStart, ArrayList.class);
+		end = gson.fromJson(updateEnd, ArrayList.class);
+		logger.trace("수업 Gson Start : " + start);
+		logger.trace("수업 Gson Start : " + end);
+		// update할 timeKey를 추출.
+		for(int i = 0; i < start.size(); i ++) {
+			TimeTable timetable = new TimeTable();
+			com.google.gson.internal.LinkedTreeMap map = (com.google.gson.internal.LinkedTreeMap)start.get(i);
+			com.google.gson.internal.LinkedTreeMap map2 = (com.google.gson.internal.LinkedTreeMap)end.get(i);
+			int memberId = Integer.parseInt(map.get("title").toString());
+			String workingStart = map.get("start").toString();
+			timetable.setMemberId(memberId);
+			timetable.setWorkingStart(workingStart);
+			logger.trace("수업 TimeTable : " + timetable);
+			int timeKey = service.selectKeybyTime(timetable);
+			logger.trace("수업 ㅠㅠ : " + timeKey);
+			// update할 내용 셋팅.
+			TimeTable updateTable = new TimeTable();
+			//updateTable.setWorkingDate(workingDate);
+			try {
+				date = formatter.parse(map2.get("start").toString());
+			} catch (java.text.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			updateTable.setTimeKey(timeKey);
+			updateTable.setMemberId(memberId);
+			updateTable.setWorkingDate(date);
+			updateTable.setWorkingStart(map2.get("start").toString());
+			updateTable.setWorkingEnd(map2.get("end").toString());
+			logger.trace("수업 Update : " + updateTable);
+			service.updateTimeTable(updateTable);
+		}
 		return "";
 	}
 	

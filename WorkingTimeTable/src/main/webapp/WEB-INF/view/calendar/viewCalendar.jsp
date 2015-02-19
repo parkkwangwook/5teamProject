@@ -78,14 +78,14 @@
 						end = event.end.format('YYYY-MM-DD HH:mm:ss');
 						console.log('Drop_end : ', end);
 					}
-					for(var i in results) {
+					/* for(var i in results) {
 						if(results[i] != null) {
 							if(results[i].id == id) {
 								results.splice(i, 1);
 								console.log(results);
 							}
 						}					
-					}
+					} */
 
 					var newTemp = new createTimeTable(id, title, start, end);
 					results.push(newTemp);
@@ -113,14 +113,14 @@
 					console.log("drag_start : " + start);
 					console.log("drag_End : " + end);	
 					
-					for(var i in updates) {
+					/* for(var i in updates) {
 						if(updates[i] != null) {
 							if(updates[i].id == id) {
 								updates.splice(i, 1);
 								console.log(updates);
 							}
 						}					
-					}
+					} */
 					
 					var update = new createTimeTable(id, title, start, end);
 					updates.push(update);
@@ -137,14 +137,14 @@
 					console.log("RS_start : " + start);
 					console.log("RS_End : " + end);	
 					
-					for(var i in updates) {
+					/* for(var i in updates) {
 						if(updates[i] != null) {
 							if(updates[i].id == id) {
 								updates.splice(i, 1);
 								console.log(updates);
 							}
 						}					
-					}
+					} */
 					
 					var update = new createTimeTable(id, title, start, end);
 					updates.push(update);
@@ -164,14 +164,14 @@
 					console.log("RE_start : " + start);
 					console.log("RE_End : " + end);	
 					
-					for(var i in results) {
+					/* for(var i in results) {
 						if(results[i] != null) {
 							if(results[i].id == id) {
 								results.splice(i, 1);
 								console.log(results);
 							}
 						}					
-					}
+					} */
 					var newTemp = new createTimeTable(id, title, start, end);
 					results.push(newTemp);
 					console.log(results);
@@ -210,21 +210,5 @@
 <body>
 	<div id='calendar'></div>
 	<div id = 'update'><button id = "updatebutton">수정</button></div>
-	<%-- <table>
-		<c:forEach items="${Calendar}" var = "calen">
-		<tr>
-			<td><c:out value="${calen.title}"/></td>
-			<td><c:out value="${calen.timeStart}"/></td>
-			<td><c:out value="${calen.timeEnd}"/></td>
-			<td><input type = "hidden" id = "chk" name = "chk" 
-									value = "{
-											title: ${calen.title},
-											start: ${calen.timeStart},
-											end:   ${calen.timeEnd}
-											}"/></td>
-			
-		</tr>
-	</c:forEach>
-	</table> --%>
 </body>
 </html>

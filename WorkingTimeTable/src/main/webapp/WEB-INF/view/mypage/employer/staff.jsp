@@ -71,22 +71,21 @@ select {
 	$(function() {
 		
 		$(".btn").click(function(){
-			var bid = $(this).attr("id");
-			alert(bid);
-			var tid = "#salary"+bid;
-			var tid2 = "#code"+bid;
-			var tid3 = "#id"+bid;
-			alert(tid);
-			alert("월급"+$(tid).val());
-			alert("코드"+$(tid2).html());
-			alert("아이디"+$(tid3).html());
+			var btnId=$(this).attr("id");
+			alert(btnId);
 			
-			var url = "<%=request.getContextPath()%>/modifySalary?companyCode="+$(tid2).html()+"&userId="+$(tid3).html()+"&salary="+$(tid).val();
+			var codeId = "#code"+btnId;
+			var userId = "#id"+btnId;
+			var salaryId = "#salary"+btnId;
 			
-			$(location).attr('href',url);
+			alert("회사코드"+$(codeId).html());
+			alert("직원아이디"+$(userId).html());
+			alert("시급"+$(salaryId).val());
 			
-			
+			var url = "<%=request.getContextPath()%>/modifySalary?companyCode="+$(codeId).html()+"&userId="+$(userId).html()+"&salary="+$(salaryId).val();
+			$(location).attr('href',url); 
 		});
+		
 		
 		$("#MypageMenu").selectmenu({
 			change: function(event, ui){
@@ -207,7 +206,6 @@ select {
 						<td>${staffList.tel}</td>
 						<td>${staffList.email}</td>
 						<td><input type="text" name="salary${status.index }" id="salarybtn${status.index }" value="${staffList.salary}">
-						<%-- <c:url value="/modifySalary?companyCode=${staffList.companyCode}&userId=${staffList.userId}&salary=" var="url"/> --%>
 						<br><button id="btn${status.index }" class="btn">시급수정</button></td>
 						<td>${staffList.hireDate}</td>
 						<td><c:url value="/deleteStaff?companyCode=${staffList.companyCode}&userId=${staffList.userId}" var="url"/>

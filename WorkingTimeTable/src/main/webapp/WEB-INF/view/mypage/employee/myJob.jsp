@@ -93,11 +93,10 @@ label.error {
 				else if(this.selectedIndex == 4)			//급여관리
 					window.location.href = "<%=request.getContextPath()%>/salary";
 				else if(this.selectedIndex == 5)			//쪽지
-					window.location.href = "<%=request.getContextPath()%>
-	/alerts_employee";
+					window.location.href = "<%=request.getContextPath()%>/alerts_employee";
 
-							}
-						});
+				}
+		});
 
 		$("#addJobForm").validate({
 			//validation이 끝난 이후의 submit 직전 추가 작업할 부분

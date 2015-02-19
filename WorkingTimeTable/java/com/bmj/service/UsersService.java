@@ -11,4 +11,5 @@ public interface UsersService {
 	Users loginUser(Users user);
 	int countByUserId(String userId);
 	Users selectUserByUserId(String userId);
+	String selectUserIdByMemberId(int memberId);
 }

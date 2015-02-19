@@ -58,4 +58,18 @@ public class TimeTableServiceImpl implements TimeTableService {
 		return result;
 	}
 
+	@Override
+	public int selectKeybyTime(TimeTable timetable) {
+		logger.trace("여기는 Time Table 서비스~~~~~~~~~~~~~~~~~~~~~!" + timetable);
+		int key = dao.selectKeybyTime(timetable);
+		return key;
+	}
+
+	@Override
+	public int updateTimeTable(TimeTable updateTable) {
+		logger.trace("여기는 Time Table 서비스~~~~~~~~~~~~~~~~~~~~~!" + updateTable);
+		int result = dao.updateTimeTable(updateTable);
+		return result;
+	}
+
 }

@@ -336,7 +336,7 @@ $(function() {
 					<c:forEach items="${employees}" var = "employee">
 						<!-- <tr> -->
 							<!-- <td> -->
-							<div class='fc-event'>${employee.memberId}@@@${employee.userId}</div>
+							<div class='fc-event'>${employee.userId}</div>
 							<!-- </td> -->
 						<!-- </tr> -->
 					</c:forEach>

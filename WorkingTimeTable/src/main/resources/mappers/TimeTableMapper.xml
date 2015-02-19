@@ -29,6 +29,15 @@
 		from time_table where company_code = #{companyCode} group by to_char(working_date, 'YYYY/MM'), member_id order by 1
 	</select>
 	
+	<select id = "selectKeybyTime" resultType="Integer" parameterType="TimeTable">
+		select time_key from time_table where member_id = #{memberId} and working_start = #{workingStart}
+	</select>
+
+	<update id = "updateTimeTable" parameterType="TimeTable">
+		update time_table 
+		set working_start = #{workingStart}, working_end = #{workingEnd}
+		where time_key = #{timeKey}
+	</update>
 	<!--
 	
 	<select id = "selectCompanyByCompanyCode" resultType="Company" parameterType="Integer">

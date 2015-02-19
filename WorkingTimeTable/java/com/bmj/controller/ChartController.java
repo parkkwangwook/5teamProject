@@ -47,12 +47,12 @@ public class ChartController {
 	}
 	
 	// 직원 급여 조회~~
-		@RequestMapping(value = "/companychart")
-		public String goChartcompany() {
-			Calendar c1 = Calendar.getInstance();
-			logger.trace("수업 : CompanyChart~~~~~~~~~~~~~~!");
-			return "chart/CompanyChart";
-		}
+	@RequestMapping(value = "/companychart")
+	public String goChartcompany() {
+		Calendar c1 = Calendar.getInstance();
+		logger.trace("수업 : CompanyChart~~~~~~~~~~~~~~!");
+		return "chart/CompanyChart";
+	}
 	
 	@RequestMapping(value = "/ajaxChart")
 	public @ResponseBody String ajaxReceive(Model model, HttpSession session) {
@@ -86,7 +86,8 @@ public class ChartController {
 		for(int i = 0; i < myTimes.size(); i++) {
 			JSONObject obj = new JSONObject();
 			obj.put("month", myTimes.get(i).getMonth());
-			obj.put("memberId", myTimes.get(i).getMemberId());
+			obj.put("memberId", userId);			
+			/*obj.put("memberId", myTimes.get(i).getMemberId());*/
 			obj.put("count", myTimes.get(i).getCount());
 			
 			arrayJson.add(obj);
@@ -151,7 +152,9 @@ public class ChartController {
 		for(int i = 0; i < myTimes.size(); i++) {
 			JSONObject obj = new JSONObject();
 			obj.put("month", myTimes.get(i).getMonth());
-			obj.put("memberId", myTimes.get(i).getMemberId());
+			String id = cpservice.selectUserIdbyMemberId(myTimes.get(i).getMemberId());
+			obj.put("memberId", id);
+			/*obj.put("memberId", myTimes.get(i).getMemberId());*/
 			obj.put("count", myTimes.get(i).getCount());
 			
 			arrayJson.add(obj);

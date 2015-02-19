@@ -55,4 +55,15 @@ public class TimeTableDaoImpl implements TimeTableDao {
 		return sqlSession.selectList(stmt, companyCode);
 	}
 
+	@Override
+	public int selectKeybyTime(TimeTable timetable) {
+		String stmt = namespace + "selectKeybyTime";
+		return sqlSession.selectOne(stmt, timetable);
+	}
+
+	@Override
+	public int updateTimeTable(TimeTable updateTable) {
+		String stmt = namespace + "updateTimeTable";
+		return sqlSession.update(stmt, updateTable);
+	}
 }

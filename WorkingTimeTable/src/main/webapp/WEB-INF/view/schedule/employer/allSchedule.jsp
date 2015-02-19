@@ -97,7 +97,7 @@ $(function() {
 		var inArr = new Array();
 		var e = new Array();
 		$.ajax({
-			url: "<%=request.getContextPath()%>/ajax",
+			url: "<%=request.getContextPath()%>/display",
 			success: function(result) {
 				var jobj = JSON.parse(result);
 				var e = jobj["event"];
@@ -209,23 +209,6 @@ $(function() {
 	
 	<div id='calendar'></div>
 	<br>
-	<%-- <table>
-		<c:forEach items="${Calendar}" var = "calen">
-		<tr>
-			<td><c:out value="${calen.title}"/></td>
-			<td><c:out value="${calen.timeStart}"/></td>
-			<td><c:out value="${calen.timeEnd}"/></td>
-			<td><input type = "hidden" id = "chk" name = "chk" 
-									value = "{
-											title: ${calen.title},
-											start: ${calen.timeStart},
-											end:   ${calen.timeEnd}
-											}"/></td>
-			
-		</tr>
-	</c:forEach>
-	</table> --%>
-
 	<!--==============================footer=================================-->
 	<footer>
 		<div class="main zerogrid">

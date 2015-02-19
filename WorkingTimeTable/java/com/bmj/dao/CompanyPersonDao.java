@@ -15,4 +15,6 @@ public interface CompanyPersonDao {
 	List<Integer> selectComCodeByUserId(String userId);
 	List<CompanyPerson> selectByCompanyCode(int companyCode);
 	int updateSalary(CompanyPerson companyperson);
+	int selectMemberIdbyUserId(String userId);
+	String selectUserIdbyMemberId(int memberId);
 }

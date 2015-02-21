@@ -19,7 +19,6 @@ DROP TABLE company CASCADE CONSTRAINTS;
 DROP TABLE Users CASCADE CONSTRAINTS;
 
 
-
 /* Drop Sequences */
 
 DROP SEQUENCE SEQ_bComment_comment_number;
@@ -91,8 +90,8 @@ CREATE TABLE time_table
 	company_code number NOT NULL,
 	member_id number NOT NULL,
 	working_date date NOT NULL,
-	working_start varchar2(100) NOT NULL,
-	working_end varchar2(100) NOT NULL,
+	working_start date NOT NULL,
+	working_end date NOT NULL,
 	PRIMARY KEY (time_key)
 );
 

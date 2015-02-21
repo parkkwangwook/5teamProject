@@ -67,14 +67,11 @@ public class CompanyPersonController {
 	// 사장 mypage 메뉴에서 Staff(알바생관리)
 	public String mypageStaffGo(Model model,HttpSession session) {
 		
-		//사장로그인
 		Users loginUser = (Users)session.getAttribute("addUser");
-		
-		//사장아이디로 companycode찾고
 		List<Integer> code = cpService.selectComCodeByUserId(loginUser.getUserId());
+		
 		//찾은companycode로 등록된 사람다찾기(사장도포함되있음)
 		List<CompanyPerson> comPersonList = cpService.selectByCompanyCode(code.get(0).intValue());
-		
 		List<Users> usersList = new ArrayList<Users>();
 		//회사에 등록된 사람들의 정보 가져오기 
 		for(int i = 0 ; i<comPersonList.size() ; i++){
@@ -104,10 +101,8 @@ public class CompanyPersonController {
 		companyperson.setCompanyCode(companyCode);
 		companyperson.setUserId(userId);
 		companyperson.setSalary(salary);
-		logger.trace("!!!!!!!!MODIFYSALARY!!!!!!!!!!!!!!!!");
 		
-		int result = cpService.updateSalary(companyperson);
-		logger.trace("업데이트 결과!!!!!!!!"+result);
+		cpService.updateSalary(companyperson);
 		
 		return "redirect:/staff";
 	}
